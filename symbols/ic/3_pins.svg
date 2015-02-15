@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   width="40"
+   height="40"
+   id="svg1906"
+
+>
+  <g stroke='black'
+    stroke-width='2px' 
+    id="IC"
+    >
+<metadata class="part" >
+<wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+		<wtx:analog>
+			<wtx:node index="1" x="10" y="40"/>
+			<wtx:node index="2" x="20" y="40"/>
+			<wtx:node index="3" x="30" y="40"/>
+		</wtx:analog>
+    </wtx:pins>
+    <wtx:id>u</wtx:id>
+    <wtx:type>u</wtx:type>
+    <wtx:name>3_pins</wtx:name>
+    <wtx:category>ic</wtx:category>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:flip></wtx:flip>
+    <wtx:model></wtx:model>
+</wtx:part>
+</metadata>
+    <path
+       d="M 10,30 L 10,40"
+       id="path1916"
+    />
+    <path
+       d="M 20,30 L 20,40"
+	
+       id="path1918"
+	/>
+    <path
+       d="M 30,30 L 30,40"
+       id="path1920"
+	/>
+    <rect
+       width="40"
+       height="30"
+       x="0"
+       y="0"
+       id="rect1914"
+	fill="none"
+/>
+    <rect
+       width="3"
+       height="3"
+       x="5"
+       y="20"
+       id="rect2162"
+/>
+  </g>
+</svg>

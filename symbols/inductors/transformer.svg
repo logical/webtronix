@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="60"
+   height="50"
+>
+
+ <defs>
+</defs>
+  <g connects="0,10;60,10;0,40;60,40;30,50"
+	stroke='black'
+	stroke-width='2px' 
+    id="T"
+    class="transformer">
+<metadata class="part" >
+    <wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+        <wtx:pins>
+        <wtx:analog>
+            <wtx:node index="1" x="0" y="10"/>
+            <wtx:node index="2" x="60" y="10"/>
+            <wtx:node index="3" x="0" y="40"/>
+            <wtx:node index="4" x="60" y="40"/>
+            <wtx:node index="5" x="30" y="50"/>
+        </wtx:analog>
+
+    </wtx:pins>
+    <wtx:id>l</wtx:id>
+
+    <wtx:type>l</wtx:type>
+    <wtx:name>transformer</wtx:name>
+    <wtx:category>inductors</wtx:category>
+    <wtx:flip></wtx:flip>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:model></wtx:model>
+    </wtx:part>
+</metadata>
+
+
+  <path id="path2905" fill="none" d="m0,10,10,0s0-10,5-10,5,10,5,10,0-10,5-10,5,10,5,10,0-10,5-10,5,10,5,10,0-10,5-10,5,10,5,10h10"/>
+  <path id="path2905" fill="none" d="m0,40,10,0s0-10,5-10,5,10,5,10,0-10,5-10,5,10,5,10,0-10,5-10,5,10,5,10,0-10,5-10,5,10,5,10h10"/>
+
+   <path d="M30,40,30,50" id="path3492"/>
+
+
+
+
+    <path
+       d="M 10,15 L 50,15"
+       id="path3496"
+  />
+    <path
+       d="M 10,20 L 50,20"
+       id="path3498"
+  />
+    <path
+       d="M 10,25 L 50,25"
+       id="path3500"
+ />
+  </g>
+</svg>

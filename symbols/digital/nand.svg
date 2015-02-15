@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="60"
+   height="40"
+>
+  <defs>
+</defs>
+  <g connects='0,10;0,30:60,20'
+	stroke='black'
+	stroke-width='2px' 
+     id="anand"
+    class="nand">
+<metadata class="part" >
+    <wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+        <wtx:digital>
+            <wtx:node index="1" x="0" y="10" />
+            <wtx:node index="2" x="0" y="30" />
+            <wtx:node index="3" x="60" y="20" />
+        </wtx:digital>
+    </wtx:pins>
+    <wtx:id>nand</wtx:id>
+
+    <wtx:type>nand</wtx:type>
+    <wtx:name>nand</wtx:name>
+    <wtx:category>digital</wtx:category>
+    <wtx:flip></wtx:flip>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:model></wtx:model>
+    </wtx:part>
+</metadata>
+    <path
+       d="M 10.863637,0.66290618 L 20.136364,0.57199708 C 20.136364,0.57199708 33.500001,-0.35982112 41.045455,4.4810879 C 48.59091,9.3219965 49.272727,14.70836 49.409091,19.935633 C 49.545455,25.162906 48.590909,31.003815 41.045455,35.935633 C 33.500001,40.867451 20.136364,40.390178 20.136364,40.390178 L 10.863637,40.117451 L 10.863637,0.66290618 z"
+       id="path2189"
+       fill='none' />
+    <path
+       d="M 49.818182,19.935633 L 59.818182,19.935633"
+       id="path2191"
+        />
+    <path
+       d="M 10.5,10.435633 L 0.5,10.435633"
+       id="path2193"
+        />
+    <path
+       d="M 10.818182,30.299269 L 0.818182,30.299269"
+       id="path2195"
+        />
+    <path
+       d="M 53.464991,19.999123 C 53.464991,21.220202 52.520106,22.210081 51.35453,22.210081 C 50.188955,22.210081 49.24407,21.220202 49.24407,19.999123 C 49.24407,18.778044 50.188955,17.788165 51.35453,17.788165 C 52.520106,17.788165 53.464991,18.778044 53.464991,19.999123 z"
+       id="path2162"
+        />
+  </g>
+</svg>

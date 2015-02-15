@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Webtronix schematic editor.</title>
+<link rel="shortcut icon" href="favicon.ico" />
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style/schematic.css" type="text/css">
+<!--script type="text/javascript" src="http://www.google.com/jsapi"></script-->
+<script type="text/javascript" src="script/prototype.js"></script>
+<script type="text/javascript" src="script/chipmaker.js"></script>
+<script type="text/javascript" src="script/gui.js"></script>
+<script type="text/javascript" src="script/utils.js"></script>
+<script type="text/javascript" src="script/canvg.js"></script>
+<script type="text/javascript" src="script/rgbcolor.js"></script>
+
+</head><body>
+
+<div id="webtronics_main_window">
+<!--
+toolbar
+-->
+	<div id="webtronics_toolbar">
+            <img id='webtronics_file' title="file menu" src="buttons/openmenu.png">
+			<fieldset>	
+				<legend>Circuit</legend>
+				<img id="webtronics_netlist" class="normal_button" title="view the netlist" src="buttons/netlist.png">
+				<img id="webtronics_run" class="normal_button" title="run spice" src="buttons/run.png">
+				<img id="webtronics_chips_open" class="normal_button" title="make chips" src="buttons/icbut.png">
+				<img id="webtronics_delete" class="normal_button" title="Delete selected shape" src="buttons/delete.png">
+				<img id="webtronics_text" class="normal_button" title="add text" src="buttons/text.png">
+			</fieldset>
+			<fieldset>
+				<legend>History</legend>			
+				<img id="webtronics_undo" class="normal_button" title="undo last action" src="buttons/undo.png">
+				<img id="webtronics_redo" class="normal_button" title="redo last action" src="buttons/redo.png">
+			</fieldset>
+			<fieldset>
+				<legend>Settings</legend>			
+				<form> 
+					<table  border="0" cellpadding="0" cellspacing="0">				
+					<tr>
+						<td><input id="webtronics_connections" type="checkbox"></td><td> connections</td>
+						<td><input id="webtronics_graph" type="checkbox"></td><td>graph</td>           
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="webtronics_invert"></td><td>invert</td>
+					</tr>
+					</table>         
+				</form>
+			</fieldset>
+	</div>
+<!--part selection menu -->
+<div id="webtronics_center" >
+	<div id="webtronics_side_bar" >
+		<div id="webtronics_parts_list" >
+
+			
+
+			
+			<br>	
+			<a href="http://code.google.com/p/webtronics" target="_blank"><img src="icons/logo.png"/></a>
+			<br>
+			<a href="http://www.gnucap.org/dokuwiki/doku.php?id=gnucap:start" target="_blank">GNUCAP</a>
+			<br>
+			<a href="https://github.com/kripken/emscripten" target="_blank">EMSCRIPTEN</a>
+			
+			
+		</div>
+
+
+	</div>
+<!--    
+tab area
+
+    <div id="webtronics_tab_area"></div>
+-->
+<!--
+display area
+-->
+	<div id="webtronics_diagram_area" ></div>	
+</div>
+<!--
+status bar
+-->
+  
+ <div id="webtronics_status_bar">Mode: Draw Rectangle</div>
+
+
+
+<div id='webtronics_disable'></div>
+<!--
+make chips
+-->
+
+<div id="webtronics_chips_box" class='modal'>
+    <div id="webtronics_chip_display" ></div>
+    <form name="webtronics_chips_form" >
+        <fieldset>
+            <legend>pin count</legend>
+            <select id="webtronics_vert_pins"></select>
+            <select id="webtronics_hor_pins"></select>
+        </fieldset>
+        <br/>
+        <fieldset>
+            <legend>model</legend>
+            <input id="webtronics_chip_spice"><br/>
+            <select size=5 id="webtronics_chip_spice_select">
+                <option value="">none</option>
+            </select>
+         </fieldset>
+    </form>
+    <img id="webtronics_chip_ok" class="normal_button" src="buttons/ok.png">
+    <img id="webtronics_chip_cancel" class="normal_button" src="buttons/cancel.png">
+</div>
+
+<!--
+add text
+ -->
+
+<div id="webtronics_add_text" class='modal'>
+<textarea cols="50" rows="4" id="webtronics_comment"></textarea>
+</div>
+<!--
+properties form
+-->
+<div id="webtronics_properties_div" class='modal'>
+<form name="webtronics_properties_form">
+<fieldset>
+<legend>part id</legend>    
+<input id="webtronics_part_id"><br>
+</fieldset>
+<br>
+<fieldset>
+<legend>value or model</legend>    
+<input id="webtronics_part_value">
+<select id="webtronics_part_model">
+<option value="">none</option>	
+</select>
+</fieldset>
+<br>
+<fieldset>
+<legend>spice directive</legend>    
+<input id="webtronics_part_dir_value">
+<select id="webtronics_part_dir_model">
+<option value="">none</option>	
+</select>
+</fieldset>
+<br>
+<fieldset id="webtronics_print_dir_field">
+<legend>measurements</legend>    
+<input id="webtronics_print_dir_value"/>
+</fieldset>
+<!--**OPEN LOCAL SPICE MODELS EXPERIMENT<input id="webtronics_part_file" type="file"/>-->
+</form>
+<div class="webtronics_help">
+spice:
+<pre id="webtronics_part_help">
+</pre>
+</div>
+
+<div id="webtronics_properties_buttons">
+<img id="webtronics_properties_ok" class="normal_button" src="buttons/ok.png"> 
+<img id="webtronics_properties_cancel" class="normal_button" src="buttons/cancel.png">
+</div>
+
+
+</div>
+
+
+<!--
+add code text
+ -->
+
+<div id="webtronics_open_text" class='modal'>
+<textarea cols="50" rows="4" id="webtronics_svg_code"></textarea>
+<img id="webtronics_open_text_ok" src="buttons/ok.png"> 
+<img id="webtronics_open_text_cancel" src="buttons/cancel.png">
+</div>
+<!--
+image display
+-->
+<div id ="webtronics_image" class="modal">
+<img id="webtronics_image_ok" class="normal_button" src="buttons/cancel.png">  Right click image to save 
+<br>
+<div id='webtronics_image_div' >
+<img id="webtronics_image_save" >
+</div>    
+</div>
+
+<!--
+netlist display
+-->
+
+<div id="webtronics_netlist_text" class='modal'>
+<div id="webtronics_netlist_text_div" ></div>
+<div class="webtronics_help" >
+<pre>
+convergence:
+
+increase or decrease step size
+or try adding
+
+.options dampstrategy=2
+
+</pre>
+</div>
+<div id="webtronics_netlist_buttons">
+<img id="webtronics_netlist_text_run" class="normal_button" src="buttons/run.png"> 
+<img id="webtronics_netlist_text_ok" class="normal_button" src="buttons/cancel.png"> 
+</div>
+</div>
+
+<!--
+simulation display
+-->
+<div id="webtronics_scope_display" class="modal" >
+<div id="webtronics_scope_display_div"></div>
+<img id="webtronics_scope_display_ok" class="normal_button" src="buttons/cancel.png">
+<form>
+<input id="webtronics_scope_output_log" type="radio" name="scope_output" >log<br>
+<input id="webtronics_scope_output_graph" type="radio" name="scope_output" value="graph">graph
+</form>
+<br>
+<div id="webtronics_scope_status_bar">
+<p id="webtronics_scope_data" ></p> 
+<p id="webtronics_scope_status" >DOWNLOADING GNUCAP</p> 
+</div> 
+</div>
+
+</div>
+
+</body></html>

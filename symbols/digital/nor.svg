@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="60.318184"
+   height="40.902729"
+>
+  <defs>
+</defs>
+  <g connects="0,10;0,30;60,20"
+	stroke='black'
+	stroke-width='2px' 
+     id="G"
+    class="nor">
+<metadata class="part" >
+    <wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+        <wtx:digital>
+            <wtx:node index="1" x="0" y="10" />
+            <wtx:node index="2" x="0" y="30" />
+            <wtx:node index="3" x="60" y="20" />
+        </wtx:digital>
+    </wtx:pins>
+    <wtx:id>nor</wtx:id>
+
+    <wtx:type>nor</wtx:type>
+    <wtx:name>nor</wtx:name>
+    <wtx:category>digital</wtx:category>
+    <wtx:flip></wtx:flip>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:model></wtx:model>
+    </wtx:part>
+</metadata>
+    <path
+       d="M 10.863637,0.66290618 L 20.136364,0.57199708 C 21.190899,0.62120167 34.023953,2.1193852 41.045455,9.0354996 C 46.066503,13.981185 48.886195,18.543 49.419293,20.131273 C 50.329505,22.843088 49.186258,18.740418 49.409091,20.1578 C 49.678809,21.8734 46.472981,28.175101 39.934623,34.380468 C 32.669624,41.27547 20.137737,40.399786 20.136364,40.390178 L 10.863637,40.117451 C 14.86684,27.466336 16.293486,14.493152 10.863637,0.66290618 z"
+	fill='none'
+       id="path2189"
+/>
+    <path
+       d="M 13.388164,10.102383 L 0.5,10.435633"
+       id="path2193"
+/>
+    <path
+       d="M 12.928763,30.299269 L 0.818182,30.299269"
+       id="path2195"
+/>
+    <path
+       d="M 51.764777,20.241251 A 2.8881636,3.1103299 0 1 1 45.98845,20.241251 A 2.8881636,3.1103299 0 1 1 51.764777,20.241251 z"
+       transform="translate(2.110581,0)"
+       id="path2431"
+ 	fill='none'
+/>
+   <path
+       d="M 49.818182,19.935633 C 57.213714,20.174586 56.904566,19.960322 59.818182,19.935633"
+       id="path2191"
+	fill='none'/>
+ 
+  </g>
+</svg>

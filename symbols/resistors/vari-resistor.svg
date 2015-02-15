@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="40.454754"
+   height="20.444269"
+>
+ <defs>
+</defs>
+  <g connects="0,10;40,10"
+	stroke='black'
+	stroke-width='2px' 
+     id="R"
+    class="vari-resistor">
+<metadata class="part" >
+<wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+		<wtx:analog>
+			<wtx:node index="1" x="0" y="10"/>
+			<wtx:node index="2" x="40" y="10"/>
+		</wtx:analog>
+    </wtx:pins>
+    <wtx:id>r</wtx:id>
+    <wtx:type>r</wtx:type>
+    <wtx:name>variresistor</wtx:name>
+    <wtx:category>resistors</wtx:category>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:flip></wtx:flip>
+    <wtx:model></wtx:model>
+</wtx:part>
+</metadata>
+    <path
+       d="M 5.3415991,11.079275 8.0153231,0.54357924 10.475149,19.330121 14.539209,0.67051526 17.854627,19.457059 21.490891,0.54357924 25.287064,19.596525 28.977318,0.67051526 32.559593,19.500914 34.539695,10.209518"
+       id="path3444"
+fill='none'
+ />
+    <path
+       d="m 0,10 5.05722044,0"
+       id="path2159"
+ />
+    <path
+       d="m 40,10 -5.459106,0"
+       id="path2161"
+/>
+    <path
+       d="M 34.013535,19.885585 2.0746539,1.2571588"
+       id="path2242"
+/>
+    <path
+       d="M 5,5.6401043 1,0.64010429 7,1.6401043"
+       id="path2244"
+/>
+  </g>
+</svg>

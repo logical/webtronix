@@ -1,0 +1,37 @@
+body{
+    position:absolute;
+    overflow:hidden;
+    height:100%;
+    width:100%;
+	background-color:#000000;
+    border-width: 0px;
+    margin: 0px;
+    padding: 0px;
+	cursor:crosshair;
+    -moz-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+}
+
+.inv g,.inv rect,.inv line{
+	fill:black;
+	stroke:white;
+}
+
+.inv circle,.inv text{
+	fill:white;
+	stroke:white;
+}
+
+
+#information.inv>rect,.inv .schematic_tracker *,#information.inv>line{
+	fill:yellow;
+	stroke:yellow;
+}
+#information.inv>circle{
+	fill:green;
+	stroke:green;
+}
+
+
+

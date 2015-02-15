@@ -1,0 +1,14 @@
+.model and1 and(rise = 0.5e-9 fall = 0.3e-9)
+
+.model nand1 nand(rise = 0.5e-9 fall = 0.3e-9)
+
+.model or1 or(rise = 0.5e-9 fall = 0.3e-9)
+
+.model nor1 nor(rise = 0.5e-9 fall = 0.3e-9)
+
+.model xor1 xor(rise = 0.5e-9 fall= 0.3e-9)
+
+.model inv1 inv(rise = 0.5e-9 fall = 0.3e-9)
+
+
+

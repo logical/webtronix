@@ -1,0 +1,421 @@
+.normal_button {
+	padding:2px;
+	border-style:solid;
+	border-width:2px;
+	border-color:black;
+	background-color:#e7e7e7;
+    border-radius:6px;
+	}
+
+.pressed_button {
+	padding:2px;
+	border-style:solid;
+	border-width:2px;
+	border-color:#000000;
+	background-color:#bfbfbf;
+    border-radius:6px;
+	}
+
+.normal_button:hover{
+	padding:2px;
+	border-style:solid;
+	border-width:2px;
+	border-color:#000000;
+	background-color:#ffffff;
+    border-radius:6px;
+}
+
+#webtronics_file{
+    position :relative;
+    float:left;
+    height:32px;
+    margin:8px;
+	padding:2px;
+	border-style:solid;
+	border-width:2px;
+	border-color:#000000;
+	background-color:#e7e7e7;
+    border-radius:6px;
+}
+#webtronics_file *{
+	float:left;
+}
+
+.webtronics_menu{
+	position:absolute;
+	padding:2px;
+	border-style:solid;
+	border-width:2px;
+	border-color:black;
+	background-color:#e7e7e7;
+    cursor:pointer;
+}
+.webtronics_menu>p:hover{
+	background-color:#ffffff;
+    
+}
+
+
+div#webtronics_main_window{
+
+	font-family:verdana,arial;
+	font-size:10pt;
+	height:100%;
+	background-color:#e7e7e7;
+	border:2px solid #e7e7e7;
+
+}
+
+#webtronics_diagram_area>iframe{
+    position:absolute;
+    overflow:hidden;
+    height:100%;
+    width:100%;
+	background-color:#e7e7e7;
+    border-width: 0px;
+    margin: 0px;
+    padding: 0px;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+}
+
+/*list menu */
+div#webtronics_center{
+    position:relative;
+	overflow:hidden;
+	background-color:inherit;
+	border:2px solid #000000;
+}
+/* tabs */
+div#webtronics_tab_area{
+    position:relative;
+    float:left;
+    height: 32px;
+    background-color: #e7e7e7;
+}
+
+
+div.webtronics_tab{
+    position:relative;
+    float:left;
+    overflow:hidden;
+    height:30px;
+	border-style:solid;
+	border-width:2px;
+	border-color:black;
+    border-top-left-radius:6px;
+    border-top-right-radius:6px;
+    background-color:#bfbfbf;
+
+}
+div.webtronics_selected_tab{
+    position:relative;
+    float:left;
+    overflow:hidden;
+    height:30px;
+	border-style:solid;
+	border-width:2px;
+	border-color:black;
+    border-top-left-radius:6px;
+    border-top-right-radius:6px;
+	background-color:inherit;	
+
+}
+
+div#webtronics_new_tab{
+    position:relative;
+    float:left;
+    height:30px;
+	border-style:solid;
+	border-width:2px;
+	border-color:black;
+    border-radius:6px;
+	background-color:#bfbfbf;
+}
+
+div.webtronics_close_tab{
+    position:relative;
+    float:right;
+	border-style:solid;
+	border-width:2px;
+	border-color:black;
+    border-radius:6px;
+	background-color:#bfbfbf;
+}
+
+div#webtronics_side_bar{
+    position:relative;
+    float:left;
+    width: 132px;
+	overflow: hidden;
+	border-style:solid;
+	border-width:2px;
+	border-color:black;
+}
+
+div#webtronics_parts_list{
+    position:relative;
+    left:0;
+    top:0;
+    width:132px;
+	display:block;
+	height:auto;
+	overflow:auto;
+}
+
+div#webtronics_parts_list p{
+	cursor:pointer;
+}
+
+
+
+div#webtronics_parts_list>div div{
+	display:none;
+	background-color:#ffffff;
+	cursor:pointer;
+}
+
+div#webtronics_parts_list>div{
+	background-color:#cfcfcf;
+	border-style:solid;
+	border-width:2px;
+	border-color:black;
+}
+
+div#webtronics_parts_list>div>p:hover{
+	background-color:#ffffff;
+}
+
+div#webtronics_parts_list *{
+	margin:0px;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+}
+
+
+
+fieldset {
+	float:left;
+	margin-left:12px;
+	padding:0px;
+}
+
+
+
+div#webtronics_toolbar{
+	height:60px;
+	width:100%;
+	border-style:solid;
+	border-width:2px;
+	border-color:#000000;
+	overflow:hidden;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+	}
+
+
+
+
+
+/*popups*/
+div.modal{
+	display:none;
+	position:absolute; 
+	left:200px; 
+	top:10px; 
+	border-style: solid; 
+	border-radius:20px;
+	background-color:inherit; 
+	padding: 5px;
+}
+div.modal>*{
+ float:left; 
+}
+#webtronics_properties_buttons{
+  clear:left;
+}
+
+#webtronics_netlist_buttons{
+  clear:left;
+}
+
+
+.webtronics_help{
+	float:right;
+	border-style: solid; 
+	border-color:#000000;
+	background-color:#000000;
+	color:#ffffff;
+	padding: 5px;
+}
+
+
+#webtronics_chips_box>*{
+float:left;
+}
+
+#webtronics_netlist_text>*{
+float:left;
+}
+#webtronics_netlist_text_div{
+    overflow:hide;
+}
+
+#webtronics_image{
+	width:340px;
+	height:360px;
+	border:1px solid black;
+	background-color:#e7e7e7;
+    overflow:hide;
+}
+/*display areas*/
+
+
+
+#webtronics_image_div{
+	width:100%;
+	height:80%;
+	border:1px solid black;
+	background-color:#e7e7e7;
+    overflow:auto;
+}
+#webtronics_image_div>img{
+	max-width:300px;
+	max-height:280px;
+	width:auto;
+	height:auto;
+}
+
+#webtronics_diagram_area {	
+    position:relative;
+    float:left;
+	overflow:hidden;
+	cursor:crosshair;
+	border:1px solid black;
+	background-color:#e7e7e7;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+	
+}
+
+#webtronics_part_display{
+	width:126px;
+	height:130px;
+	background-color:#ffffff;
+	border:2px solid black;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+
+}
+
+
+
+#webtronics_chip_display{
+	width:200px;
+	height:200px;
+	border:1px solid black;
+	background-color:#ffffff;
+    overflow: auto;
+  } 
+
+#webtronics_print_dir_field{
+    display:none;
+    clear:right;
+}
+
+div#webtronics_status_bar{
+	float:left;
+	 width:100%;
+	 height:auto ;
+	 background-color:inherit;
+ 	-moz-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+}
+div#webtronics_disable{
+    display:none;
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	background: rgba(45,45,45,0.5) url(web.png) no-repeat; 
+    background-size: 100% 100%;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+}
+div#webtronics_open_file{ 
+	display:none;
+	overflow:hidden;
+	position:absolute; 
+	left:200px; 
+	top:10px; 
+	border-style: none; 
+	background-color:inherit; 
+	padding: none;   
+   }   
+
+div#webtronics_open_file_selector{
+	font-size:30pt;
+}
+/*menu style*/ 
+  
+div#webtronics_context_menu{
+    display:none;
+    z-index:100;
+    position:absolute;
+    top:0;
+    left:0;
+    background-color:inherit;
+}
+
+div#webtronics_context_menu .enabled{
+    color:#000000;
+}
+
+div#webtronics_context_menu .disabled{
+    color:#bfbfbf;
+}
+
+div#webtronics_context_menu .enabled:hover{
+    background-color:#bfbfbf;
+    color:#ffffff;
+}
+
+#webtronics_scope_display>*{
+  float:left;
+}
+
+div#webtronics_scope_display_div{
+  overflow:hidden;
+  width:480px;
+  height:360px;
+}
+#webtronics_scope_display_frame{
+  overflow:hidden;
+  width:480px;
+  height:360px;
+  border-color:#000000;
+  border-width: 2px;
+}
+
+div#webtronics_scope_display{
+  width:540px;
+  height:auto;
+  overflow: hide;
+}
+div#webtronics_scope_status_bar{
+	float:left;
+	 width:100%;
+	 height:auto ;
+	 background-color:inherit;
+ 	-moz-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+}

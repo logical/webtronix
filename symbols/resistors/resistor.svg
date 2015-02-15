@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="40"
+   height="20"
+>
+  <g stroke='black'
+	stroke-width='2px' 
+    >
+<metadata class="part" >
+<wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+		<wtx:analog>
+		  <wtx:node index="1" x="0" y="10"></wtx:node>
+		  <wtx:node index="2" x="40" y="10"></wtx:node>
+		</wtx:analog>
+    </wtx:pins>
+    <wtx:id>r</wtx:id>
+    <wtx:type>r</wtx:type>
+    <wtx:name>resistor</wtx:name>
+    <wtx:category>resistors</wtx:category>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:flip></wtx:flip>
+    <wtx:model></wtx:model>
+</wtx:part>
+</metadata>
+
+    <path
+       d="M 5.1400289,10.973441 7.5009997,5.0436578 10.530362,14.908323 14.248435,4.3282724 18.324457,14.77488 21.761826,4.4617163 25.849828,14.589134 29.504786,4.5222528 33.128938,14.818135 35.33864,10.115602"
+       id="path3444"
+       fill='none'
+/>
+    <path
+       d="m 0,10 5.424147,0"
+       id="path2159"
+/>
+    <path
+       d="m 40,10 -5.459106,0"
+       id="path2161"
+/>
+    <rect
+       width="40"
+       height="20"
+       x="0"
+       y="0"
+       id="rect2162"
+       visibility="hidden" />
+
+  </g>
+</svg>

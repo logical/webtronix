@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title></title>
+  <meta content="">
+  <style>
+  </style>
+  <script type="text/javascript">
+    var webtronics={
+//     spicenetlist: ".title rectifier\n"+
+// 		  "vs 0 1 ac 1 sin(0 1 60hz)\n"+
+// 		  "d1 1 2 1n4148\n"+
+// 		  "r1 2 0 100k\n"+
+// 		  "d1 3 1 1n4148\n"+
+// 		  "r1 3 0 100k\n"+
+// 		  ".model 1n4148   d(is=5.84n n=1.94 rs=.7017 ikf=44.17m xti=3 eg=1.11 cjo=.95p m=.55 vj=.75 fc=.5 isr=11.07n nr=2.088 bv=100 ibv=100u  tt=11.07n)\n"+
+// 		 ".print tran v(2) v(1) v(3)\n"+
+// 		  ".tran 1ms 100ms\n"+
+// 		  "*.plot tran v(2)\n"+
+// 		  ".end\n",
+/*
+	spicenetlist:".title rectifier\n"+
+		    "v1 1 0 sin(0 12 60hz)\n"+
+		    "r1 1 0 10k\n"+
+		    ".print tran v(1)\n"+
+		    ".tran 1ms 100ms\n"+
+		    ".end\n",
+*/
+
+	spicenetlist:"",
+
+
+		    }
+  function run(){
+    webtronics.spicenetlist=document.getElementById("spicetext").value;
+    document.getElementById("gnucapiframe").src="gnucap.html";
+  }
+  
+  </script>
+  
+</head>
+<body  onload="document.getElementById('gnucapiframe').src=''" >
+<textarea id="spicetext" cols=60 rows=30 >
+</textarea>
+<input type="button" value="simulate" onclick="run()" >
+<iframe id="gnucapiframe" width=340 height=260  src="about:blank" >
+</iframe>
+</body>
+</html>

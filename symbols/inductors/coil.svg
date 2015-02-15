@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="60"
+   height="20"
+   id="svg2160">
+  <g connects="0,10;60,10"
+	stroke='black'
+	stroke-width='2px' 
+     id="L"
+    class="coil" >
+<metadata class="part" >
+    <wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+        <wtx:pins>
+        <wtx:analog>
+            <wtx:node index="1" x="0" y="10"/>
+            <wtx:node index="2" x="60" y="10"/>
+        </wtx:analog>
+
+    </wtx:pins>
+    <wtx:id>l</wtx:id>
+
+    <wtx:type>l</wtx:type>
+    <wtx:name>coil</wtx:name>
+    <wtx:category>inductors</wtx:category>
+    <wtx:flip></wtx:flip>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:model></wtx:model>
+    </wtx:part>
+</metadata>
+
+    <path
+       d="m 0,10 10,0 C 10,10 9.6107334,-0.12011806 14.591528,0.31770045 21.747112,0.94668589 24.470253,17.720009 20.544629,19.8941 15.951065,16.735947 18.786323,-0.6683819 25,0 31.159111,0.66251249 34.941921,15.894397 30.453858,20.030257 26.167898,17.899016 27.910571,0.45899332 35,0 41.407905,-0.41486922 44.153942,17.10781 40.363086,20.075643 35.723271,16.865025 37.979061,-0.59780321 45,0 c 4.981974,0.42419394 5,10 5,10 l 10,0"
+       id="path2905"   fill="none" />
+  </g>
+</svg>

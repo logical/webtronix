@@ -1,0 +1,165 @@
+#!/bin/bash
+set -x
+set -e
+
+EMSCRIPTEN_PATH="PUT YOUR EMSCRIPTEN PATH HERE "
+OPTIMIZE="-O2 -s USE_TYPED_ARRAYS=2 -s DISABLE_EXCEPTION_CATCHING=0 "
+CCP="$EMSCRIPTEN_PATH/em++"
+CC="$EMSCRIPTEN_PATH/emcc"
+CFLAGS="$OPTIMIZE -DEMSCRIPTEN -DUNIX -DNDEBUG -Dlinux -DSPICE_3f -DPREDICTOR -DAN_pz -DAN_disto -DAN_noise -DHAS_STDLIB -fPIC -I./ -I../include -I../../include -I../Include "
+CCFLAGS="$CFLAGS -std=c++98"
+
+JFET(){
+cd models-spice3f5/jfet
+
+$CCP  $CCFLAGS -I../Include ../Gnucap/spice-wrapper.cc -c -o ../Gnucap/spice-wrapper.bc 
+$CC $CFLAGS -I../Include ../Include/devsup.c -c -o ../Include/devsup.bc
+
+declare -a BCFILES=$(find -name *.bc)
+for BCFILE in ${BCFILES[@]};do
+  rm $BCFILE
+done
+
+#models first
+declare -a SOURCES=(jfet jfetacld jfetask jfetdel jfetdest jfetdist jfetdset
+jfetic jfetload jfetmask jfetmdel jfetmpar
+jfetnoi jfetpar jfetpzld jfetset jfettemp jfettrun 
+)
+
+for CCFILE in ${SOURCES[@]}; do
+ $CC  $CFLAGS -Wno-implicit-function-declaration -I../Include -I../Gnucap -c $CCFILE.c -o O/$CCFILE.bc 
+done
+cd O
+$CC $OPTIMIZE  $(ls *.bc) ../../Gnucap/spice-wrapper.bc ../../Include/devsup.bc -o d_jfet.bc
+cd ../../..
+}
+
+
+LIB(){
+
+cd lib
+declare -a BCFILES=$(find -name *.bc)
+for BCFILE in ${BCFILES[@]};do
+  rm $BCFILE
+done  
+declare -a SOURCES=(m_expression_dump m_expression_in 
+m_expression_reduce 
+m_base_in m_base_math m_fft  m_spline 
+ap_construct ap_convert ap_error ap_get ap_match ap_skip 
+l_ftos l_pmatch l_timer l_trim l_wmatch 
+io io_contr io_error io_findf io_out io_xopen 
+u_function u_lang u_nodemap u_opt1 u_opt2 
+u_parameter u_prblst u_probe u_sim_data u_xprobe 
+d_subckt d_logic d_logicmod 
+e_base e_card e_node e_model e_compon 
+e_elemnt e_ccsrc e_storag e_cardlist 
+bm_cond bm_value bm 
+c__cmd c_attach c_file 
+findbr plot globals)
+for CCFILE in ${SOURCES[@]}; do
+  $CCP $CCFLAGS $CCFILE.cc -c -o O/$CCFILE.bc 
+done
+# link
+cd O
+
+$CCP $OPTIMIZE  $(ls *.bc) -o libgnucap.bc
+cd ../..
+}
+
+
+APPS(){
+cd apps
+declare -a BCFILES=$(find -name *.bc)
+for BCFILE in ${BCFILES[@]};do
+  rm $BCFILE
+done  
+#models first
+declare -a SOURCES=(d_mos1 d_mos2 d_mos3 
+d_mos4 d_mos5 d_mos6 d_mos7 d_mos8
+d_mos123 d_mos_base d_mos
+d_bjt d_diode )
+
+for CCFILE in ${SOURCES[@]}; do
+ $CCP  -c $CCFLAGS O/$CCFILE.cc -o O/$CCFILE.bc 
+done
+
+SOURCES=(
+d_admit d_cap d_cccs d_ccvs d_coil 
+d_cs d_poly_g d_poly_cap d_res d_switch 
+d_trln d_vcg d_vcr d_vcvs d_vs 
+d_meter
+
+bm_complex bm_exp bm_fit bm_generator 
+bm_model bm_poly bm_posy bm_pulse bm_pwl bm_sffm 
+bm_sin bm_tanh bmm_table bmm_semi
+
+c_clear c_comand c_delete c_exp  c_genrat 
+c_list c_measure c_modify c_param c_prbcmd 
+c_status c_sweep c_sim c_system
+
+s__init s__out s__solve 
+s_ac s_dc s_fo 
+s_tr s_tr_set s_tr_swp
+
+lang_spice lang_spectre lang_verilog
+
+func_core measure_eval 
+measure_max measure_min measure_slewrate measure_cross 
+measure_integral measure_average measure_rms measure_at signon
+)
+for CCFILE in ${SOURCES[@]}; do
+  $CCP  $CCFLAGS $CCFILE.cc -c -o O/$CCFILE.bc 
+done
+# link
+cd O  
+
+ $CCP $OPTIMIZE  $(ls *.bc) -o libgnucap-default-plugins.bc
+
+cd ../..
+}
+
+MAIN(){
+#get the functions to export from the so file
+cd main
+
+declare -a BCFILES=$(find -name *.bc)
+for BCFILE in ${BCFILES[@]};do
+  rm $BCFILE
+done  
+declare -a SOURCES=(main)
+for CCFILE in ${SOURCES[@]}; do
+  $CCP $CCFLAGS $CCFILE.cc -c -o O/$CCFILE.bc 
+done
+# link
+cd O
+
+
+EMCC_DEBUG=1 $CC $OPTIMIZE  ../../lib/O/libgnucap.bc ../../models-spice3f5/jfet/O/d_jfet.bc ../../apps/O/libgnucap-default-plugins.bc  main.bc -o gnucap.html --embed-file temp 
+
+cd ../..
+
+}
+
+case "$1" in
+  jfet)
+    JFET
+    ;;
+  apps)
+    APPS
+    ;;
+  lib)
+    LIB
+    ;;
+  main)
+    MAIN
+    ;;
+  *)
+    JFET
+    LIB
+    APPS
+    MAIN
+esac
+
+#command to minify
+#uglifyjs -v main/O/gnucap.js > main/O/gnucap-ugly.js
+

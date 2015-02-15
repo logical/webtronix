@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../style/canvas.css" type="text/css">
+<script type="text/javascript" src="../script/prototype.js"></script>
+<script type="text/javascript" src="../script/utils.js"></script>
+<script type="text/javascript" src="../script/schematic.js"></script>
+<script type="text/javascript" src="../script/primatives.js"></script>
+<script type="text/javascript" src="../script/connections.js"></script>
+<script type="text/javascript">
+var loaded=false;
+var circuit=null;
+load=function(){
+    circuit=new Schematic(document.body);
+//    parent.webtronics.circuit=circuit;
+    loaded=true;
+}
+</script>
+</head>
+<body onload='load()'>
+</body>
+</html>

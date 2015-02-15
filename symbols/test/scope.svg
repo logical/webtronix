@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2" width="50"  height="40" xmlns="http://www.w3.org/2000/svg" >
+ <g id="Plot" stroke="#000" stroke-width="2px" connects="0,20" class="scope">
+<metadata class="part" >
+<wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+        <wtx:analog>
+            <wtx:node index="1" x="0" y="20" />
+        </wtx:analog>
+    </wtx:pins>
+    <wtx:id>plot</wtx:id>
+    <wtx:type>plot</wtx:type>
+    <wtx:name>scope</wtx:name>
+    <wtx:label></wtx:label>
+    <wtx:category>test</wtx:category>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:flip></wtx:flip>
+    <wtx:model></wtx:model>
+    <wtx:measure></wtx:measure>
+</wtx:part>
+</metadata>
+  <path id="path2193" d="M0,20h10"/>
+  <rect id="rect3658" height="40" width="40" y="0" x="10" fill="none"/>
+  <path id="path2820" d="M15.085,20.169c7.96-24.084,21.723,22.742,29.661-0.169" stroke-width="1px" fill="none"/>
+ </g>
+</svg>

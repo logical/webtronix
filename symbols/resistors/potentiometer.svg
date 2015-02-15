@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="40.801449"
+   height="30.573784"
+>
+ <defs>
+</defs>
+  <g connects="0,10;40,10;20,30"
+	stroke='black'
+	stroke-width='2px' 
+     id="R"
+    class="potentiometer" >
+
+                    
+<metadata class="part" >
+<wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+        <wtx:analog>
+                <wtx:node index="1" x="0" y="10"/>
+                <wtx:node index="2" x="40" y="10"/>
+                <wtx:node index="3" x="20" y="30"/>
+        </wtx:analog>
+    </wtx:pins>
+    <wtx:id>r</wtx:id>
+    <wtx:type>r</wtx:type>
+    <wtx:name>potentiometer</wtx:name>
+    <wtx:category>resistors</wtx:category>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:flip></wtx:flip>
+    <wtx:spice></wtx:spice>
+    <wtx:model></wtx:model>
+</wtx:part>
+</metadata>
+    <path
+       d="M 5.7390669,11.013002 L 8.4081832,0.47680307 L 10.86377,19.264244 L 14.920825,0.60374518 L 18.230531,19.391186 L 21.860529,0.47680307 L 25.650159,19.530659 L 29.334053,0.60374518 L 32.910155,19.435044 L 34.886846,10.143204"
+       id="path3444"
+       fill='none' />
+    <path
+       d="M 0,10 L 5.4688036,10"
+       id="path2159"
+ />
+    <path
+       d="M 40,10 L 34.930759,10"
+       id="path2161"
+/>
+    <path
+       d="M 16.851271,25.03152 L 19.316029,19.808502 L 21.851271,25.120727"
+       id="path2199"
+fill='none'
+/>
+    <path
+       d="M 19.183387,21.007463 L 19.183387,30.007463"
+       id="path2201"
+ />
+  </g>
+</svg>

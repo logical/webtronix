@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="49.242374"
+   height="20"
+>
+  <g connects="0,20;50,20"
+	stroke='black'
+	stroke-width='2px' 
+     id="g2173"
+    class="spst-switch">
+<metadata class="part" >
+<wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+        <wtx:analog>
+            <wtx:node index="1" x="0" y="20"/>
+            <wtx:node index="2" x="50" y="20"/>
+        </wtx:analog>
+
+    </wtx:pins>
+    <wtx:id>s</wtx:id>
+    <wtx:type>s</wtx:type>
+    <wtx:name>nopb</wtx:name>
+    <wtx:category>switches</wtx:category>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:flip></wtx:flip>
+    <wtx:model></wtx:model>
+</wtx:part>
+</metadata>
+    <path
+       d="M 17.954546,17.082309 C 17.954546,18.417563 16.924911,19.5 15.654792,19.5 C 14.384672,19.5 13.355037,18.417563 13.355037,17.082309 C 13.355037,15.747055 14.384672,14.664618 15.654792,14.664618 C 16.924911,14.664618 17.954546,15.747055 17.954546,17.082309 L 17.954546,17.082309 z"
+       id="path3791"
+       fill='none'
+ />
+    <path
+       d="M 35.055281,16.787467 C 35.055281,18.220422 33.972844,19.382061 32.63759,19.382061 C 31.302337,19.382061 30.2199,18.220422 30.2199,16.787467 C 30.2199,15.354512 31.302337,14.192872 32.63759,14.192872 C 33.972844,14.192872 35.055281,15.354512 35.055281,16.787467 L 35.055281,16.787467 z"
+       id="path3793"
+fill='none'
+ />
+    <path
+       d="M 14.331806,19.282664 L 0.60195291,19.282664"
+       id="path3795"
+/>
+    <path
+       d="M 33.482259,19.243766 L 48.742374,19.243766"
+       id="path3797"
+/>
+    <path
+       d="M 17.318766,15.374036 L 27.987971,5.781071"
+       id="path3815"
+ />
+    <path
+       d="M 23.437018,6.559941 L 28.351436,5.545442 L 26.605237,10.248072"
+       id="path3817"
+fill='none' />
+    <rect
+       width="49"
+       height="20"
+       rx="0.16910876"
+       ry="0.16910876"
+       x="0"
+       y="0"
+       id="rect2164"
+       style="fill:none;stroke:none" />
+  </g>
+</svg>
