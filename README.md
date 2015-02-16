@@ -10,7 +10,7 @@ I have big ideas for web based engineering tool and I would love to be part of a
 3.To improve version control of schematics.
  
 Demo:
-[Try the Demo.](http:http://logical.github.io/webtronix/schematic.html) 
+[Try the Demo.](http://logical.github.io/webtronix/schematic.html) 
 
 
 If you have problems running the demo or if you have suggestions, please send me an email or create an issue.
