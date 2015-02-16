@@ -252,6 +252,7 @@ var webtronics={
 	this.attachframe(filename,frame);
 	
       }.bind(this));
+      $("webtronics_showhelp").checked=false;
       $("webtronics_invert").checked=false;
       $("webtronics_graph").checked=false;
       $("webtronics_connections").checked=false;
@@ -381,6 +382,7 @@ console.log(exception);
       webtronics.setsize();
       //	    $('webtronics_scope_display_iframe').src="";
       var menu;
+      $("webtronics_showhelp").checked=false;
       $("webtronics_invert").checked=false;
       $("webtronics_graph").checked=false;
       $("webtronics_connections").checked=false;
@@ -640,6 +642,23 @@ console.log(exception);
 		      
 		    });
 		  }
+		  if($("webtronics_showhelp")){
+                Event.observe($("webtronics_showhelp"),"click",function(){
+                    if($("webtronics_showhelp").checked){
+                        $$(".webtronics_help").forEach(function(e){
+                            e.style.display="block";
+                        }); 
+                    }
+                    else{
+                        $$(".webtronics_help").forEach(function(e){
+                            e.style.display="none";
+                        }); 
+                    }      
+                });
+         }
+		  
+		  
+		  
 		  /*properties events*/		
 		  
 		  
@@ -696,6 +715,9 @@ console.log(exception);
 		  // 				    textReader.readAsText();
 		  //     		    }
 		  // 		    }.bind(this));
+		  
+		  
+		  
 		  
 		  /*save as png modal*/
 		  if($("webtronics_image_ok")){
