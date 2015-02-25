@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="20.171276"
+   height="18"
+>
+  <defs>
+</defs>
+  <g connects="10,0"
+	stroke='black'
+	stroke-width='2px' 
+     id="Gnd"
+    class="ground">
+<metadata>
+<wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+        <wtx:analog>
+            <wtx:node index="1" x="10" y="0" />
+        </wtx:analog>
+    </wtx:pins>
+    <wtx:id>gnd</wtx:id>
+    <wtx:type>gnd</wtx:type>
+    <wtx:name>ground</wtx:name>
+    <wtx:category>power</wtx:category>
+    <wtx:flip></wtx:flip>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:model></wtx:model>
+</wtx:part>
+</metadata>
+
+    <path
+       d="M 10,0 L 10,11"
+       id="path3694"
+/>
+    <path
+       d="M 0.50000006,11.834153 L 19.671275,11.834153"
+       id="path3696"
+/>
+    <path
+       d="M 2.6480823,14.5 L 17.732881,14.5"
+       id="path3698"
+/>
+    <path
+       d="M 5.802873,17.5 L 14.648082,17.5"
+       id="path3700"
+ />
+  </g>
+</svg>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="40"
+height="20"	
+>
+  <g connects="0,10;40,10"
+	stroke='black'
+	stroke-width='2px' 
+     id="g2232"
+    class="zener">
+<metadata class="part" >
+    <wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+        <wtx:pins>
+        <wtx:analog>
+                <wtx:node index="1" x="0" y="10"/>
+                <wtx:node index="2" x="40" y="10"/>
+        </wtx:analog>
+    </wtx:pins>
+    <wtx:id>d</wtx:id>
+
+    <wtx:type>d</wtx:type>
+    <wtx:name>zener</wtx:name>
+    <wtx:category>diodes</wtx:category>
+    <wtx:flip></wtx:flip>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:model></wtx:model>
+    </wtx:part>
+</metadata>
+
+    <path
+       d="M 14.639172,0.38974096 L 10.056699,0.45435962 L 10.056699,19.706003 L 5,19.660362"
+       id="path2210"
+       fill='none' />
+    <path
+       d="M 0,10 L 40,10"
+       id="path3202"
+	 />
+    <path
+       d="M 11.056699,9.3421656 L 30.030771,0.61472262 L 30.030771,19.706003 L 11.056699,9.3421656 z"
+       id="path2220"
+       fill='black' 
+	/>
+  </g>
+</svg>

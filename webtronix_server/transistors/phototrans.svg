@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg2"
+   height="40"
+   width="40"
+   version="1.1"
+>
+
+  <g
+     id="Q"
+     stroke="#000"
+     stroke-width="2px"
+     class="phototrans">
+<metadata class="part" >
+<wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+        <wtx:analog>
+            <wtx:node index="1" x="30" y="0" />
+            <wtx:node index="2" x="30" y="40" />
+        </wtx:analog>
+    </wtx:pins>
+    <wtx:id>q</wtx:id>
+    <wtx:type>q</wtx:type>
+    <wtx:name>phototrans</wtx:name>
+    <wtx:category>transistors</wtx:category>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:flip>true</wtx:flip>
+    <wtx:model></wtx:model>
+</wtx:part>
+</metadata>
+    <rect
+       width="40"
+       height="40"
+       x="0"
+       y="0"
+       id="rect2162"
+       visibility="hidden" />
+    <path
+       id="path2178"
+       d="M15.508,31.531l0-23.068" />
+    <path
+       id="path2829"
+       d="M30,0,30,7.6063,16,16.606"
+       fill="none" />
+    <path
+       id="path2831"
+       d="m30,40,0-9-14-7"
+       fill="none" />
+    <path
+       id="path3613"
+       d="m25,31.606,2-4,3,4-5-0.000001z" />
+    <path
+       id="path3615"
+       d="M 0,6.0000004 9.9999997,16" />
+    <path
+       style="fill:none"
+       id="path3780"
+       d="m 6,15.606 5,1 -1,-5 -4,4 z" />
+  </g>
+</svg>

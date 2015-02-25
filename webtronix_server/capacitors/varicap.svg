@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="30"
+   height="20.649992"
+>
+  <g connects="0,10;30,10"
+	stroke='black'
+	stroke-width='2px' 
+     id="C"
+    class="varicap" ><metadata class="part" >
+
+<wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+		<wtx:analog>
+			<wtx:node index="1" x="0" y="10"/>
+			<wtx:node index="2" x="30" y="10"/>
+		</wtx:analog>
+    </wtx:pins>
+    <wtx:id>c</wtx:id>
+    <wtx:type>c</wtx:type>
+    <wtx:name>varicap</wtx:name>
+    <wtx:category>capacitors</wtx:category>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:flip></wtx:flip>
+    <wtx:model></wtx:model>
+</wtx:part>
+
+</metadata>
+    <path
+       d="M 10,0 10,20"
+       id="path3412"
+        />
+    <path
+       d="m 20,0 0,20"
+       id="path3414"
+        />
+    <path
+       d="m 20,10 10,0"
+       id="path3420"
+        />
+    <path
+       d="M 10,10 0,10"
+       id="path3422"
+       />
+    <path
+       d="M 5.1751823,7.559825 C 5.1751823,6.9509801 2.7398024,2.3846428 2.7398024,2.3846428 L 8.16867,4.1604406"
+       id="path2163"
+fill='none'/>
+    <path
+       d="M 3.6530698,3.2471732 L 22.07063,18.924931"
+       id="path2165"
+/>
+  </g>
+</svg>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2816"  xmlns="http://www.w3.org/2000/svg" height="60" width="60" >
+ <g 
+	stroke='black'
+	stroke-width='2px' 
+      id="Relay" fill="none" class="spst-relay">
+<metadata class="part" >
+<wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+        <wtx:analog>
+            <wtx:node index="1" x="0" y="0"/>
+            <wtx:node index="2" x="0" y="40"/>
+            <wtx:node index="3" x="60" y="40"/>
+            <wtx:node index="4" x="60" y="50"/>
+            <wtx:node index="5" x="60" y="60"/>
+        </wtx:analog>
+
+    </wtx:pins>
+    <wtx:id>relay</wtx:id>
+    <wtx:type>relay</wtx:type>
+    <wtx:name>spst-relay</wtx:name>
+    <wtx:category>switches</wtx:category>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:flip></wtx:flip>
+    <wtx:model></wtx:model>
+</wtx:part>
+</metadata>
+  <path id="path2830" d="m25,0,0,37"/>
+  <path id="path2832" d="m30,0,0,37"/>
+  <path id="path2834" d="m35,0,0,37"/>
+  <path id="path2857" d="m60,40-40,0,1,1,1-1"/>
+  <path id="path2859" d="m60,60-40,0,1-1,1,1"/>
+  <path id="path2863" d="m20,42,40,8"/>
+    <path
+       d="m 0,0 10,0 c 0,0 10,0 10,5 0,5 -10,5 -10,5 0,0 10,0 10,5 0,5 -10,5 -10,5 0,0 10,0 10,5 0,5 -10,5 -10,5 0,0 10,0 10,5 0,5 -10,5 -10,5 l -10,0 0,0"
+       id="path2886"
+       fill="none"/>
+ </g>
+</svg>

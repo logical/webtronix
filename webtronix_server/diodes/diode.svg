@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2" xmlns="http://www.w3.org/2000/svg" width="40" height="20">
+ <g id="D" class="diode" stroke="#000" stroke-width="2px" >
+<metadata class="part" >
+    <wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+        <wtx:analog>
+                <wtx:node index="1" x="40" y="10"/>
+                <wtx:node index="2" x="0" y="10"/>
+        </wtx:analog>
+    </wtx:pins>
+    <wtx:id>d</wtx:id>
+
+    <wtx:type>d</wtx:type>
+    <wtx:name>diode</wtx:name>
+    <wtx:category>diodes</wtx:category>
+    <wtx:flip></wtx:flip>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:model></wtx:model>
+    </wtx:part>
+</metadata>
+  <path id="path2210" d="m11.059,19.249,0-18.37"/>
+  <path id="path3202" d="M0,10h40"/>
+  <path id="path2220" fill="#000" d="m11.298,10,17.776-8.5486,0,17.1l-17.776-8.551z"/>
+ </g>
+</svg>

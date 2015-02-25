@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2" xmlns="http://www.w3.org/2000/svg" height="100" width="100" >
+<!--
+* CONNECTIONS:            +
+*                         |   rg1      
+*                         |   |   rg2     
+*                         |   |   |   -        
+*                         |   |   |   |   V-       
+*                         |   |   |   |   |   REF
+*                         |   |   |   |   |   |   out 
+*                         |   |   |   |   |   |   |   V+
+*                         |   |   |   |   |   |   |   |
+* PIN CONFIG              1   2   3   4   5   6   7   8
+-->
+ <g id="u" stroke="#000" stroke-width="2px" class="op-amp">
+<metadata class="part" >
+<wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+		<wtx:analog>
+		
+			<wtx:node index="1" x="0" y="10"/>
+			<wtx:node index="2" x="0" y="30"/>
+			<wtx:node index="3" x="0" y="70"/>
+			<wtx:node index="4" x="0" y="90"/>
+
+			<wtx:node index="5" x="50" y="90"/>
+			<wtx:node index="6" x="70" y="80"/>
+			<wtx:node index="7" x="100" y="50"/>
+			<wtx:node index="8" x="50" y="10"/>
+
+		</wtx:analog>
+    </wtx:pins>
+    <wtx:id>u</wtx:id>
+    <wtx:type>u</wtx:type>
+    <wtx:name>inst-amp</wtx:name>
+    <wtx:category>amplifier</wtx:category>
+    <wtx:value></wtx:value>
+    <wtx:spice></wtx:spice>
+    <wtx:label></wtx:label>
+    <wtx:flip>true</wtx:flip>
+    <wtx:model></wtx:model>
+</wtx:part>
+</metadata>
+  <path id="path1887" fill="none" d="M90,50,10,100,10,0,90,50z"/>
+  <path id="path1889" d="M0,10,10,10"/>
+  <path id="path1893" d="M0,30,10,30"/>
+  <path id="path1889" d="M0,70,10,70"/>
+  <path id="path1893" d="M0,90,10,90"/>
+  
+  <text id="text1895" y="20" x="15" font-size="12px" stroke-width="0px">+</text>
+  <text id="text1915" y="80" x="15" font-size="12px" stroke-width="0px">_</text>
+  <path id="path2" d="M50,90,50,75"/>
+  <path id="path2" d="M70,80,70,63"/>
+  <path id="path2167" d="M90,50,100,50"/>
+  <path id="path2" d="M50,10,50,25"/>
+ </g>
+</svg>

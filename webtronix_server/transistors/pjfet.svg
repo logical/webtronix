@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg id="svg2" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+ <g id="Q" stroke="#000" stroke-width="2px" connects="0,20;30,0;30,40" flippable="true" class="pjfet">
+<metadata class="part" >
+<wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+        <wtx:analog>
+            <wtx:node index="1" x="30" y="0" />
+            <wtx:node index="2" x="0" y="20" />
+            <wtx:node index="3" x="30" y="40" />
+        </wtx:analog>
+    </wtx:pins>
+    <wtx:id>j</wtx:id>
+    <wtx:type>j</wtx:type>
+    <wtx:name>pjfet</wtx:name>
+    <wtx:category>transistors</wtx:category>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:flip>true</wtx:flip>
+    <wtx:model></wtx:model>
+</wtx:part>
+</metadata>
+  <rect id="rect2162" visibility="hidden" height="40" width="40" y="0" x="0" fill="none"/>
+  <path id="path2840" d="M30,13,30,0"/>
+  <path id="path2844" d="M30,25,30,40" />
+  <path id="path3568" d="M16,20h-16"/>
+  <path id="path3572" d="M10,15l-5,5,5,5" />
+  <path id="path2178" d="M16.247,33.517v-27.223"/>
+  <text id="text2823" font-size="8px" font-family="Bitstream Vera Sans" y="18.113794" x="1.0786462" stroke-width="0px" fill="#000000">G</text>
+  <text id="text2827" font-size="8px" font-family="Bitstream Vera Sans" y="7.4208322" x="33" stroke-width="0px" fill="#000000">D</text>
+  <text id="text2831" font-size="8px" font-family="Bitstream Vera Sans" y="39.414978" x="33" stroke-width="0px" fill="#000000">S</text>
+  <path id="path2838" d="M16,13,31,13"/>
+  <path id="path2842" d="M16,25,31,25"/>
+ </g>
+</svg>

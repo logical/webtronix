@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="40.585579"
+   height="30"
+>
+  <g connects="0,10;40,10"
+	stroke='black'
+	stroke-width='2px' 
+    id="D"
+    class="trigger">
+<metadata class="part" >
+    <wtx:part xmlns:wtx="http://code.google.com/p/webtronics" >
+    <wtx:pins>
+        <wtx:analog>
+                <wtx:node index="1" x="0" y="10"/>
+                <wtx:node index="2" x="40" y="10"/>
+        </wtx:analog>
+    </wtx:pins>
+    <wtx:id>d</wtx:id>
+
+    <wtx:type>d</wtx:type>
+    <wtx:name>trigger</wtx:name>
+    <wtx:category>diodes</wtx:category>
+    <wtx:flip></wtx:flip>
+    <wtx:value></wtx:value>
+    <wtx:label></wtx:label>
+    <wtx:spice></wtx:spice>
+    <wtx:model></wtx:model>
+    </wtx:part>
+</metadata>
+
+    <path
+       d="M 10.964206,16.763259 L 10.964206,1.6734577"
+       id="path2210"
+	 />
+    <path
+       d="M 0,10 L 40,10"
+       id="path3202"
+	 />
+    <path
+       d="M 29.266715,20 L 10,13 L 11.022585,30 L 29.266715,19.945637 z"
+       id="path4957"
+	fill='black' />
+    <path
+       d="M 29.722973,15.239242 L 29.722973,24.499999"
+       id="path4959"
+	/>
+    <path
+       d="M 11.284014,10.29367 L 29.859252,2.102964 L 29.789401,16.847834 L 11.284014,10.29367 z"
+       id="path2220"
+	fill='black' />
+    <rect
+       width="40"
+       height="25"
+       x="0.17812824"
+       y="0"
+       id="rect2175"
+       visibility="hidden" />
+  </g>
+</svg>

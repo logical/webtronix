@@ -1,0 +1,72 @@
+
+.model  1n4007  D(IS=3.872n RS=1.66E-02 N=1.776 XTI=3.0 EG=1.110 
++               CJO=1.519E-11 M=0.3554 VJ=0.5928 FC=0.5 ISR=1.356E-09
++               NR=2.152 BV=1000.0 IBV=1.0E-03 Tt=4u)
+
+.model 1n4148   D(Is=5.84n N=1.94 Rs=.7017 Ikf=44.17m Xti=3 Eg=1.11 Cjo=.95p
++               M=.55 Vj=.75 Fc=.5 Isr=11.07n Nr=2.088 Bv=100 Ibv=100u Tt=11.07n)
+
+.MODEL 1N34A D(bv=75 cjo=0.5e-12 eg=0.67 ibv=18e-3
++                is=2e-7 rs=7 n=1.3 vj=0.1 m=0.27 )
+
+
+.MODEL 1N5711 D IS=5.5987E-9 N=1.0023 RS=30.053 IKF=19.036 CJO=1.7605E-12
++               M=.20029 VJ=.3905 ISR=24.229E-9 NR=4.1695 FC=0.5 TT=0 XTI=2
+*               $
+
+.MODEL mmsd301t1 d
++IS=7.59492e-08 RS=4.93246 N=1.53455 EG=0.608881
++XTI=4 BV=30 IBV=1e-05 CJO=2.26925e-12
++VJ=0.4 M=0.260918 FC=0.5 TT=2.98638e-09
++KF=0 AF=1
+
+.model 2N2222 NPN(IS=14.34F XTI=3 EG=1.11 VAF= 74.03 BF=255.9 
++             NE=1.307 ISE=14.34F IKF=.2847 XTB=1.5 BR=6.092 NC=2 
++             ISC=0 IKR=0 RC=1 CJC=7.306P MJC=.3416 VJC=.75 FC=.5 
++             CJE=22.01P MJE=.377 VJE=.75 TR=46.91N TF=411.1P ITF=.6 
++             VTF=1.7 XTF=3 RB=10)
+
+.MODEL 2N2907  PNP (IS=15.294E-15 BF=297.85 VAF=100 IKF=1.6607 ISE=29.577E-15
++ 		NE=1.5507 BR=476 VAR=100 IKR=2.2270  ISC=7.6418E-9 NC=2.1591 NK=.97918
++ 		RB=2.4875 RC=.69253 CJE=33.186E-12 VJE=.8716 MJE=.40799 CJC=15.649E-12
++		VJC=.56868 MJC=.3619 TF=456.18E-12 XTF=22.393 VTF=28.493 ITF=.62109
++ 		TR=10.000E-9 )
+
+.model 2N3904   NPN(Is=6.734f Xti=3 Eg=1.11 Vaf=74.03 Bf=416.4 Ne=1.259
++               Ise=6.734f Ikf=66.78m Xtb=1.5 Br=.7371 Nc=2 Isc=0 Ikr=0 Rc=1
++               Cjc=3.638p Mjc=.3085 Vjc=.75 Fc=.5 Cje=4.493p Mje=.2593 Vje=.75
++               Tr=239.5n Tf=301.2p Itf=.4 Vtf=4 Xtf=2 Rb=10)
+
+
+.model 2n3906   PNP(Is=455.9E-18 Xti=3 Eg=1.11 Vaf=33.6 Bf=204.7 Ise=7.558f
++               Ne=1.536 Ikf=.3287 Nk=.9957 Xtb=1.5 Var=100 Br=3.72
++               Isc=529.3E-18 Nc=15.51 Ikr=11.1 Rc=.8508 Cjc=10.13p Mjc=.6993
++               Vjc=1.006 Fc=.5 Cje=10.39p Mje=.6931 Vje=.9937 Tr=10n Tf=181.2p
++               Itf=4.881m Xtf=.7939 Vtf=10 Rb=10)
+
+*2N3055
+*Si 115W 70V 15A 20kHz pkg:TO-3 3,2,1
+
+.MODEL 2N3055	NPN(IS=4.66E-12 BF=360 VAF=100 IKF=0.25 ISE=3.339E-11
++		BR=2 ISC=5E-9 RB=3 IRB=0.001 RBM=0.4 RC=0.04 CJE=5.802E-10 VJE=1.2
++		MJE=0.45 TF=8E-8 XTF=1 ITF=3 PTF=120 CJC=2.121E-10 MJC=0.4 TR=2.55E-6
++		XTB=1 )
+
+
+.MODEL 2N7002   NMOS(LEVEL=3   RS=0.0405          NSUB=1.0E15
++               DELTA=0.1      KAPPA=0.0506    TPG=1              CGDO=6.1716E-10
++               RD=1.22        VTO=2.00        VMAX=1.0E7         ETA=0.0223089
++               NFS=6.6E10     TOX=1.0E-7      LD=1.698E-9        UO=862.425
++               XJ=6.4666E-7   THETA=1.0E-5    CGSO=9.10E-9       L=2.5E-6
++               W=0.5E-2)
+
+
+.model 2n3819	NJF(Beta=1.304m Rd=1 Rs=1 Lambda=2.25m Vto=-3 Is=33.57f
++ 		Cgd=1.6p Pb=1 Fc=.5 Cgs=2.414p Kf=9.882E-18 Af=1)
+
+.model mpf102 NJF (Beta=1.04m Betatce=-.5 Rd=1 Rs=1 Lambda=2m Vto=-3.41
++		Vtotc=-2.5m Is=33.57f Isr=322.4f N=1 Nr=2 Xti=3 Alpha=311.7
++		Vk=243.6 Cgd=1.6p M=.3622 Pb=1 Fc=.5 Cgs=2.414p Kf=11.73E-18
++		Af=1)
+
+
