@@ -10,52 +10,52 @@
       "op-amp":{
 	"help":"ux + - v- out v+ model\n\ndirective = include model file",
 	"values":{
-	  "lm324":[".inc lm324.mod"],
-	  "lm358":[".inc lm358.mod"],
-	  "741":[".inc ua741.mod",".inc lm741.mod"],
-	  "tl084":[".inc tl084.mod"]
+	  "lm324":["lm324.mod"],
+	  "lm358":["lm358.mod"],
+	  "741":["ua741.mod","lm741.mod"],
+	  "tl084":["tl084.mod"]
 	}
       },
       "inst-amp":{
 	"values":{
-	  "ina128":[".inc ina128.mod"],
-	  "ad620a":[".inc ad620a.mod"],
-	  "ad8221":[".inc ad8221.mod"]
+	  "ina128":["ina128.mod"],
+	  "ad620a":["ad620a.mod"],
+	  "ad8221":["ad8221.mod"]
 	}
       }
     },
     "digital":{
       
       "adc_bridge":{
-	"ideal_adc":[".inc digital.lib"]
+	"ideal_adc":["digital.lib"]
       },
       "dac_bridge":{
-	"ideal_dac":[".inc digital.lib"]
+	"ideal_dac":["digital.lib"]
       },                    
       "source":{
-	"clk":[".inc dsource.mod"]
+	"clk":["dsource.mod"]
       },                
       "and":{
 	"and(rise = 0.5e-9 fall = 0.3e-9)":[],
-	"and1":[".inc digital.lib"]
+	"and1":["digital.lib"]
       },
       "nand":{
-	"nand1":[".inc digital.lib"]                        
+	"nand1":["digital.lib"]                        
       },
       "nor":{
-	"nor1":[".inc digital.lib"]                        
+	"nor1":["digital.lib"]                        
       },
       "not":{
-	"inv1":[".inc digital.lib"]
+	"inv1":["digital.lib"]
       },
       "or":{
-	"or1":[".inc digital.lib"]
+	"or1":["digital.lib"]
       },
       "xnor":{
-	"xnor":[".inc digital.lib"]                        
+	"xnor":["digital.lib"]                        
       },
       "xor":{
-	"xor":[".inc digital.lib"]                        
+	"xor":["digital.lib"]                        
       }
     },
     
@@ -80,32 +80,32 @@
     "transistors":{
       "njfet":{
 	"values":{
-	  "mpf102":[".inc models.lib"],
-	  "2n3819":[".inc models.lib"]
+	  "mpf102":["models.lib"],
+	  "2n3819":["models.lib"]
 	  
 	}
       },
       "npn":{
 	"values":{
 	  
-	  "2n3904":[".inc models.lib"],
-	  "2n2222":[".inc models.lib"],                    
-	  "2n3055":[".inc models.lib"]                    
+	  "2n3904":["models.lib"],
+	  "2n2222":["models.lib"],                    
+	  "2n3055":["models.lib"]                    
 	}
       },
       "pjfet":{},
       "pnp":{
 	"values":{
-	  "2n3906":[".inc models.lib"],
-	  "2n2907":[".inc models.lib"]
+	  "2n3906":["models.lib"],
+	  "2n2907":["models.lib"]
 	}
       },
       "nmosfet":{
 	"values":{
-	  "2n7000":[".inc 2n7000.mod"],
-	  "irf150":[".inc irf150.mod"],
-	  "irf530":[".inc irf530.mod"],
-	  "irfz44n":[".inc irfz44n.mod"]
+	  "2n7000":["2n7000.mod"],
+	  "irf150":["irf150.mod"],
+	  "irf530":["irf530.mod"],
+	  "irfz44n":["irfz44n.mod"]
 	}
       },
       "phototrans":{},
@@ -119,10 +119,10 @@
       "diode":{
 	"values":{
 	  
-	  "1n4148":[".inc models.lib"],
-	  "1n4007":[".inc models.lib"],
-	  "1n34a":[".inc models.lib"],
-	  "1n5711":[".inc models.lib"]
+	  "1n4148":["models.lib"],
+	  "1n4007":["models.lib"],
+	  "1n34a":["models.lib"],
+	  "1n5711":["models.lib"]
 	  
 	},
 	"help":"dx a k model\na=anode\nk=kathode"         

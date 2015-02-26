@@ -16,7 +16,7 @@ else
 		{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		  {
-		  response(xmlhttp.responseText);
+		  response({name:Name,text:xmlhttp.responseText});
 		  }
 		}
 
@@ -28,7 +28,7 @@ else
 function sendfile(response){
 //http://stackoverflow.com/questions/3076414/ways-to-circumvent-the-same-origin-policy
 window.parent.postMessage(response,'*')
-document.body.innerHTML=response;
+document.body.innerHTML=response.text;
 }
 
 //http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript

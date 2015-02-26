@@ -21,11 +21,39 @@ function openfile(Name,response){
 		response("Could not load file...\n");
 	},
 	onException: function(req,exception) {
-		alert("Could not find "+Name); 
+		console.log(exception);
+		alert("file load Exception "+Name); 
 		return true;
 		}, 
 	});
   
+}
+
+var server=function(){				
+//This can probably be made asynchronous but I have not found out how yet because window object  can only have one onmessage event handler
+
+		//http://stackoverflow.com/questions/3076414/ways-to-circumvent-the-same-origin-policy
+	// Internet Explorer
+				if(window.attachEvent)window.attachEvent('onmessage',receivefile);
+			  // Opera/Mozilla/Webkit
+				else window.addEventListener("message", receivefile, false);
+				repository=new Element('iframe',{'class':'webtronics_repository_frame','style':'display:none'});
+//it's invisible so just put it anywhere
+				menu.insert(repository).observe("load",function(){waiting=false;});	
+			
+			function requestfile(url,response){
+		    	rxdata=	"";
+		    	waiting=false;
+
+					function receivefile(event){
+						rxdata=event.data;											
+						waiting=false;
+					}
+					waiting=true;
+					iframe.src=url;
+					while(waiting){}
+					response(rxdata);			
+			}
 }
 
 function encode64(input) {
