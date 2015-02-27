@@ -1,10 +1,3 @@
-// This code was written by Tyler Akins and has been placed in the
-// public domain.  It would be nice if you left this header intact.
-// Base64 code from Tyler Akins -- http://rumkin.com
-
-// schiller: Removed string concatenation in favour of Array.join() optimization,
-//           also precalculate the size of the array needed.
-
 
 function openfile(Name,response){
 	var text;
@@ -29,32 +22,35 @@ function openfile(Name,response){
   
 }
 
-var server=function(){				
-//This can probably be made asynchronous but I have not found out how yet because window object  can only have one onmessage event handler
-
 		//http://stackoverflow.com/questions/3076414/ways-to-circumvent-the-same-origin-policy
-	// Internet Explorer
-				if(window.attachEvent)window.attachEvent('onmessage',receivefile);
-			  // Opera/Mozilla/Webkit
-				else window.addEventListener("message", receivefile, false);
-				repository=new Element('iframe',{'class':'webtronics_repository_frame','style':'display:none'});
-//it's invisible so just put it anywhere
-				menu.insert(repository).observe("load",function(){waiting=false;});	
-			
-			function requestfile(url,response){
-		    	rxdata=	"";
-		    	waiting=false;
 
-					function receivefile(event){
-						rxdata=event.data;											
-						waiting=false;
-					}
-					waiting=true;
-					iframe.src=url;
-					while(waiting){}
-					response(rxdata);			
-			}
+function request(url, file, response){
+	var server=document.createElement("iframe");
+	server.style.display="none";
+	server.id=file;
+	
+	$("webtronics_main_window").appendChild(server);
+
+	function receiveMessage(event){
+		if(event.data.filename==file){
+			response(event.data.text);
+			server.parentNode.removeChild(server);
+		
+		}
+
+	};
+		
+	window.addEventListener("message", receiveMessage, false);
+	server.src=url+"/webtronix_server.html?file="+file;
 }
+
+// This code was written by Tyler Akins and has been placed in the
+// public domain.  It would be nice if you left this header intact.
+// Base64 code from Tyler Akins -- http://rumkin.com
+
+// schiller: Removed string concatenation in favour of Array.join() optimization,
+//           also precalculate the size of the array needed.
+
 
 function encode64(input) {
     if(window.btoa){

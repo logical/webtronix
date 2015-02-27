@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
 <head>
+ <meta charset="UTF-8"> 
 <script>
 
 function openfile(Name,response){
@@ -16,7 +18,7 @@ else
 		{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		  {
-		  response({name:Name,text:xmlhttp.responseText});
+		  response({"filename":Name,"text":xmlhttp.responseText});
 		  }
 		}
 
@@ -27,8 +29,8 @@ else
 
 function sendfile(response){
 //http://stackoverflow.com/questions/3076414/ways-to-circumvent-the-same-origin-policy
-window.parent.postMessage(response,'*')
-document.body.innerHTML=response.text;
+window.parent.postMessage(response,'*');
+
 }
 
 //http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
