@@ -391,7 +391,7 @@ console.log(exception);
 
 			  }
 				
-				if(0){//if(0url.indexOf("http://")==-1){
+				if(url.indexOf("http://")==-1){
 		    	openfile(url+'/'+cat+'/'+partname+'.svg',listfile);
 			
 		    }
@@ -532,8 +532,8 @@ console.log(exception);
 		
 		
 		webtronics.serverurls.each(function(url){
-			new request(url,"parts.json", function(text){
-			//openfile(url+"/parts.json", function(text){
+			//new request(url,"parts.json", function(text){
+			openfile(url+"/parts.json", function(text){
 				webtronics.partslists.push(text.evalJSON(true));
 				webtronics.partslists[webtronics.partslists.length-1].url=webtronics.serverurls[i];
 				webtronics.makemenu(url,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
