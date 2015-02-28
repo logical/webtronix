@@ -23,17 +23,21 @@ function openfile(Name,response){
 }
 
 		//http://stackoverflow.com/questions/3076414/ways-to-circumvent-the-same-origin-policy
-
+//Rather than posting messages back and forth I open several iframes because otherwise one trnsmission would have to finish 
+// before another began
 function request(url, file, response){
+
 	var server=document.createElement("iframe");
 	server.style.display="none";
 	server.id=file;
+	server.src=url+"/webtronix_server.html";
 	
 	$("webtronics_main_window").appendChild(server);
 
 	function receiveMessage(event){
 		if(event.data.filename==file){
 			response(event.data.text);
+			console.log(server.parentNode);
 			server.parentNode.removeChild(server);
 		
 		}
@@ -41,7 +45,10 @@ function request(url, file, response){
 	};
 		
 	window.addEventListener("message", receiveMessage, false);
-	server.src=url+"/webtronix_server.html?file="+file;
+	var iframe=document.getElementById(file);	
+	console.log(iframe.contentWindow.location.hostname);
+ 	iframe.contentWindow.postMessage(file, iframe.contentWindow.location.hostname );
+	//	server.src=url+"/webtronix_server.html?file="+file;
 }
 
 // This code was written by Tyler Akins and has been placed in the

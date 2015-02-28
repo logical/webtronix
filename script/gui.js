@@ -391,7 +391,7 @@ console.log(exception);
 
 			  }
 				
-				if(url.indexOf("http://")==-1){
+				if(0){//if(url.indexOf("http://")==-1){
 		    	openfile(url+'/'+cat+'/'+partname+'.svg',listfile);
 			
 		    }

@@ -29,10 +29,10 @@ else
 
 function sendfile(response){
 //http://stackoverflow.com/questions/3076414/ways-to-circumvent-the-same-origin-policy
-window.parent.postMessage(response,'*');
+	window.parent.postMessage(response,'*');
 
 }
-
+/*
 //http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -40,20 +40,23 @@ function getParameterByName(name) {
         results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-function servefile(){
-	var request = getParameterByName('file');
+*/
+
+function servefile(event){
+  console.log(event);
+	var request = event.data;//getParameterByName('file');
 	if(request!="")openfile(request,sendfile);
 	else openfile("parts.json",sendfile);
 }
 
-
-
-
-
+function init(){
+//	console.log("ready");
+	addEventListener("message", servefile, false);
+}
 
 </script>
 </head>
-<body onload="servefile()">
+<body onload="init()">
 this is a webtronics javascript server.
 request ?file=parts.json for list of files.
 </body>
