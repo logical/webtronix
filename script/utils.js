@@ -39,7 +39,6 @@ function request(url, file, response){
 		}
 
 	};
-		
 	window.addEventListener("message", receiveMessage, false);
 	server.src=url+"/webtronix_server.html?file="+file;
 }
