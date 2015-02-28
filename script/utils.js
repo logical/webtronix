@@ -47,7 +47,7 @@ function request(url, file, response){
 	window.addEventListener("message", receiveMessage, false);
 	var iframe=document.getElementById(file);	
 	console.log(iframe.contentWindow.location.hostname);
- 	iframe.contentWindow.postMessage(file, iframe.contentWindow.location.hostname );
+ 	iframe.contentWindow.postMessage(file, "*" );
 	//	server.src=url+"/webtronix_server.html?file="+file;
 }
 
