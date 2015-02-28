@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8"> 
 <title>Webtronix schematic editor.</title>
 <link rel="shortcut icon" href="favicon.ico" />
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style/schematic.css" type="text/css">
-<!--script type="text/javascript" src="http://www.google.com/jsapi"></script-->
+<script type="text/javascript" src="script/utils.js"></script>
 <script type="text/javascript" src="script/prototype.js"></script>
 <script type="text/javascript" src="script/chipmaker.js"></script>
 <script type="text/javascript" src="script/gui.js"></script>
-<script type="text/javascript" src="script/utils.js"></script>
+<!--script type="text/javascript" src="script/fileio.js"></script-->
 <script type="text/javascript" src="script/canvg.js"></script>
 <script type="text/javascript" src="script/rgbcolor.js"></script>
 
@@ -165,6 +166,17 @@ spice:
 </div>
 
 
+</div>
+
+<!--
+select source server
+-->
+<div id="webtronics_add source" class='modal'>
+<input class="webtronics_add_source_input" />
+<input class="webtronics_add_source_input" />
+<input class="webtronics_add_source_input" />
+<img id="webtronics_add source_ok" src="buttons/ok.png"> 
+<img id="webtronics_add_source_cancel" src="buttons/cancel.png">
 </div>
 
 

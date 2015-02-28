@@ -38,3 +38,4 @@ LATEST
 After using the program a while I noticed I spent a lot of time doing some actions that could be automated. I am making changes to automate some of those actions.
  
 Improved image output 
+

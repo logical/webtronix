@@ -450,9 +450,18 @@ Schematic.prototype.createnetlist=function(responsefunc){
     modelcount:0,
     responsecount:0,
     download:function(name){
-
-      openfile( "../spice/"+ name,modelloader.responder);
-      modelloader.modelcount++;
+    	for( list in webtronics.partlists){
+				if(webtronics.partslist.stringify.match(name)!=null){
+					if(list.url.indexOf("http://")==-1){//see if path is local
+		  	  	openfile( "../"+webtronix_server/spice/+ name,modelloader.responder);
+		  	  }
+		  	  else{
+		  	  	server.requestfile(list.url,modelloader.responder);
+		  	  }
+					break;
+				}
+			}
+			      modelloader.modelcount++;
     },
     finish:function(){
       spice+=modelloader.modeltext; 
@@ -517,8 +526,8 @@ Schematic.prototype.createnetlist=function(responsefunc){
 //      console.log(sections.firstdir[i]);
       
       if(sections.firstdir[i].length){
-	var directive=sections.firstdir[i].split(' ');
-	modelloader.download(directive[1]);
+	//this will cause errors with older versions that started with .inc
+			modelloader.download(sections.firstdir[i]);
       }
     }
   }

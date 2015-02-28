@@ -7,7 +7,7 @@ var webtronics={
   file_id:null,
   scopestatus:null,
   scopedata:null,
-  
+
   tabs:[],
   mode:'',
   
@@ -15,7 +15,8 @@ var webtronics={
   Alist:/^(x|y|x1|y1|x2|y2|dx|dy|cx|cy|r|width|height|transform|d|id|class|fill|stroke|visibility|stroke-width|xmlns|xmlns:wtx|connects|partvalue|flippable|spice|index|font-size|font-weight|font-style|font-family)$/,
   Elist:/^(path|circle|rect|line|text|g|tspan|svg|wtx:part|wtx:pins|wtx:analog|wtx:digital|wtx:node|wtx:id|wtx:type|wtx:name|wtx:category|wtx:value|wtx:label|wtx:spice|wtx:flip|wtx:model|wtx:measure|metadata|)$/,
   /* .lib files contain spice .model devices .mod devices contain .subckt devices and the id must begin with x*/
-  parts:{},
+	serverurls:["webtronix_server"],
+  partslists:[],
   models:{},
   docfromtext:function(txt){
     var xmlDoc;
@@ -80,12 +81,15 @@ var webtronics={
     $("webtronics_part_dir_model").appendChild(new Element("option",{"value":""}).update("none"));
     var part=this.circuit.readwtx(elem,"name");
     var cat=this.circuit.readwtx(elem,"category");
-    if(cat){    
-      for(var c in webtronics.parts[cat][part].values){
-	$("webtronics_part_model").insert(new Element("option",{"value":c}).update(c));
-      }
-    $("webtronics_part_help").innerHTML=webtronics.parts[cat][part].help;
-
+    if(cat){
+      for(var list in webtronics.partslists){
+				  for(var c in list.parts[cat][part].values){
+						$("webtronics_part_model").insert(new Element("option",{"value":c}).update(c));
+				  }
+					if(list.stringify.indexOf(part)!=-1){
+	    			$("webtronics_part_help").innerHTML=list.parts[cat][part].help;
+					}
+			}
       
     }
   },
@@ -252,8 +256,8 @@ var webtronics={
 	this.attachframe(filename,frame);
 	
       }.bind(this));
-      $("webtronics_showhelp").checked=false;
-      $("webtronics_invert").checked=false;
+ 			$("webtronics_showhelp").checked=false;
+       $("webtronics_invert").checked=false;
       $("webtronics_graph").checked=false;
       $("webtronics_connections").checked=false;
     }
@@ -308,6 +312,7 @@ var webtronics={
     $('webtronics_scope_display_div').insert(frame);
     $("webtronics_scope_display").style.display="block"
   },
+
   /*
    *         postspice:function(spice){
    *            var text;
@@ -368,8 +373,77 @@ console.log(exception);
     this.disablepage();
   },
  
+  addpart:function(url,cat,partname) {
+				var listfile=function(partsvg){
+				    var part=new Element("div",{"id":"webtronics_"+partname,"class":"webtronics_menu_part",'style':"display:none",'title':partname})
+				    .update(partsvg);
+				    $("webtronics_"+cat).insert(part);
+				  				  Event.observe(part,'mousedown',function(e){
+						var group=$$( "#"+ part.id+" g" )[0];
+						console.log(group);
+						webtronics.circuit.getgroup(group);
+					webtronics.setMode('select','Selection');
+			  });
+			  Event.observe(part,'mouseup',function(e){
+					webtronics.circuit.deleteSelection();				
+			  });
+
+
+			  }
+				
+				if(0){//if(url.indexOf("http://")==-1){
+		    	openfile(url+'/'+cat+'/'+partname+'.svg',listfile);
+			
+		    }
+		    else{
+		    	new request(url,cat+"/"+partname+'.svg',listfile);
+
+		    }
+		    
+ 		  },
+
   
-  
+//this takes an objectand returns a menu element
+		  makemenu:function(url, partlist,menu){
+
+				
+		    for (var cat in partlist.parts){
+		    	if(!$("webtronics_"+cat)){
+				    var category=new Element("div",{"id":"webtronics_"+cat})
+				    	.insert(new Element("p").update(cat)
+				    	.observe('click',function(e){
+				    	
+								var menuitems=$$('#'+menu.id+'>div>div');
+								
+								for(var i=0;i<menuitems.length;i++){
+									if(menuitems[i].parentNode==Event.element(e).parentNode){
+							  		if(menuitems[i].style.display=='none'){
+							    		menuitems[i].style.display='block';
+							  		}
+							  		else{
+							    		menuitems[i].style.display='none';
+							  		}
+									}
+									else{
+							  		menuitems[i].style.display='none';
+									}
+								}
+				    	}));
+  			      menu.insertBefore(category,menu.firstChild);
+ 	      
+		      for(var partname in partlist.parts[cat]){
+							if(!$("webtronics_"+partname)){
+								webtronics.addpart(url , cat,partname);
+
+							}
+							//if(partlist.parts[cat][partname].indexOf()<0){}
+		      }                
+		      
+		    }
+
+		  }
+		  },
+
   
   /*all events are loaded here*/
   init:function(){
@@ -453,72 +527,24 @@ console.log(exception);
 		  $('webtronics_side_bar').onselectstart = function() {return false;} 
 		  
 		  /*asynchronous part loading */
-		  
-		  var loadparts={
-		    category:{},
-		  addpart:function(cat,partname) {
-		    openfile("symbols/"+cat+'/'+partname+'.svg',function(partsvg){
-		      var part=new Element("div",{"id":"webtronics_"+partname,'style':"display:none",'title':partname})
-		      .update(partsvg);
-		      
-		      Event.observe(part,'mousedown',function(e){
-			webtronics.circuit.unselect();
-			var element=Event.element(e);
-			while(element.tagName!=="svg"){
-			  element=element.parentNode;
-			}
-			var group=element.firstChild;
-			while(group.nodeType!==1||group.tagName!=="g"){
-			  group=group.nextSibling;
-			}
-			webtronics.circuit.getgroup(group);
-			webtronics.setMode('select','Selection');
-			
-		      });
-		      Event.observe(part,'mouseup',function(e){
-			webtronics.circuit.deleteSelection();				
-		      });
-		      /*this might get the ipad working*/
-		      Event.observe(part, "onclick", void(0));
-		      $("webtronics_"+cat).insert(part);
-		    });
-		  },
-		  addcategory:function(partlist){
-		    
-		    webtronics.parts = JSON.parse(partlist).parts;  
-		    for (var cat in webtronics.parts){
-		      category=new Element("div",{"id":"webtronics_"+cat})
-		      .insert(new Element("p").update(cat)
-		      .observe('click',function(e){
-			var menuitems=$$('#webtronics_parts_list>div>div');
-			for(var i=0;i<menuitems.length;i++){
-			  if(menuitems[i].parentNode==Event.element(e).parentNode){
-			    if(menuitems[i].style.display=='none'){
-			      menuitems[i].style.display='block';
-			    }
-			    else{
-			      menuitems[i].style.display='none';
-			    }
-			  }
-			  else{
-			    menuitems[i].style.display='none';
-			  }
-			}
-		      }));
-		      
-		      for(var partname in webtronics.parts[cat]){
-			loadparts.addpart(cat,partname);
-		      }                
-		      $("webtronics_parts_list").insertBefore(category,$("webtronics_parts_list").firstChild);
-		      
-		    }
-		    webtronics.models = partlist.evalJSON(true).models;  
-		  }
-		  }
-		  openfile("symbols/parts.json", loadparts.addcategory);
-		  
-		  
-		  
+
+
+		
+		
+		webtronics.serverurls.each(function(url){
+			//new request(url,"parts.json", function(text){
+			openfile(url+"/parts.json", function(text){
+				webtronics.partslists.push(text.evalJSON(true));
+				webtronics.partslists[webtronics.partslists.length-1].url=webtronics.serverurls[i];
+				webtronics.makemenu(url,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
+			}.bind(this));
+    }.bind(this));
+		
+
+
+
+    			
+
 		  /*chipmaker*/
 		  $("webtronics_hor_pins").insert(Element("option",{"value":0}).update(0));
 		  for(var i=1;i<50;i++){
@@ -642,23 +668,20 @@ console.log(exception);
 		      
 		    });
 		  }
-		  if($("webtronics_showhelp")){
-                Event.observe($("webtronics_showhelp"),"click",function(){
-                    if($("webtronics_showhelp").checked){
-                        $$(".webtronics_help").forEach(function(e){
-                            e.style.display="block";
-                        }); 
-                    }
-                    else{
-                        $$(".webtronics_help").forEach(function(e){
-                            e.style.display="none";
-                        }); 
-                    }      
-                });
-         }
-		  
-		  
-		  
+	  	if($("webtronics_showhelp")){
+				Event.observe($("webtronics_showhelp"),"click",function(){
+					if($("webtronics_showhelp").checked){
+						$$(".webtronics_help").forEach(function(e){
+							e.style.display="block";
+						});
+					}
+					else{
+						$$(".webtronics_help").forEach(function(e){
+							e.style.display="none";
+					});
+				}
+			});
+			}
 		  /*properties events*/		
 		  
 		  
@@ -687,8 +710,10 @@ console.log(exception);
 		    if($('webtronics_part_model').value){
 		      $("webtronics_part_dir_model").options.length=0;
 		      $("webtronics_part_dir_model").appendChild(new Element("option",{"value":""}).update("none"));
-		      for(var i=0;i<webtronics.parts[cat][part].values[$('webtronics_part_model').value].length;i++){
-			$("webtronics_part_dir_model").insert(new Element("option",{"value":webtronics.parts[cat][part].values[$('webtronics_part_model').value][i]}).update(webtronics.parts[cat][part].values[$('webtronics_part_model').value][i]));
+		      for( var list  in webtronics.partslists){
+		      	for(var i=0;i<list.parts[cat][part].values[$('webtronics_part_model').value].length;i++){
+							$("webtronics_part_dir_model").insert(new Element("option",{"value":list.parts[cat][part].values[$('webtronics_part_model').value][i]}).update(list.parts[cat][part].values[$('webtronics_part_model').value][i]));
+		      	}
 		      }
 		    }
 		    $('webtronics_part_value').value=$("webtronics_part_model").options[$("webtronics_part_model").selectedIndex].value;
@@ -715,9 +740,6 @@ console.log(exception);
 		  // 				    textReader.readAsText();
 		  //     		    }
 		  // 		    }.bind(this));
-		  
-		  
-		  
 		  
 		  /*save as png modal*/
 		  if($("webtronics_image_ok")){
@@ -754,7 +776,7 @@ console.log(exception);
 			div.update(svg);
 			var model=$("webtronics_chip_display").getElementsByTagName("g")[0];
 			webtronics.circuit.writewtx(model,"value",$('webtronics_chip_spice_select').value);
-			webtronics.circuit.writewtx(model,"model",".inc "+webtronics.models[$('webtronics_chip_spice_select').value]);
+			webtronics.circuit.writewtx(model,"model",webtronics.models[$('webtronics_chip_spice_select').value]);
 		      });
 		    }
 		  });

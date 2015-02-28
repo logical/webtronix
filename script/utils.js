@@ -1,10 +1,3 @@
-// This code was written by Tyler Akins and has been placed in the
-// public domain.  It would be nice if you left this header intact.
-// Base64 code from Tyler Akins -- http://rumkin.com
-
-// schiller: Removed string concatenation in favour of Array.join() optimization,
-//           also precalculate the size of the array needed.
-
 
 function openfile(Name,response){
 	var text;
@@ -21,12 +14,50 @@ function openfile(Name,response){
 		response("Could not load file...\n");
 	},
 	onException: function(req,exception) {
-		alert("Could not find "+Name); 
+		console.log(exception);
+		alert("file load Exception "+Name); 
 		return true;
 		}, 
 	});
   
 }
+
+		//http://stackoverflow.com/questions/3076414/ways-to-circumvent-the-same-origin-policy
+//Rather than posting messages back and forth I open several iframes because otherwise one trnsmission would have to finish 
+// before another began
+function request(url, file, response){
+
+	var server=document.createElement("iframe");
+	server.style.display="none";
+	server.id=file;
+	server.src=url+"/webtronix_server.html";
+	
+	$("webtronics_main_window").appendChild(server);
+
+	function receiveMessage(event){
+		if(event.data.filename==file){
+			response(event.data.text);
+			console.log(server.parentNode);
+			server.parentNode.removeChild(server);
+		
+		}
+
+	};
+		
+	window.addEventListener("message", receiveMessage, false);
+	var iframe=document.getElementById(file);	
+	console.log(iframe.contentWindow.location.hostname);
+ 	iframe.contentWindow.postMessage(file, iframe.contentWindow.location.hostname );
+	//	server.src=url+"/webtronix_server.html?file="+file;
+}
+
+// This code was written by Tyler Akins and has been placed in the
+// public domain.  It would be nice if you left this header intact.
+// Base64 code from Tyler Akins -- http://rumkin.com
+
+// schiller: Removed string concatenation in favour of Array.join() optimization,
+//           also precalculate the size of the array needed.
+
 
 function encode64(input) {
     if(window.btoa){
