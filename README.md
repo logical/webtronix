@@ -35,7 +35,8 @@ I was hoping for a few volunteers and more community involvement. If you would l
 LATEST
 ------
 
-I have been fixing the capabilities of Webtronix.I can now access components, models , or whole circuits across domains. I picture a whole ecosystem of people making stuff from component to complete tools and merging them using system of coss domain engineering tools like webtronix.
+I have been adding capabilities to Webtronix.I can now access components, models , or whole circuits across domains. I picture a whole ecosystem of people making stuff from components to complete tools and merging them using a system of coss domain engineering tools like webtronix.
+The main obstacle to this will be standards. I cannot create standards such as file formats. :(
 
 BUG warning:
 I have been doing a lot of rearranging so the code may be buggy.
