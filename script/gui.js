@@ -15,7 +15,8 @@ var webtronics={
   Alist:/^(x|y|x1|y1|x2|y2|dx|dy|cx|cy|r|width|height|transform|d|id|class|fill|stroke|visibility|stroke-width|xmlns|xmlns:wtx|connects|partvalue|flippable|spice|index|font-size|font-weight|font-style|font-family)$/,
   Elist:/^(path|circle|rect|line|text|g|tspan|svg|wtx:part|wtx:pins|wtx:analog|wtx:digital|wtx:node|wtx:id|wtx:type|wtx:name|wtx:category|wtx:value|wtx:label|wtx:spice|wtx:flip|wtx:model|wtx:measure|metadata|)$/,
   /* .lib files contain spice .model devices .mod devices contain .subckt devices and the id must begin with x*/
-	serverurls:["webtronix_server"],
+//	serverurls:["http://logical.github.io/webtronix/webtronix_server"],
+ 	serverurls:["webtronix_server"],
   partslists:[],
   models:{},
   docfromtext:function(txt){
@@ -82,12 +83,12 @@ var webtronics={
     var part=this.circuit.readwtx(elem,"name");
     var cat=this.circuit.readwtx(elem,"category");
     if(cat){
-      for(var list in webtronics.partslists){
-				  for(var c in list.parts[cat][part].values){
+      for(var i=0;i<webtronics.partslists.length;i++){
+				  for(var c in webtronics.partslists[i].parts[cat][part].values){
 						$("webtronics_part_model").insert(new Element("option",{"value":c}).update(c));
 				  }
-					if(list.stringify.indexOf(part)!=-1){
-	    			$("webtronics_part_help").innerHTML=list.parts[cat][part].help;
+					if(JSON.stringify(list).indexOf(part)!=-1){
+	    			$("webtronics_part_help").innerHTML=webtronics.partslists[i].parts[cat][part].help;
 					}
 			}
       
@@ -391,7 +392,7 @@ console.log(exception);
 
 			  }
 				
-				if(0){//if(url.indexOf("http://")==-1){
+				if(url.indexOf("http://")==-1){
 		    	openfile(url+'/'+cat+'/'+partname+'.svg',listfile);
 			
 		    }
@@ -530,15 +531,24 @@ console.log(exception);
 
 
 		
-		
 		webtronics.serverurls.each(function(url){
-			//new request(url,"parts.json", function(text){
-			openfile(url+"/parts.json", function(text){
+		if(url=="webtronix_server"){
+			openfile(url+"/parts.json",function(text){
 				webtronics.partslists.push(text.evalJSON(true));
-				webtronics.partslists[webtronics.partslists.length-1].url=webtronics.serverurls[i];
+				webtronics.partslists[webtronics.partslists.length-1].url=url;
 				webtronics.makemenu(url,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
-			}.bind(this));
-    }.bind(this));
+			});
+					
+			}
+	else{
+			new request(url,"parts.json",function(text){
+				webtronics.partslists.push(text.evalJSON(true));
+				webtronics.partslists[webtronics.partslists.length-1].url=url;
+				webtronics.makemenu(url,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
+			});
+		
+		}
+		    }.bind(this));
 		
 
 
@@ -621,7 +631,7 @@ console.log(exception);
 		  if($('webtronics_netlist')){
 		    Event.observe($('webtronics_netlist'), 'click', function() {
 		      
-		      webtronics.circuit.createnetlist(function(netlist){
+		      netlistcreator.createnetlist(function(netlist){
 			var content=$$("#webtronics_netlist_text_div > *") 
 			for(var i=0;i<content.length;i++){
 			  $("webtronics_netlist_text_div").removeChild(content[i]);
@@ -637,7 +647,7 @@ console.log(exception);
 		  if($('webtronics_run')){
 		    Event.observe($('webtronics_run'), 'click', function() {
 		      //                    webtronics.postspice(webtronics.circuit.createnetlist());
-		      webtronics.circuit.createnetlist(webtronics.gnucapjs);
+		      netlistcreator.createnetlist(webtronics.gnucapjs);
 		    });
 		    
 		  }
@@ -664,7 +674,7 @@ console.log(exception);
 		  if($('webtronics_connections')){
 		    $('webtronics_connections').checked=false;
 		    Event.observe($('webtronics_connections'),'click',function(){
-		      webtronics.circuit.showconnections($('webtronics_connections').checked);
+		      netlistcreator.showconnections($('webtronics_connections').checked);
 		      
 		    });
 		  }
@@ -710,9 +720,9 @@ console.log(exception);
 		    if($('webtronics_part_model').value){
 		      $("webtronics_part_dir_model").options.length=0;
 		      $("webtronics_part_dir_model").appendChild(new Element("option",{"value":""}).update("none"));
-		      for( var list  in webtronics.partslists){
-		      	for(var i=0;i<list.parts[cat][part].values[$('webtronics_part_model').value].length;i++){
-							$("webtronics_part_dir_model").insert(new Element("option",{"value":list.parts[cat][part].values[$('webtronics_part_model').value][i]}).update(list.parts[cat][part].values[$('webtronics_part_model').value][i]));
+		      for( var i=0;i<webtronics.partslists.length;i++){
+		      	for(var j=0;j<webtronics.partslists[i].parts[cat][part].values[$('webtronics_part_model').value].length;j++){
+							$("webtronics_part_dir_model").insert(new Element("option",{"value":webtronics.partslists[i].parts[cat][part].values[$('webtronics_part_model').value][j]}).update(webtronics.partslists[i].parts[cat][part].values[$('webtronics_part_model').value][j]));
 		      	}
 		      }
 		    }

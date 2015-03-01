@@ -41,6 +41,7 @@ function request(url, file, response){
 	};
 	window.addEventListener("message", receiveMessage, false);
 	server.src=url+"/webtronix_server.html?file="+file;
+	console.log(server.src);
 }
 
 // This code was written by Tyler Akins and has been placed in the
