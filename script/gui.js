@@ -381,7 +381,6 @@ console.log(exception);
 				    $("webtronics_"+cat).insert(part);
 				  				  Event.observe(part,'mousedown',function(e){
 						var group=$$( "#"+ part.id+" g" )[0];
-						console.log(group);
 						webtronics.circuit.getgroup(group);
 					webtronics.setMode('select','Selection');
 			  });
@@ -674,7 +673,7 @@ console.log(exception);
 		  if($('webtronics_connections')){
 		    $('webtronics_connections').checked=false;
 		    Event.observe($('webtronics_connections'),'click',function(){
-		      netlistcreator.showconnections($('webtronics_connections').checked);
+		      webtronics.circuit.showconnections($('webtronics_connections').checked);
 		      
 		    });
 		  }

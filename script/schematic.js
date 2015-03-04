@@ -72,6 +72,8 @@ function Schematic(elem) {
   this.selectionRect = { x:0, y:0, width:0, height: 0 };
   this.mouseDown={x:0,y:0};
   //	this.viewoffset={x:0,y:0};
+  this.onconnector=false;
+	this.connector=null;
   
   this.init(this.container);
   
@@ -95,9 +97,10 @@ function Schematic(elem) {
 
 //******************************************************
 ///container functions
-//convenient to get parts of svg from another page
 Schematic.prototype.getwithselector=function(selector){
 	return $$(selector);
+
+
 }
 
 
@@ -226,7 +229,7 @@ Schematic.prototype.updateinfo=function(mutations){
   if(update){
 //    console.log("updating");
     if(!this.drag)this.addhistory();
-    parent.netlistcreator.addconnects();
+    this.addconnects();
   }
 }
 
@@ -595,14 +598,14 @@ Schematic.prototype.rotate=function(elem){
   /*center the  object*/
   var box=elem.getBBox();	
   var rotmatrix=this.svgRoot.createSVGTransform();
-  var x=Math.round((box.width/2)/this.grid)*this.grid;
-  var y=Math.round((box.height/2)/this.grid)*this.grid;
+  var x=box.width/2;//Math.round((box.width/2)/this.grid)*this.grid;
+  var y=box.height/2;//Math.round((box.height/2)/this.grid)*this.grid;
   //	console.log(x+" "+y+"\n");
   rotmatrix.setRotate(90,x,y);
   matrix=matrix.multiply(rotmatrix.matrix);
   /*align with grid*/
-  matrix.e=Math.round(matrix.e/this.grid)*this.grid;
-  matrix.f=Math.round(matrix.f/this.grid)*this.grid;
+  //matrix.e=Math.round(matrix.e/this.grid)*this.grid;
+  //matrix.f=Math.round(matrix.f/this.grid)*this.grid;
   elem.setAttributeNS(null,'transform','matrix('+matrix.a+','+matrix.b+','+matrix.c+','+matrix.d+','+matrix.e+','+matrix.f+')');
   
   //	var trans=this.svgRoot.createSVGTransform();
@@ -846,192 +849,6 @@ Schematic.prototype.realPosition=function(x,y){
   return real;
 }
 
-Schematic.prototype.connect =function(line,x,y){
-var x1=line.getAttributeNS(null,"x1")-0;
-var x2=line.getAttributeNS(null,"x2")-0;
-var y1=line.getAttributeNS(null,"y1")-0;
-var y2=line.getAttributeNS(null,"y2")-0;
-this.remove(line);
-this.wireevents(this.createline('black',2,x1,y1,x,y));
-this.wireevents(this.createline('black',2,x,y,x2,y2));
-if($('templine1')){
-x1=$('templine1').getAttributeNS(null,'x1');
-y1=$('templine1').getAttributeNS(null,'y1');
-x2=$('templine1').getAttributeNS(null,'x2');
-y2=$('templine1').getAttributeNS(null,'y2');
-var svg=this.createline('black',2, x1, y1,x2, y2);
-this.wireevents(svg);
-this.drawing.appendChild(svg)
-}
-if($("templine2")){
-x1=$('templine2').getAttributeNS(null,'x1');
-y1=$('templine2').getAttributeNS(null,'y1');
-x2=$('templine2').getAttributeNS(null,'x2');
-y2=$('templine2').getAttributeNS(null,'y2');
-var svg=this.createline('black',2, x1, y1,x2, y2);
-this.wireevents(svg);
-this.drawing.appendChild(svg)
-}
-this.remove($('templine1'));
-this.remove($('templine2'));
-}
-
-
-Schematic.prototype.wireevents=function(svg){
-	this.drawing.appendChild(svg);
-	
-	var x1=svg.getAttributeNS(null,'x1');
-	var y1=svg.getAttributeNS(null,'y1');
-	var x2=svg.getAttributeNS(null,'x2');
-	var y2=svg.getAttributeNS(null,'y2');
-
-
-//	extra wide line to help capture events
-	var eventline = this.createline('blue',4, x1, y1,x2,y2);
-	eventline.setAttribute('class',"webtronics_schematic_wire_eventline");
-	eventline.setAttribute("pointer-events","all");
-	eventline.setAttribute('visibility','hidden');
- 	this.info.appendChild(eventline);
-	
-  //line to make connections
-	Event.observe(eventline,"mouseover",function(e){
-	    var connector=$$('#information > .webtronics_schematic_wire_connector');
-	    for(var i=0;i<connector.length;i++)connector[i].parentNode.removeChild(connector[i]);
-	    if(!this.drag){
-
-	    var real=this.realPosition(Event.pointerX(e),Event.pointerY(e));
-	    x = Math.round(real.x/this.grid) * this.grid;
-	    y =Math.round(real.y/this.grid) * this.grid;
-	    var data = $A(arguments);
-	    data.shift();
-	    var circle=this.createdot('red',x,y,5);
-	    circle.setAttribute('class',"webtronics_schematic_wire_connector");
-	    circle.setAttribute("pointer-events","all");
-	    circle.setAttributeNS(null, 'fill-opacity', .35);
-	    circle.setAttribute('visibility','hidden');
-
-
-
-	    Event.observe(circle,"mouseout",function(){
-		  var data = $A(arguments);
-		  data.shift();							
-		  data[0].parentNode.removeChild(data[0]);
-	    }.bindAsEventListener(this,circle));
-
-/*this makes sure dots are not shown when not moused over*/
-
-	    Event.observe(circle,"mouseover",function(){
-		  var data = $A(arguments);
-		  data.shift();							
-		  data[0].setAttribute('visibility','visible');
-	    }.bindAsEventListener(this,circle));
-	    
-	    Event.observe(circle,"mousedown",function(){
-	      var data = $A(arguments);
-	      data.shift();
-	      var connect=true;
-	      var dots=this.getwithselector("#webtronics_drawing > circle");
-	      dots.each(function(dot){if(dot.getAttribute("cx")==data[1] &&  dot.getAttribute("cy")==data[2])connect=false;});
-	      if(connect){
-				this.drawing.appendChild(this.createdot('black',data[1],data[2],3));
-	      }
-//check if there is aalready a dot
-	      this.connect(data[0],data[1],data[2]);
-	
-	      if(this.mode=='select'){
-		parent.webtronics.setMode('line','Wire');
-		var svg = this.createline('blue',2, data[1], data[2], data[1], data[2]);
-		svg.id = 'templine1';
-		svg.setAttributeNS(null,'stroke-dasharray','3,2');
-		this.info.appendChild(svg);
-	      }
-	      else{
-		parent.webtronics.setMode('select','Selection');
-	      }
-
-	      var connector=$$('#information > .webtronics_schematic_wire_connector');
-	      for(var i=0;i<connector.length;i++)connector[i].parentNode.removeChild(connector[i]);
-	    }.bindAsEventListener(this,data[0],x,y));
-	    this.info.appendChild(circle);
-	  }
-	  
-	}.bindAsEventListener(this,svg));
-
- 
-}
-
-Schematic.prototype.connect=function(line,x,y){
-
-  
-
-    var x1=line.getAttributeNS(null,"x1")-0;                       
-    var x2=line.getAttributeNS(null,"x2")-0;                       
-    var y1=line.getAttributeNS(null,"y1")-0;                       
-    var y2=line.getAttributeNS(null,"y2")-0;                       
-   this.remove(line);
-    this.wireevents(this.createline('black',2,x1,y1,x,y));
-    this.wireevents(this.createline('black',2,x,y,x2,y2));
-
-    if($('templine1')){  
-      x1=$('templine1').getAttributeNS(null,'x1');
-      y1=$('templine1').getAttributeNS(null,'y1');
-      x2=$('templine1').getAttributeNS(null,'x2');
-      y2=$('templine1').getAttributeNS(null,'y2');
-      var svg=this.createline('black',2, x1, y1,x2, y2);
-      this.wireevents(svg);
-      this.drawing.appendChild(svg)
-    }
-    if($("templine2")){
-      x1=$("templine2").getAttributeNS(null,'x1');
-      y1=$("templine2").getAttributeNS(null,'y1');
-      x2=$("templine2").getAttributeNS(null,'x2');
-      y2=$("templine2").getAttributeNS(null,'y2');
-      var svg=this.createline('black',2, x1, y1,x2, y2);
-      this.wireevents(svg);
-      this.drawing.appendChild(svg)
-    }
-
-    this.remove($("templine1"));
-    this.remove($("templine2"));
-  
-  
-},
-
-
-
-
-
-Schematic.prototype.wiresegment=function(){
-      if($('templine1')){
-	/*create line*/
-	var x1=$('templine1').getAttributeNS(null,'x1');
-	var y1=$('templine1').getAttributeNS(null,'y1');
-	var x2=$('templine1').getAttributeNS(null,'x2');
-	var y2=$('templine1').getAttributeNS(null,'y2');
-	if(!(x1==x2&&y1==y2)){
-	  var svg=this.createline('black',2, x1, y1,x2, y2);
-	  
-	 this.drawing.appendChild(svg);
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  this.wireevents(svg);
-	  this.remove($('templine1'));
-	  if($('templine2'))$('templine2').id='templine1';					
-	  else{
-	    svg = this.createline('blue',2, x2, y2,x2,y2);
-	    svg.id = 'templine1';
-	    svg.setAttributeNS(null,'stroke-dasharray','3,2');
-	    this.info.appendChild(svg);
-	  }					
-	}
-      }
-}
 
 
 
@@ -1040,15 +857,16 @@ Schematic.prototype.onMouseDown = function(event){
   if(!this.drag){
 
     var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
-    this.mouseDown.x = Math.round(real.x/this.grid) * this.grid;
-    this.mouseDown.y =Math.round(real.y/this.grid) * this.grid;
+    this.mouseDown.x = real.x;//Math.round(real.x/this.grid) * this.grid;
+    this.mouseDown.y = real.y;//Math.round(real.y/this.grid) * this.grid;
     if (this.mode == 'line') {
       if (!Event.isLeftClick(event)){
-	this.remove($("templine1"));	
-	this.remove($("templine2"));
-	return;
+			this.remove($("templine1"));	
+			this.remove($("templine2"));
+			parent.webtronics.setMode('select','Selection');
+			return;
       }
-	this.wiresegment();
+			else this.wiresegment();
     }	
     /*clicked on background  in select mode ,remove selection*/
     else if(this.mode=='select'){
@@ -1256,8 +1074,8 @@ Schematic.prototype.onMouseMove = function(event) {
     if(this.drag){
       var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
       mouseAt={x:0,y:0};
-      mouseAt.x = Math.round(real.x / this.grid) * this.grid;
-      mouseAt.y =Math.round(real.y / this.grid) * this.grid;
+      mouseAt.x = Math.round(real.x);//Math.round(real.x / this.grid) * this.grid;
+      mouseAt.y =Math.round(real.y);//Math.round(real.y / this.grid) * this.grid;
       this.dragSelection(mouseAt.x-this.mouseDown.x,mouseAt.y-this.mouseDown.y);
 
       
@@ -1282,11 +1100,15 @@ Schematic.prototype.onMouseMove = function(event) {
   
   
   else if (this.mode=='line'){
+		if(!this.onconnector){
     if ($('templine1')){
+    	
       var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
       mouseAt={x:0,y:0};
-      mouseAt.x = Math.round(real.x / this.grid) * this.grid;
-      mouseAt.y =Math.round(real.y / this.grid) * this.grid;
+      mouseAt.x = Math.round(real.x);//Math.round(real.x / this.grid) * this.grid;
+      mouseAt.y =Math.round(real.y);//Math.round(real.y / this.grid) * this.grid;
+
+//		if(!this.onconnector){
       
       var x=$('templine1').getAttribute('x1')-0;
       var y=$('templine1').getAttribute('y1')-0;
@@ -1294,12 +1116,12 @@ Schematic.prototype.onMouseMove = function(event) {
       
       if(Math.abs(x-real.x)>=Math.abs(y-real.y)){
 	
-	this.resize($('templine1'), x, y, mouseAt.x, y);
-	this.remove($('templine2'));	
-	var svg = this.createline('blue',2, mouseAt.x, y, mouseAt.x, mouseAt.y);
-	svg.id = 'templine2';
-	svg.setAttributeNS(null,'stroke-dasharray','3,2');
-	this.info.appendChild(svg);
+			this.resize($('templine1'), x, y, mouseAt.x, y);
+			this.remove($('templine2'));	
+			var svg = this.createline('blue',2, mouseAt.x, y, mouseAt.x, mouseAt.y);
+			svg.id = 'templine2';
+			svg.setAttributeNS(null,'stroke-dasharray','3,2');
+			this.info.appendChild(svg);
 	
 	
       }
@@ -1315,7 +1137,7 @@ Schematic.prototype.onMouseMove = function(event) {
       }
       
     }
-    
+    }
   }
 }
 
