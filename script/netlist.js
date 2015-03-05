@@ -470,16 +470,9 @@ createnetlist:function(responsefunc){
       spice+=sections.coupling[i]+'\n';
     }
   }
-  if(sections.firstdir.length){
-    sections.firstdir=sections.firstdir.uniq();
-    
-    for(var i=0;i<sections.firstdir.length;i++){
-//      console.log(sections.firstdir[i]);
-      
-      if(sections.firstdir[i].length){
-
-
-  var modelloader={
+  
+  
+    var modelloader={
     modeltext:"",
     modelcount:0,
     download:function(name){
@@ -515,8 +508,6 @@ createnetlist:function(responsefunc){
 						if(sections.lastdir[i]!="")spice+=sections.lastdir[i]+"\n";
 					}
       }
-	   var connector=webtronics.circuit.getwithselector('#information > .webtronics_namewire_connector')
-		for(var i=0;i<connector.length;i++)connector[i].parentNode.removeChild(connector[i]);
       responsefunc(spice.toLowerCase());
     },
     
@@ -530,12 +521,26 @@ createnetlist:function(responsefunc){
       }       
     }
   }
+  
+  
+  if(sections.firstdir.length){
+    sections.firstdir=sections.firstdir.uniq();
+    
+    for(var i=0;i<sections.firstdir.length;i++){
+//      console.log(sections.firstdir[i]);
+      
+      if(sections.firstdir[i].length){
+
+
+
 			modelloader.download(sections.firstdir[i],sections,webtronics.partslists);
       }
     }
   }
   else modelloader.finish();
-  
+  var connector=webtronics.circuit.getwithselector('#information > .webtronics_namewire_connector')
+	for(var i=0;i<connector.length;i++)connector[i].parentNode.removeChild(connector[i]);
+
   
   
 },
