@@ -1002,6 +1002,9 @@ Schematic.prototype.move = function(shape, x, y) {
 Schematic.prototype.dropSelection=function(){
   var floating=$('schematic_floating');
   var matrix=this.parseMatrix(floating);
+	matrix.e = Math.round(matrix.e / this.grid) * this.grid;
+	matrix.f =Math.round(matrix.f / this.grid) * this.grid;
+
   for(var i=floating.childNodes.length;i>0;i--){
     /*move other parts*/
     this.move(floating.childNodes[i-1],matrix.e, matrix.f);
@@ -1028,9 +1031,10 @@ Schematic.prototype.onMouseUp = function(event) {
 //     }
     this.drag=false;
     if(this.mode=='select'){
+    
       var floating=$('schematic_floating');
       if(floating){
-	this.dropSelection();
+			this.dropSelection();
       }
       else{
 	this.unselect();
