@@ -604,10 +604,10 @@ Schematic.prototype.rotate=function(elem){
   rotmatrix.setRotate(90,x,y);
   matrix=matrix.multiply(rotmatrix.matrix);
   /*align with grid*/
-  //matrix.e=Math.round(matrix.e/this.grid)*this.grid;
-  //matrix.f=Math.round(matrix.f/this.grid)*this.grid;
+ // matrix.e=Math.round(matrix.e/this.grid)*this.grid;
+ // matrix.f=Math.round(matrix.f/this.grid)*this.grid;
   elem.setAttributeNS(null,'transform','matrix('+matrix.a+','+matrix.b+','+matrix.c+','+matrix.d+','+matrix.e+','+matrix.f+')');
-  
+  this.snaptowire(elem)
   //	var trans=this.svgRoot.createSVGTransform();
   //	trans.setRotate(90,0,0);
   //	elem.transform.baseVal.appendItem(trans);
@@ -754,7 +754,7 @@ Schematic.prototype.getpins=function(part){
     var nodes = this.getwtxtagname(part,"node");
     var matrix=this.parseMatrix(part);
     for(var j=0;j<nodes.length;j++){
-      var point = this.matrixxform( {x:this.getwtxattribute(nodes[j],"x"),y:this.getwtxattribute(nodes[j],"y")},matrix);
+      var point = parent.netlistcreator.matrixxform( {x:this.getwtxattribute(nodes[j],"x"),y:this.getwtxattribute(nodes[j],"y")},matrix);
       pins.push({x:point.x,y:point.y}) ;
     }
   return pins;
@@ -1002,13 +1002,16 @@ Schematic.prototype.move = function(shape, x, y) {
 Schematic.prototype.dropSelection=function(){
   var floating=$('schematic_floating');
   var matrix=this.parseMatrix(floating);
-	matrix.e = Math.round(matrix.e / this.grid) * this.grid;
-	matrix.f =Math.round(matrix.f / this.grid) * this.grid;
 
   for(var i=floating.childNodes.length;i>0;i--){
     /*move other parts*/
     this.move(floating.childNodes[i-1],matrix.e, matrix.f);
     if(floating.childNodes[i-1].getAttribute('class')!='schematic_tracker'){
+
+//snap pins to wires		
+    	if(floating.childNodes[i-1].tagName=="g"){
+    		this.snaptowire(floating.childNodes[i-1]);
+    	}
       this.drawing.appendChild(floating.childNodes[i-1]);
     }
     else {

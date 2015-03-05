@@ -152,7 +152,7 @@ Schematic.prototype.maketerminal=function(wire){
 	      var dots=$$("#webtronics_drawing > circle");
 					var found=false;
 			    for(var i=0;i<dots.length;i++){
-			    	if((Math.abs(dots[i].getAttribute("cx")-x)<3)&&(Math.abs(dots[i].getAttribute("cy")-y)<3)){
+			    	if((Math.abs(dots[i].getAttribute("cx")-x)<5)&&(Math.abs(dots[i].getAttribute("cy")-y)<5)){
 			      	found=true;
 			      	break;
 			    	}
@@ -318,7 +318,35 @@ Schematic.prototype.connect=function(line,x,y){
   
 }
 
+Schematic.prototype.snaptowire=function(part){
+	var pins=this.getpins(part);
+	
+	var wires=$$( "#webtronics_drawing > line" );
 
+	for(var i=0;i<wires.length;i++){
+
+		var x1=wires[i].getAttribute("x1");
+		var y1=wires[i].getAttribute("y1");	
+		var x2=wires[i].getAttribute("x2");
+		var y2=wires[i].getAttribute("y2");	
+		for(var j=0;j<pins.length;j++){
+			if((Math.abs(x1-pins[j].x)<5)&&(Math.abs(y1-pins[j].y)<5)){
+				this.move(part,x1-pins[j].x, y1-pins[j].y);
+				return;
+				}
+			if((Math.abs(x2-pins[j].x)<5)&&(Math.abs(y2-pins[j].y)<5)){
+				this.move(part,x2-pins[j].x, y2-pins[j].y);
+				return ;
+			}			
+	
+		}
+	
+	}
+
+	return {x:0,y:0};
+
+
+}
 
 
 
