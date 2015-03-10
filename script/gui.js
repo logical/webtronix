@@ -220,25 +220,23 @@ var webtronics={
     
   },
 
-
+		download:function(filename, data) {
+			var pom = document.createElement('a');
+			pom.setAttribute('href', data);
+			pom.setAttribute('download', filename);
+			document.body.appendChild(pom);
+			pom.click();
+			pom.parentNode.removeChild(pom);
+		},
   saveuri:function(){
-    $('webtronics_image').style.display = "block";
-    this.center($('webtronics_image'));
     var string="<?xml version='1.0' ?>\n";
     string+="<!--Created by webtronics 0.1-->\n";
     var doc=this.circuit.getDoc(true,false);
     string += (new XMLSerializer()).serializeToString(doc);
-
-    if(navigator.appName == 'Microsoft Internet Explorer'){
-      $('webtronics_image_div').innerHTML=string;
-    }
-    else{
-      $("webtronics_image_save").src="data:image/svg+xml;base64," + encode64(string);
-       // this.fitimage($("webtronics_image_save"));
-    }
+		this.download("webtronix.svg","data:application/octet-stream;charset=utf-8;base64," + encode64(string));
     
     $('webtronics_file_menu').style.display='none';
-    this.disablepage();
+
   },
   
   
@@ -352,7 +350,6 @@ console.log(exception);
       $('webtronics_image_div').innerHTML="<img id='webtronics_image_save' >";
     }
 */
-    if($("webtronics_canvas")!=undefined)$("webtronics_canvas").parentNode.removeChild($("webtronics_canvas"));
     if(this.circuit.drawing.getAttribute('class')==="inv"){
         var doc=this.circuit.getDoc(true,true);
     }
@@ -361,19 +358,14 @@ console.log(exception);
     }
     var svgsize=this.circuit.svgSize();
     var canvas=new Element('canvas',{'id':'webtronics_canvas','width':svgsize.width-svgsize.x+20+'px','height':svgsize.height-svgsize.y+20+'px',style:"display:none"});
-    $("webtronics_image").insert(canvas);
+    document.body.insert(canvas);
     var ctx=$("webtronics_canvas").getContext("2d");
-    $('webtronics_image').style.display = "block";
 
     ctx.drawSvg(doc, 0, 0, svgsize.width-svgsize.x+20,svgsize.height-svgsize.y+20);    
-    this.center($('webtronics_image'));
-    var url= canvas.toDataURL("image/png");
-    $("webtronics_image_save").src=url;
-//    this.fitimage(canvas);
-    $('webtronics_file_menu').style.display='none';
-    this.disablepage();
+    var url= canvas.toDataURL("application/octet-stream");
+		this.download("webtronix.png",url);
+		canvas.parentNode.removeChild(canvas);		
   },
- 
   addpart:function(url,cat,partname) {
 				var listfile=function(partsvg){
 				    var part=new Element("div",{"id":"webtronics_"+partname,"class":"webtronics_menu_part",'style':"display:none",'title':partname})
@@ -501,6 +493,7 @@ console.log(exception);
 			       [{label:'sources',cb:webtronics.opensources},
 			       {label:'import',cb:webtronics.file_open},
 			       {label:'save',cb:webtronics.saveuri},
+			       {label:'kicad',cb:wtx2kicad},
 			       {label:'save-png',cb:webtronics.savepng},
 			       {label:'new',cb:webtronics.file_new}]);
       menu.observe('mouseout',function(e){
