@@ -860,6 +860,16 @@ console.log(exception);
 		      $('webtronics_scope_display_div').innerHTML="";
 		      //                    webtronics.enablepage();
 		    });
+		    Event.observe($('webtronics_scope_display_stop'), 'click', function() {
+		      webtronics.setMode('select','Selection');
+					$("webtronics_scope_display_frame").contentWindow.stopsimulation()				
+//		      $('webtronics_scope_display').style.display='none';
+//		      $('webtronics_scope_display_div').innerHTML="";
+		      //                    webtronics.enablepage();
+		    });
+		    
+		    
+		    
 		    Event.observe($("webtronics_scope_display"),'mousedown',function(e){
 		      var startx=e.layerX;
 		      var starty=e.layerY;
