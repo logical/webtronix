@@ -45,7 +45,7 @@ toolbar
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="webtronics_invert"></td><td>invert</td>
-						<td><input type="checkbox" id="webtronics_showhelp"></td><td>spice help</td>
+						<td><input type="checkbox" id="webtronics_showhelp"></td><td>help</td>
 					</tr>
 					</table>         
 				</form>
@@ -56,7 +56,7 @@ toolbar
 	<div id="webtronics_side_bar" >
 		<div id="webtronics_parts_list" >
 
-			
+		</div>	
 
 			
 			<br>	
@@ -67,7 +67,7 @@ toolbar
 			<a href="https://github.com/kripken/emscripten" target="_blank">EMSCRIPTEN</a>
 			
 			
-		</div>
+		
 
 
 	</div>
@@ -172,9 +172,27 @@ spice:
 select source server
 -->
 <div id="webtronics_add source" class='modal'>
+<div>
+<input class="webtronics_add_source_input" /></br>
+<input class="webtronics_add_source_input" /></br>
+<input class="webtronics_add_source_input" /></br>
+<input class="webtronics_add_source_input" /></br>
 <input class="webtronics_add_source_input" />
-<input class="webtronics_add_source_input" />
-<input class="webtronics_add_source_input" />
+</div></br>
+<div class="webtronics_help" ></br>
+<pre>
+sources can be local or remote
+
+webtronix_server is the default server parts
+
+remote sources must start with http://
+
+local source are absolute
+
+/local/source/webtronix_server
+
+</pre>
+</div></br>
 <img id="webtronics_add source_ok" src="buttons/ok.png"> 
 <img id="webtronics_add_source_cancel" src="buttons/cancel.png">
 </div>

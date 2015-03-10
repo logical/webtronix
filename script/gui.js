@@ -45,7 +45,7 @@ var webtronics={
     $('webtronics_diagram_area').style.height = realheight-buffer+'px';
     frames=$$('#webtronics_diagram_area>iframe')
     if(frames[0])frames[0].width = realwidth-buffer+'px';
-    $('webtronics_parts_list').style.height=realheight-buffer+'px';
+    $('webtronics_side_bar').style.height=realheight-buffer+'px';
   },
   
   
@@ -443,7 +443,40 @@ console.log(exception);
 
 		  }
 		  },
-
+		  populatemenu:function(){
+		  /*asynchronous part loading */
+		  	$("webtronics_parts_list").innerHTML="";
+				webtronics.serverurls.each(function(url){
+					if(url=="webtronix_server"){
+						openfile(url+"/parts.json",function(text){
+							webtronics.partslists.push(text.evalJSON(true));
+							webtronics.partslists[webtronics.partslists.length-1].url=url;
+							webtronics.makemenu(url,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
+						});
+					
+						}
+				else{
+						new request(url,"parts.json",function(text){
+							webtronics.partslists.push(text.evalJSON(true));
+							webtronics.partslists[webtronics.partslists.length-1].url=url;
+							webtronics.makemenu(url,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
+						});
+		
+					}
+							}.bind(this));
+						
+		  
+		  },
+	opensources:function(){
+		var sources=$$(".webtronics_add_source_input");
+		for( var i=0;i<sources.length;i++){
+			if(webtronics.serverurls[i])sources[i].value=webtronics.serverurls[i];
+			else sources[i].value="";
+		}
+		$("webtronics_add source").style.display="block";
+		this.center($("webtronics_add source"));
+    this.disablepage();
+	},
   
   /*all events are loaded here*/
   init:function(){
@@ -465,7 +498,8 @@ console.log(exception);
 			       $('webtronics_file').offsetTop+$('webtronics_file').offsetHeight,
 			       'webtronics_file_menu',
 			       $('webtronics_main_window'),
-			       [{label:'import',cb:webtronics.file_open},
+			       [{label:'sources',cb:webtronics.opensources},
+			       {label:'import',cb:webtronics.file_open},
 			       {label:'save',cb:webtronics.saveuri},
 			       {label:'save-png',cb:webtronics.savepng},
 			       {label:'new',cb:webtronics.file_new}]);
@@ -526,29 +560,10 @@ console.log(exception);
 		  $('webtronics_diagram_area').onselectstart = function() {return false;} 
 		  $('webtronics_side_bar').onselectstart = function() {return false;} 
 		  
-		  /*asynchronous part loading */
 
+//populate default menu
 
-		
-		webtronics.serverurls.each(function(url){
-		if(url=="webtronix_server"){
-			openfile(url+"/parts.json",function(text){
-				webtronics.partslists.push(text.evalJSON(true));
-				webtronics.partslists[webtronics.partslists.length-1].url=url;
-				webtronics.makemenu(url,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
-			});
-					
-			}
-	else{
-			new request(url,"parts.json",function(text){
-				webtronics.partslists.push(text.evalJSON(true));
-				webtronics.partslists[webtronics.partslists.length-1].url=url;
-				webtronics.makemenu(url,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
-			});
-		
-		}
-		    }.bind(this));
-		
+			webtronics.populatemenu();
 
 
 
@@ -871,6 +886,26 @@ console.log(exception);
 		    
 		    $('webtronics_open_text').style.display='none';
 		  });
+		  //sources events
+		  Event.observe($('webtronics_add source_ok'), 'click', function() {
+				var sources=$$(".webtronics_add_source_input");
+				var addresses=[]
+				for( var i=0;i<sources.length;i++){
+					if(sources[i].value.match(/.*/)!=-1)addresses.push(sources[i].value);
+				}	
+				webtronics.serverurls=addresses;
+				webtronics.populatemenu();
+		    $('webtronics_add source').style.display='none';
+		    webtronics.enablepage();
+		  });
+		  
+		  Event.observe($("webtronics_add_source_cancel"), 'click', function() {
+		    webtronics.setMode('select','Selection');
+		    
+		    $('webtronics_add source').style.display='none';
+		    webtronics.enablepage();
+		  });
+		  
 		  
 		  
     }.bind(this));

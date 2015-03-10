@@ -1149,31 +1149,43 @@ Schematic.prototype.onMouseMove = function(event) {
 }
 
 Schematic.prototype.onWheel=function(event){
+//this function is very clunky
+//And very tough to figure out
   if(Event.element(event)!=this.svgRoot){
-    var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
+    this.changeobserver.disconnect();
     var scale=1;
     var wheel=0;
-    if(event.wheelDelta)wheel=-event.wheelDelta;
+    if(event.wheelDelta)wheel=-event.wheelDelta/-120;
     else wheel=event.detail;
     var matrix = this.parseMatrix(this.drawing);
-    
+    //var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
+ 	  var window={x:event.clientX,y:event.clientY};
+ 	  var offsetx=((this.container.offsetWidth/2)-window.x)/2;
+    var offsety=((this.container.offsetHeight/2)-window.y)/2;
+
     if(wheel>0&&matrix.a<2){
-      scale=1.2;
+      scale=1.04;
+			console.log("in");
     }
-    
     else if(wheel<0&&matrix.a>0.3){
-      scale=0.8;
-    }
+      scale=0.96;
+      console.log("out");
+	  }
+
     matrix=matrix.scale(scale);
-    matrix.e=(this.container.offsetWidth/2)-(real.x*matrix.a);
-    matrix.f=(this.container.offsetHeight/2)-(real.y*matrix.a);
+		matrix=matrix.translate(offsetx,offsety);	
+
+// 		matrix.e=matrix.a<1?offsetx*matrix.a:offsetx/matrix.a;
+//    matrix.f=matrix.a<1?offsety*matrix.a:offsety/matrix.a;
+
     
     this.drawing.setAttributeNS(null,'transform','matrix('+matrix.a+','+matrix.b+','+matrix.c+','+matrix.d+','+matrix.e+','+matrix.f+')');
     this.background.setAttributeNS(null,'transform','matrix('+matrix.a+','+matrix.b+','+matrix.c+','+matrix.d+','+matrix.e+','+matrix.f+')');
     this.info.setAttributeNS(null,'transform','matrix('+matrix.a+','+matrix.b+','+matrix.c+','+matrix.d+','+matrix.e+','+matrix.f+')');
-    
-  }	
-  Event.stop(event);
+    this.changeobserver.observe(this.drawing, { attributes: true, childList: true, characterData: true ,subtree:true});    
+	  Event.stop(event);
+    }	
+
 }
 //**********************************************************************
 ///file io
