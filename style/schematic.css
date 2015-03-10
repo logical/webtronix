@@ -378,15 +378,15 @@ div#webtronics_context_menu{
     background-color:inherit;
 }
 
-div#webtronics_context_menu .enabled{
+div#webtronics_context_menu .enabled,div#webtronics_file_menu .enabled{
     color:#000000;
 }
 
-div#webtronics_context_menu .disabled{
+div#webtronics_context_menu .disabled,div#webtronics_file_menu .disabled{
     color:#bfbfbf;
 }
 
-div#webtronics_context_menu .enabled:hover{
+div#webtronics_context_menu .enabled:hover,div#webtronics_file_menu .enabled:hover{
     background-color:#bfbfbf;
     color:#ffffff;
 }

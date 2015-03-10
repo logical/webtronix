@@ -1281,41 +1281,6 @@ Schematic.prototype.changeid=function(elem){
 }
 
 
-Schematic.prototype.getwtxtagname=function(elem,tagname){
-  
-  
-  var tag=elem.getElementsByTagName("wtx:"+tagname);
-  if(!tag.length){
-    tag=elem.getElementsByTagName(tagname);
-  }
-  if(!tag.length){
-    tag=elem.getElementsByTagNameNS(this.wtxNs,tagname);
-  }
-  if(!tag.length){
-    tag=elem.getElementsByTagNameNS("*",tagname);
-  }
-  return tag;
-  
-}
-
-Schematic.prototype.getwtxattribute=function(elem,attrib){
-  var value=elem.getAttribute(attrib);
-  if(value==undefined)value=elem.getAttributeNS(this.wtxNs,attrib);
-  if(value==undefined)value=elem.getAttributeNS("*",attrib);
-  
-  return value;
-}
-
-Schematic.prototype.readwtx=function(elem,value){
-  var tag=this.getwtxtagname(elem,value);
-  if(tag[0])return tag[0].textContent;
-  else return "";
-}
-
-Schematic.prototype.writewtx=function(elem,value,text){
-  var tag=this.getwtxtagname(elem,value);
-  if(tag[0])tag[0].textContent=text;
-}
 
 Schematic.prototype.getgroup =function(elem){
   if(this.drag)return;
@@ -1422,6 +1387,42 @@ Schematic.prototype.paste=function(elem){
     this.drag=1;
   }
 }
+Schematic.prototype.getwtxtagname=function(elem,tagname){
+  
+  
+  var tag=elem.getElementsByTagName("wtx:"+tagname);
+  if(!tag.length){
+    tag=elem.getElementsByTagName(tagname);
+  }
+  if(!tag.length){
+    tag=elem.getElementsByTagNameNS(this.wtxNs,tagname);
+  }
+  if(!tag.length){
+    tag=elem.getElementsByTagNameNS("*",tagname);
+  }
+  return tag;
+  
+}
+
+Schematic.prototype.getwtxattribute=function(elem,attrib){
+  var value=elem.getAttribute(attrib);
+  if(value==undefined)value=elem.getAttributeNS(this.wtxNs,attrib);
+  if(value==undefined)value=elem.getAttributeNS("*",attrib);
+  
+  return value;
+}
+
+Schematic.prototype.readwtx=function(elem,value){
+  var tag=this.getwtxtagname(elem,value);
+  if(tag[0])return tag[0].textContent;
+  else return "";
+}
+
+Schematic.prototype.writewtx=function(elem,value,text){
+  var tag=this.getwtxtagname(elem,value);
+  if(tag[0])tag[0].textContent=text;
+}
+
 //****************************************************************
 ////utilities
 function rectsIntersect(r1, r2) {

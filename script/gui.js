@@ -80,8 +80,8 @@ var webtronics={
     $("webtronics_part_dir_model").options.length=0;
     $("webtronics_part_model").appendChild(new Element("option",{"value":""}).update("none"));
     $("webtronics_part_dir_model").appendChild(new Element("option",{"value":""}).update("none"));
-    var part=this.circuit.readwtx(elem,"name");
-    var cat=this.circuit.readwtx(elem,"category");
+    var part=netlistcreator.readwtx(elem,"name");
+    var cat=netlistcreator.readwtx(elem,"category");
     if(cat){
       for(var i=0;i<webtronics.partslists.length;i++){
 				  for(var c in webtronics.partslists[i].parts[cat][part].values){
@@ -111,7 +111,7 @@ var webtronics={
   returnchip:function(){
     if($('webtronics_chip_display').getElementsByTagName('g').length){
       this.circuit.getgroup($('webtronics_chip_display').getElementsByTagName('g')[0]);
-      this.circuit.writewtx(this.circuit.selected[0],"id",this.circuit.getnextid(this.circuit.selected[0],0));
+      netlistcreator.writewtx(this.circuit.selected[0],"id",this.circuit.getnextid(this.circuit.selected[0],0));
       this.circuit.createvalue(this.circuit.selected[0]);
     }
     $('webtronics_chips_box').style.display='none';
@@ -120,31 +120,31 @@ var webtronics={
   
   openProperties:function(){
     document.forms['webtronics_properties_form'].reset();
-    var c=this.circuit.readwtx(this.circuit.selected[0],"name");
+    var c=netlistcreator.readwtx(this.circuit.selected[0],"name");
     if(!c){
-      this.circuit.writewtx(this.circuit.selected[0],"name","ic");
+      netlistcreator.writewtx(this.circuit.selected[0],"name","ic");
     }
     if(c=="ac"){
       this.getvalues(this.circuit.selected[0]);
       $("webtronics_print_dir_field").style.display='block'
-      $("webtronics_print_dir_value").value=this.circuit.readwtx(this.circuit.selected[0],'measure');
+      $("webtronics_print_dir_value").value=netlistcreator.readwtx(this.circuit.selected[0],'measure');
     }
     else if(c=="scope"){
       this.getvalues(this.circuit.selected[0]);
       $("webtronics_print_dir_field").style.display='block'
-      $("webtronics_print_dir_value").value=this.circuit.readwtx(this.circuit.selected[0],'measure');
+      $("webtronics_print_dir_value").value=netlistcreator.readwtx(this.circuit.selected[0],'measure');
     }
     else {
       this.getvalues(this.circuit.selected[0]);
     }
-    var id=this.circuit.readwtx(this.circuit.selected[0],"id");
-    var value=this.circuit.readwtx(this.circuit.selected[0],"value");
+    var id=netlistcreator.readwtx(this.circuit.selected[0],"id");
+    var value=netlistcreator.readwtx(this.circuit.selected[0],"value");
     
     if(id!=""){$('webtronics_part_id').value=id;}
     if(value!=""){$('webtronics_part_value').value=value;}
-    $("webtronics_part_dir_value").value=this.circuit.readwtx(this.circuit.selected[0],'model');
+    $("webtronics_part_dir_value").value=netlistcreator.readwtx(this.circuit.selected[0],'model');
     
-    if(!this.circuit.readwtx(webtronics.circuit.selected[0],"value")){
+    if(!netlistcreator.readwtx(webtronics.circuit.selected[0],"value")){
       $('webtronics_part_id').value=this.circuit.getnextid(this.circuit.selected[0],0);
     }
     
@@ -459,6 +459,7 @@ console.log(exception);
 						
 		  
 		  },
+		  
 	opensources:function(){
 		var sources=$$(".webtronics_add_source_input");
 		for( var i=0;i<sources.length;i++){
@@ -707,10 +708,10 @@ console.log(exception);
 		    $('webtronics_properties_div').style.display='none';
 		    webtronics.enablepage();
 		    var model=webtronics.circuit.selected[0];
-		    webtronics.circuit.writewtx(model,"id",$('webtronics_part_id').value);
-		    webtronics.circuit.writewtx(model,"value",$('webtronics_part_value').value);
-		    webtronics.circuit.writewtx(model,"model",$('webtronics_part_dir_value').value);
-		    webtronics.circuit.writewtx(model,"measure",$('webtronics_print_dir_value').value);
+		    netlistcreator.writewtx(model,"id",$('webtronics_part_id').value);
+		    netlistcreator.writewtx(model,"value",$('webtronics_part_value').value);
+		    netlistcreator.writewtx(model,"model",$('webtronics_part_dir_value').value);
+		    netlistcreator.writewtx(model,"measure",$('webtronics_print_dir_value').value);
 
 		    webtronics.circuit.createvalue(webtronics.circuit.selected[0]);
 		  });
@@ -722,8 +723,8 @@ console.log(exception);
 		  });
 		  
 		  if($('webtronics_part_model'))Event.observe($('webtronics_part_model'),'change',function(){
-		    var part=webtronics.circuit.readwtx(webtronics.circuit.selected[0],"name");
-		    var cat=webtronics.circuit.readwtx(webtronics.circuit.selected[0],"category");
+		    var part=netlistcreator.readwtx(webtronics.circuit.selected[0],"name");
+		    var cat=netlistcreator.readwtx(webtronics.circuit.selected[0],"category");
 		    if($('webtronics_part_model').value){
 		      $("webtronics_part_dir_model").options.length=0;
 		      $("webtronics_part_dir_model").appendChild(new Element("option",{"value":""}).update("none"));
@@ -792,8 +793,8 @@ console.log(exception);
 		      openfile("symbols/predefined/"+$('webtronics_chip_spice_select').value+".svg",function(svg){
 			div.update(svg);
 			var model=$("webtronics_chip_display").getElementsByTagName("g")[0];
-			webtronics.circuit.writewtx(model,"value",$('webtronics_chip_spice_select').value);
-			webtronics.circuit.writewtx(model,"model",webtronics.models[$('webtronics_chip_spice_select').value]);
+			netlistcreator.writewtx(model,"value",$('webtronics_chip_spice_select').value);
+			netlistcreator.writewtx(model,"model",webtronics.models[$('webtronics_chip_spice_select').value]);
 		      });
 		    }
 		  });

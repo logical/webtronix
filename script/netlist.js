@@ -226,38 +226,38 @@ getwtxdata:function(parts){
     }
     catch(e){console.log("no digital pins found");}
     try{
-      part.id=webtronics.circuit.readwtx(parts[i],'id');
+      part.id=this.readwtx(parts[i],'id');
     }
     catch(e){part.error="wtx:id not found";}    
     try{
-      part.type=webtronics.circuit.readwtx(parts[i],'type');
+      part.type=this.readwtx(parts[i],'type');
     }
     catch(e){
       part.error="wtx:type not found";
     }
     try{
-      part.name=webtronics.circuit.readwtx(parts[i],'name');
+      part.name=this.readwtx(parts[i],'name');
     }
     catch(e){part.error="wtx:name not found";}
     try{
-      part.category=webtronics.circuit.readwtx(parts[i],'category');
+      part.category=this.readwtx(parts[i],'category');
     }
     catch(e){part.error="wtx:category not found";}    
     try{
-      part.value=webtronics.circuit.readwtx(parts[i],'value');
+      part.value=this.readwtx(parts[i],'value');
     }
     catch(e){part.error="wtx:value not found";}    
     try{
-      part.spice=webtronics.circuit.readwtx(parts[i],'spice');
+      part.spice=this.readwtx(parts[i],'spice');
     }
     catch(e){part.error="wtx:spice not found";}    
     try{        
-      part.model=webtronics.circuit.readwtx(parts[i],'model');
+      part.model=this.readwtx(parts[i],'model');
     }
     catch(e){part.error="wtx:model not found";}    
     //special tag for parts that do simulation
     try{        
-      part.measure=webtronics.circuit.readwtx(parts[i],'measure');
+      part.measure=this.readwtx(parts[i],'measure');
     }
     catch(e){}    
     
@@ -607,4 +607,42 @@ getnodenumber:function(name, leg){
   }
   return -1
 },
+getwtxtagname:function(elem,tagname){
+  
+  
+  var tag=elem.getElementsByTagName("wtx:"+tagname);
+  if(!tag.length){
+    tag=elem.getElementsByTagName(tagname);
+  }
+  if(!tag.length){
+    tag=elem.getElementsByTagNameNS(this.wtxNs,tagname);
+  }
+  if(!tag.length){
+    tag=elem.getElementsByTagNameNS("*",tagname);
+  }
+  return tag;
+  
+},
+
+getwtxattribute:function(elem,attrib){
+  var value=elem.getAttribute(attrib);
+  if(value==undefined)value=elem.getAttributeNS(this.wtxNs,attrib);
+  if(value==undefined)value=elem.getAttributeNS("*",attrib);
+  
+  return value;
+},
+
+readwtx:function(elem,value){
+  var tag=this.getwtxtagname(elem,value);
+  if(tag[0])return tag[0].textContent;
+  else return "";
+},
+
+writewtx:function(elem,value,text){
+  var tag=this.getwtxtagname(elem,value);
+  if(tag[0])tag[0].textContent=text;
+},
+
+
+
 }
