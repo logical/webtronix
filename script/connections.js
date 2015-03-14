@@ -24,8 +24,8 @@ var svg=this.createline('black',2, x1, y1,x2, y2);
 this.wireevents(svg);
 this.drawing.appendChild(svg)
 }
-this.remove($('templine1'));
-this.remove($('templine2'));
+    this.remove($("templine1"));
+    this.remove($("templine2"));
 }
 /*
 	Event.observe(circle,"mouseover",function(){
@@ -144,29 +144,30 @@ Schematic.prototype.maketerminal=function(wire){
 	    }.bindAsEventListener(this,circle));
 	    
 
-	    Event.observe(circle,"mousedown",function(){
+	    Event.observe(circle,"mousedown",function(e){
 	      var data = $A(arguments);
 	      data.shift();
 				var x=data[0].getAttribute("cx");
 				var y=data[0].getAttribute("cy");
 	      var dots=$$("#webtronics_drawing > circle");
-					var found=false;
+					//var found=false;
 			    for(var i=0;i<dots.length;i++){
 			    	if((Math.abs(dots[i].getAttribute("cx")-x)<5)&&(Math.abs(dots[i].getAttribute("cy")-y)<5)){
-			      	found=true;
-			      	break;
-			    	}
+			      	Event.stop(e); //no clicking on dot get your own dot
+			      	return;
+			      }
 					}
-	      	if(!found){
+//	      	if(!found){
 	      		if(data[1]!=null){
 		      		this.drawing.appendChild(this.createdot('black',x,y,3));
 		      		this.connect(data[1],x,y);
-					}
+//					}
 				}
 				if(this.mode=='select'){
 
 					parent.webtronics.setMode('line','Wire');
 					var svg = this.createline('blue',2, x, y, x, y);
+					svg.setAttribute( 'class',"templine");
 					svg.id = 'templine1';
 					svg.setAttributeNS(null,'stroke-dasharray','3,2');
 					this.info.appendChild(svg);
@@ -230,7 +231,7 @@ Schematic.prototype.wireevents=function(svg){
 				y=svg.getAttribute("y2");
 			}
 		  var terminal=this.maketerminal(eventline);
-				terminal.className="webtronics_wire_terminal";
+				terminal.setAttribute('class',"webtronics_wire_terminal");
 				this.info.appendChild(terminal);
 	   	terminal.setAttribute("cx",x);
 	    terminal.setAttribute("cy",y);
@@ -367,6 +368,7 @@ Schematic.prototype.wiresegment=function(){
 	  if($('templine2'))$('templine2').id='templine1';					
 	  else{
 	    svg = this.createline('blue',2, x2, y2,x2,y2);
+			svg.setAttribute( 'class',"templine");
 	    svg.id = 'templine1';
 	    svg.setAttributeNS(null,'stroke-dasharray','3,2');
 	    this.info.appendChild(svg);

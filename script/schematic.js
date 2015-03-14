@@ -861,10 +861,10 @@ Schematic.prototype.onMouseDown = function(event){
     this.mouseDown.y = real.y;//Math.round(real.y/this.grid) * this.grid;
     if (this.mode == 'line') {
       if (!Event.isLeftClick(event)){
-			this.remove($("templine1"));	
-			this.remove($("templine2"));
-			parent.webtronics.setMode('select','Selection');
-			return;
+		    this.remove($("templine1"));
+		    this.remove($("templine2"));
+				parent.webtronics.setMode('select','Selection');
+				return;
       }
 			else this.wiresegment();
     }	
@@ -1064,7 +1064,7 @@ Schematic.prototype.onMouseUp = function(event) {
       menu.style.display='none';        
     }
     this.remove($("templine1"));	
-    this.remove($("templine2"))
+    this.remove($("templine2"));
     parent.webtronics.setMode('select','Selection');
   }
   
@@ -1126,6 +1126,7 @@ Schematic.prototype.onMouseMove = function(event) {
 			this.resize($('templine1'), x, y, mouseAt.x, y);
 			this.remove($('templine2'));	
 			var svg = this.createline('blue',2, mouseAt.x, y, mouseAt.x, mouseAt.y);
+			svg.setAttribute( 'class',"templine");
 			svg.id = 'templine2';
 			svg.setAttributeNS(null,'stroke-dasharray','3,2');
 			this.info.appendChild(svg);
@@ -1137,6 +1138,7 @@ Schematic.prototype.onMouseMove = function(event) {
 	this.resize($('templine1'), x, y, x, mouseAt.y);
 	this.remove($('templine2'));	
 	var svg = this.createline('blue',2, x, mouseAt.y, mouseAt.x, mouseAt.y);
+	svg.setAttribute( 'class',"templine");
 	svg.id = 'templine2';
 	svg.setAttributeNS(null,'stroke-dasharray','3,2');
 	this.info.appendChild(svg);
@@ -1165,11 +1167,9 @@ Schematic.prototype.onWheel=function(event){
 
     if(wheel>0&&matrix.a<2){
       scale=1.04;
-			console.log("in");
     }
     else if(wheel<0&&matrix.a>0.3){
       scale=0.96;
-      console.log("out");
 	  }
 
     matrix=matrix.scale(scale);
