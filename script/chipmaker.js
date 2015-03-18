@@ -23,7 +23,7 @@ openmaker:function(){
     $("webtronics_chip_spice_select").options.length=0;
     $("webtronics_chip_spice_select").appendChild(new Element("option",{"value":""}).update("none"));
 
-    for(var part in webtronics.models){
+    for(var part in webtronics.model){
         $("webtronics_chip_spice_select").insert(new Element("option",{"value":part}).update(part)); 
     }
 },
@@ -35,7 +35,7 @@ createwtx:function(pins){
             .insert(new Element("wtx:pins").insert(pins))
             .insert(new Element("wtx:id").update("u"))
             .insert(new Element("wtx:type").update("u"))
-            .insert(new Element("wtx:name"))
+            .insert(new Element("wtx:name").update("model"))
             .insert(new Element("wtx:category").update("ic"))
             .insert(new Element("wtx:value"))
             .insert(new Element("wtx:label"))

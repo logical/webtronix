@@ -150,19 +150,23 @@ Schematic.prototype.maketerminal=function(wire){
 				var x=data[0].getAttribute("cx");
 				var y=data[0].getAttribute("cy");
 	      var dots=$$("#webtronics_drawing > circle");
-					//var found=false;
+					var found=false;
+/*
 			    for(var i=0;i<dots.length;i++){
 			    	if((Math.abs(dots[i].getAttribute("cx")-x)<5)&&(Math.abs(dots[i].getAttribute("cy")-y)<5)){
-			      	Event.stop(e); //no clicking on dot get your own dot
-			      	return;
+							x=dots[i].getAttribute("cx");
+							y=dots[i].getAttribute("cy");	
+							found=true;
+							break;
 			      }
 					}
+*/
 //	      	if(!found){
 	      		if(data[1]!=null){
 		      		this.drawing.appendChild(this.createdot('black',x,y,3));
 		      		this.connect(data[1],x,y);
-//					}
-				}
+					}
+//				}
 				if(this.mode=='select'){
 
 					parent.webtronics.setMode('line','Wire');

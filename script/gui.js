@@ -82,10 +82,10 @@ var webtronics={
     $("webtronics_part_dir_model").appendChild(new Element("option",{"value":""}).update("none"));
     var part=netlistcreator.readwtx(elem,"name");
     var cat=netlistcreator.readwtx(elem,"category");
-    if(cat){
+    if(cat && part != "model"){
       for(var i=0;i<webtronics.partslists.length;i++){
-				  for(var c in webtronics.partslists[i].parts[cat][part].values){
-						$("webtronics_part_model").insert(new Element("option",{"value":c}).update(c));
+				  for(var j=0;j<webtronics.partslists[i].parts[cat][part].values.length;j++){
+						$("webtronics_part_model").insert(new Element("option",{"value":webtronics.partslists[i].parts[cat][part].values[j]}).update(webtronics.partslists[i].parts[cat][part].values[j]));
 				  }
 					if(JSON.stringify(list).indexOf(part)!=-1){
 	    			$("webtronics_part_help").innerHTML=webtronics.partslists[i].parts[cat][part].help;
