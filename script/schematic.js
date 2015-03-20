@@ -1004,11 +1004,9 @@ Schematic.prototype.dropSelection=function(){
   var matrix=this.parseMatrix(floating);
 
   for(var i=floating.childNodes.length;i>0;i--){
-		//align to grid
+//this aligns the prt to the grid but it won't work if the parts are incorrectly aligned to begin with
 		matrix.e=Math.round(matrix.e/this.grid) * this.grid;
 		matrix.f=Math.round(matrix.f/this.grid) * this.grid;
-		
-		
 		
     /*move other parts*/
     this.move(floating.childNodes[i-1],matrix.e, matrix.f);
