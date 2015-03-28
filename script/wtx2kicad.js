@@ -25,7 +25,7 @@ function errorHandler(e) {
 };
 
 function wtx2kicad(){
-
+	alert("this feature is still in development");return;
 	//if(!window.requestFileSystem)alert ("no filesystem api");
 	var fs=null;
 
@@ -116,34 +116,94 @@ function part2lib(part){
 
 }
 
-
+//webtronix parts contain path|circle|rect|line|text
 
 function wtxparts2kicadlib(){
-				webtronics.serverurls.each(function(url){
-					if(url=="webtronix_server"){
-						openfile(url+"/parts.json",function(text){
-							webtronics.partslists.push(text.evalJSON(true));
-							webtronics.partslists[webtronics.partslists.length-1].url=url;
-							readlist(url,webtronics.partslists[webtronics.partslists.length-1]);
-						});
-					
-						}
-				else{
-						new request(url,"parts.json",function(text){
-							webtronics.partslists.push(text.evalJSON(true));
-							webtronics.partslists[webtronics.partslists.length-1].url=url;
-							readlist(url,webtronics.partslists[webtronics.partslists.length-1]);
-							});
+
+	var kicadlib="";
+	var parts=webtronics.circuit.svgRoot.getElementsByTagName("g").uniq();		
+	for(var part in parts){
+		var kicadpart="";
 		
-					}
-		    for (var cat in partlist.parts){
-		      for(var partname in partlist.parts[cat]){
-								webtronics.addpart(url , cat,partname);
+//locate the pins
+		var kicadpins="";
+    var nodes = webtronics.circuit.getwtxtagname(part,"node");
+    nodes.sort(function(a,b){if (a.index > b.index)return 1;if (a.index < b.index)return -1;return 0;});
+    for(var pin in nodes){
+    	//find the line that is this pin
+    	var kicadpin="x ~ "+ webtronics.circuit.getwtxattribute(pin,"index") ;
+    	var point={x:webtronics.getwtxattribute(pin,"x"),y:webtronics.getwtxattribute(pin,"y")};
+    	var lines={};
+    	for(var l in part.getElementsByTagName("line")){
+				var x1 = l.getAttribute("x1");
+				var y1 = l.getAttribute("y1");
+				var x2 = l.getAttribute("x2");
+				var y2 = l.getAttribute("y2");
 
-							//if(partlist.parts[cat][partname].indexOf()<0){}
-		      }                
-		      
-		    }
-			}.bind(this));
+//pin end
+				if((Math.abs(x1-point.x)<5)&&(Math.abs(y1-point.y)<5))kicadpin+=" "+ (x1*10) +" "+(y1*10);
+				else if((Math.abs(x1-point.x)<5)&&(Math.abs(y1-point.y)<5))kicadpin+=" "+ (x2*10) +" "+(y2*10);
+				else continue;
+//pin length 
+				if(x1 == x2) kicadpin += " " + (y1-y2*10); 					
+				else kicadpin += " " + (x1-x2*10);
+			
+//pin direction					
+				if(point.y<y2)kicadpin+=" D";
+				else if(point.y > y2)kicadpin+=" U";
+				else if(point.x < x2)kicadpin+=" R";
+				else  kicadpin += " L";
+//finish	
+				kicadpin += " 40 40 1 1 U";
+			
+				kicadpins += kicadpin + "\n"; 
 
+
+
+    	
+    	}  
+		}
+		kicadpart+=kicadpins;
+    
+  	
+		var elems=part.getElementsByTagName("*")
+		for(elem in elems){
+			switch(elem.tagName){
+				case "path":
+					
+					
+					break;
+				case "text":
+					
+					
+					break;
+				case "rect":
+					
+					
+					break;
+				case "line":
+					
+					
+					break;	
+				case "circle":
+				
+				
+					break;
+				default:
+					console.log(elem.tagName+ " not recognized");
+					break;
+			}
+		}
+		kicadlib += kicadpart;
+	} 
+	console.log(kicadlib);
+	return kicadlib;
 }
+
+
+
+
+
+
+
+
