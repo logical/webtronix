@@ -258,9 +258,13 @@ var webtronics={
 	
       }.bind(this));
  			$("webtronics_showhelp").checked=false;
-       $("webtronics_invert").checked=false;
+			$$(".webtronics_help").forEach(function(e){
+					e.style.display="none";
+			});
+      $("webtronics_invert").checked=false;
       $("webtronics_graph").checked=false;
       $("webtronics_connections").checked=false;
+
     }
   },
   

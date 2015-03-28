@@ -117,6 +117,7 @@ Schematic.prototype.maketerminal=function(wire){
 			var y=data[0].getAttribute("cy");
 	  	var line1=$("templine1");
 			var line2=$("templine2")
+			if(line1==null)return;
 	  	var l1x1=line1.getAttribute("x1");
 	  	var l1x2=line1.getAttribute("x2");
 
