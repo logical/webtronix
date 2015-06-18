@@ -26,44 +26,6 @@ function errorHandler(e) {
 
 function wtx2kicad(){
 	alert("this feature is still in development");return;
-	//if(!window.requestFileSystem)alert ("no filesystem api");
-	var fs=null;
-
-window.webkitStorageInfo.requestQuota(PERSISTENT, 1024*1024, function(grantedBytes) {
-	window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
-  window.requestFileSystem(PERSISTENT, grantedBytes, function(filesystem) {
-				fs = filesystem;
-	},errorHandler);
-}, errorHandler);
-
-
-  fs.root.getDirectory('Webtronix', {create: true}, function(dirEntry) {
-  
-  
-  fs.root.getFile('Webtronix/Schematic.sch', {create: true}, function(fileEntry) {
-
-    // Create a FileWriter object for our FileEntry (log.txt).
-    fileEntry.createWriter(function(fileWriter) {
-
-      fileWriter.onwriteend = function(e) {
-        console.log('Write completed.');
-      };
-
-      fileWriter.onerror = function(e) {
-        console.log('Write failed: ' + e.toString());
-      };
-
-      // Create a new Blob and write it to log.txt.
-      var blob = new Blob(['Lorem Ipsum'], {type: 'text/plain'});
-
-      fileWriter.write(blob);
-
-    }, errorHandler);
-
-  }, errorHandler);
- 
-}, errorHandler);
-
 
 
 }
