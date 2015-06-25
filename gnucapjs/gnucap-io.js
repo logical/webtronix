@@ -25,7 +25,6 @@
 								}
 						
 						 },
-//        canvas: document.getElementById('canvas'),
         setStatus: function(text) {
 				  if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
           if (text === Module.setStatus.text) return;
