@@ -210,8 +210,8 @@ getwtxdata:function(parts){
 	var point = this.matrixxform( {x:webtronics.circuit.getwtxattribute(nodes[j],"x"),y:webtronics.circuit.getwtxattribute(nodes[j],"y")},webtronics.circuit.parseMatrix(part.elem));
 	part.analogpins.push({index:webtronics.circuit.getwtxattribute(nodes[j],"index"),x:point.x,y:point.y,node:undefined}) ;
       }
-      //sort nodes int correct order
-//      part.analogpins.sort(function(a,b){if (a.index > b.index)return 1;if (a.index < b.index)return -1;return 0;});
+      //sort nodes into correct order
+      part.analogpins.sort(function(a,b){if (a.index > b.index)return 1;if (a.index < b.index)return -1;return 0;});
 		}
     catch(e){console.log("no analog pins found");}
     
