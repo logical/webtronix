@@ -1,32 +1,4 @@
-Schematic.prototype.connect =function(line,x,y){
-var x1=line.getAttributeNS(null,"x1")-0;
-var x2=line.getAttributeNS(null,"x2")-0;
-var y1=line.getAttributeNS(null,"y1")-0;
-var y2=line.getAttributeNS(null,"y2")-0;
-this.remove(line);
-this.wireevents(this.createline('black',2,x1,y1,x,y));
-this.wireevents(this.createline('black',2,x,y,x2,y2));
-if($('templine1')){
-x1=$('templine1').getAttributeNS(null,'x1');
-y1=$('templine1').getAttributeNS(null,'y1');
-x2=$('templine1').getAttributeNS(null,'x2');
-y2=$('templine1').getAttributeNS(null,'y2');
-var svg=this.createline('black',2, x1, y1,x2, y2);
-this.wireevents(svg);
-this.drawing.appendChild(svg)
-}
-if($("templine2")){
-x1=$('templine2').getAttributeNS(null,'x1');
-y1=$('templine2').getAttributeNS(null,'y1');
-x2=$('templine2').getAttributeNS(null,'x2');
-y2=$('templine2').getAttributeNS(null,'y2');
-var svg=this.createline('black',2, x1, y1,x2, y2);
-this.wireevents(svg);
-this.drawing.appendChild(svg)
-}
-    this.remove($("templine1"));
-    this.remove($("templine2"));
-}
+
 /*
 	Event.observe(circle,"mouseover",function(){
 	  var data = $A(arguments);
@@ -163,10 +135,12 @@ Schematic.prototype.maketerminal=function(wire){
 					}
 */
 //	      	if(!found){
+
 	      		if(data[1]!=null){
 		      		this.drawing.appendChild(this.createdot('black',x,y,3));
 		      		this.connect(data[1],x,y);
 					}
+
 //				}
 				if(this.mode=='select'){
 
@@ -235,7 +209,7 @@ Schematic.prototype.wireevents=function(svg){
 				//else var x= real.x;
 				y=svg.getAttribute("y2");
 			}
-		  var terminal=this.maketerminal(eventline);
+		  var terminal=this.maketerminal(svg);
 				terminal.setAttribute('class',"webtronics_wire_terminal");
 				this.info.appendChild(terminal);
 	   	terminal.setAttribute("cx",x);

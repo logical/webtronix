@@ -470,32 +470,37 @@ createnetlist:function(responsefunc){
       spice+=sections.coupling[i]+'\n';
     }
   }
+  var modelloader={
   
-  
-    var modelloader={
     modeltext:"",
     modelcount:0,
     download:function(name){
 			var found=false;
-    	for( var i=0;i<webtronics.partslists.length;i++){
+			for( var i=0;i<webtronics.partslists.length;i++){
+				modelloader.modelcount++;
+			}
+			for( var i=0;i<webtronics.partslists.length;i++){
 			
 				if(JSON.stringify(webtronics.partslists[i]).indexOf(name)!=-1){
 					found=true;
+
 					if(webtronics.partslists[i].url.indexOf("http://")==-1){//see if path is local
 
-		  	  	openfile( webtronics.partslists[i].url+"/spice/"+ name,this.responder);
+		  	  	openfile( webtronics.partslists[i].url+"/spice/"+ name,modelloader.responder.bind(this));
 		  	  }
 		  	  else{
-		  	  	server.requestfile(list.url,this.responder);
+		  	  	server.requestfile(list.url,modelloader.responder.bind(this));
 		  	  }
-					break;
-					this.modelcount++;
+
 				}
 				
 			}
-			if(!found)console.log("model not found");
+			if(!found)
+				console.log("model not found");
+				
     },
     finish:function(){
+    	console.log("done");
       spice+=modelloader.modeltext; 
       if(sections.simulation.length){
 				for(var i=0;i<sections.simulation.length;i++){
@@ -512,8 +517,9 @@ createnetlist:function(responsefunc){
     },
     
     responder:function(text){
-    		console.log("reponded");
+    		console.log("reponded "+ modelloader.modelcount);
 	      modelloader.modeltext+=text;
+	      modelloader.modelcount--;
 	      if(!modelloader.modelcount){
 				modelloader.finish();
 				spice=spice.concat(".end \n");	
@@ -537,7 +543,7 @@ createnetlist:function(responsefunc){
       }
     }
   }
-  else modelloader.finish();
+
   var connector=webtronics.circuit.getwithselector('#information > .webtronics_namewire_connector')
 	for(var i=0;i<connector.length;i++)connector[i].parentNode.removeChild(connector[i]);
 
