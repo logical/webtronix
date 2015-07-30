@@ -8,7 +8,7 @@
     
     "amplifier":{
       "op-amp":{
-	"help":"ux + - v- out v+ model\n\ndirective = include model file",
+	"help":"ux + - v- out v+ model<br><br>directive = include model file",
 	"values":{
 	  "lm324":["lm324.mod"],
 	  "lm358":["lm358.mod"],
@@ -62,7 +62,7 @@
     "resistors":{
       "photo-resistor":{},
       "resistor":{
-	"help":"rx 1 2 value\nrx = part id\nvalue = 0-xMeg",         
+	"help":"rx 1 2 value<br>rx = part id<br>value = 0-xMeg",         
 	"values":{
 	  "10":[""],
 	  "100":[""],
@@ -125,7 +125,7 @@
 	  "1n5711":["models.lib"]
 	  
 	},
-	"help":"dx a k model\na=anode\nk=kathode"         
+	"help":"dx a k model<br>a=anode<br>k=kathode"         
 	
       },
       "led":{},
@@ -168,7 +168,7 @@
     },
     "inductors":{
       "coil":{
-	"help":"lx 1 2  value\n\ncoupling  directive \ncouples 2 inductors\n\nkx lx lx value\nlx = inductor id's\nvalue = coupling",         
+	"help":"lx 1 2  value<br><br>coupling  directive <br>couples 2 inductors<br><br>kx lx lx value<br>lx = inductor id's<br>value = coupling",         
 	"values":{
 	  "1h":[""],
 	  "100mh":[""],
@@ -198,7 +198,7 @@
 	}
       },
       "ac":{
-	"help":"SIN = sine wave source\nAC = AC frequency sweep",
+	"help":"Choose an ac source value for 'value or model'<br><br>To do AC sweep <br><br>1. choose 'AC 1 sin'  <br><br>2. Fill the spice directive with sweep parameters<br><br>3. Fill the measurements feild with the value to be measured, such as 'i(r1)' to measure the current through r1.",
 	"values":{		
 	  "SIN(0 5 1KHZ)":[""],
 	  "SIN(0 12 60HZ)":[""],
@@ -223,7 +223,7 @@
     
     "test":{
       "scope":{
-	"help":".TRAN step total \nstep = step size\ntotal = total length of time",
+	"help":".TRAN step total <br>step = step size<br>total = total length of time",
 	"values":{		
 	  "tran":[".TRAN 1NS 100NS",
 	  ".TRAN 1NS 1000NS 500NS",

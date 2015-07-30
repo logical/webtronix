@@ -507,6 +507,7 @@ createnetlist:function(responsefunc){
 					if(sections.simulation[i]!="")spice+=sections.simulation[i]+"\n";
 				}
       }
+      else console.log("No simulation in the model");
       if(sections.lastdir.length){
 				sections.lastdir=sections.lastdir.uniq();
 					for(var i=0;i<sections.lastdir.length;i++){
@@ -543,7 +544,8 @@ createnetlist:function(responsefunc){
       }
     }
   }
-
+	else modelloader.finish();
+	
   var connector=webtronics.circuit.getwithselector('#information > .webtronics_namewire_connector')
 	for(var i=0;i<connector.length;i++)connector[i].parentNode.removeChild(connector[i]);
 
