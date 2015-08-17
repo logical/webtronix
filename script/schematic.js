@@ -421,13 +421,13 @@ Schematic.prototype.tracker = function(elem) {
       /*newer versions of firefox need this recursive part to get the right bounding box for some reason
        *otherwise the box width and height are zero if it only contains lines*/
       for(var i= elem.childNodes.length;i>0;i--){
-	if(elem.childNodes[i-1].nodeType==1){
-	  var chbox=this.tracker(elem.childNodes[i-1]);
-	  box.x=Math.min(box.x,chbox.x);
-	  box.y=Math.min(box.y,chbox.y);
-	  box.width=Math.max(chbox.x+chbox.width,box.width);
-	  box.height=Math.max(chbox.y+chbox.height,box.height);
-	}	
+				if(elem.childNodes[i-1].nodeType==1 && elem.childNodes[i-1].tagName != "tspan"){
+					var chbox=this.tracker(elem.childNodes[i-1]);
+					box.x=Math.min(box.x,chbox.x);
+					box.y=Math.min(box.y,chbox.y);
+					box.width=Math.max(chbox.x+chbox.width,box.width);
+					box.height=Math.max(chbox.y+chbox.height,box.height);
+				}	
       }
       
       /*gets corrected bounding box*/
@@ -447,7 +447,6 @@ Schematic.prototype.tracker = function(elem) {
       rect.width=Math.max(tleft.x,bright.x)-rect.x;			
       rect.height=Math.max(tleft.y,bright.y)-rect.y;			
       
-      
     }
     else if (elem.tagName=='line'){
       
@@ -455,7 +454,7 @@ Schematic.prototype.tracker = function(elem) {
       rect.y=box.y-1;
       rect.width=box.width+2;
       rect.height=box.height+2;
-    }		
+    }	
     else {
       
       rect.x=box.x;
@@ -1004,7 +1003,7 @@ Schematic.prototype.dropSelection=function(){
   var matrix=this.parseMatrix(floating);
 
   for(var i=floating.childNodes.length;i>0;i--){
-//this aligns the prt to the grid but it won't work if the parts are incorrectly aligned to begin with
+//this aligns the part to the grid but it won't work if the parts are incorrectly aligned to begin with
 		matrix.e=Math.round(matrix.e/this.grid) * this.grid;
 		matrix.f=Math.round(matrix.f/this.grid) * this.grid;
 		
@@ -1200,10 +1199,17 @@ Schematic.prototype.onWheel=function(event){
 
 
 Schematic.prototype.svgSize=function(){
-  var matrix=this.parseMatrix(this.drawing);
+  //var matrix=this.parseMatrix(this.drawing);
   this.drawing.removeAttribute('transform');
   var svgsize=this.tracker(this.drawing);
-  this.drawing.setAttribute('transform','matrix('+matrix.a+','+matrix.b+','+matrix.c+','+matrix.d+','+matrix.e+','+matrix.f+')');
+  
+	svgsize.x=Math.round(svgsize.x/this.grid) * this.grid-this.grid;
+	svgsize.y=Math.round(svgsize.y/this.grid) * this.grid-this.grid;
+	svgsize.width=Math.round(svgsize.width/this.grid) * this.grid+this.grid;
+	svgsize.width=Math.round(svgsize.height/this.grid) * this.grid+this.grid;
+	
+
+  //this.drawing.setAttribute('transform','matrix('+matrix.a+','+matrix.b+','+matrix.c+','+matrix.d+','+matrix.e+','+matrix.f+')');
   return svgsize;
   
 }
@@ -1243,9 +1249,11 @@ Schematic.prototype.getDoc = function(shrink,inv) {
 
       var part=this.drawing.childNodes[ch].cloneNode(true);
       floating.appendChild(part);
+      
       if(shrink)this.move(part,10-svgsize.x,10-svgsize.y);
 
     }
+    
     for(var ch=0;ch<floating.childNodes.length;ch++){
         var node=floating.childNodes[ch].cloneNode(true);
         svg.appendChild(node);
@@ -1253,16 +1261,16 @@ Schematic.prototype.getDoc = function(shrink,inv) {
     
 
     if(shrink){
-        bg.setAttribute('width',svgsize.width-svgsize.x+20+'px');
-        bg.setAttribute('height',svgsize.height-svgsize.y+20+'px');
-        svg.setAttribute('width',svgsize.width-svgsize.x+20+'px');
-        svg.setAttribute('height',svgsize.height-svgsize.y+20+'px');
+        bg.setAttribute('width',svgsize.width-svgsize.x+80+'px');
+        bg.setAttribute('height',svgsize.height-svgsize.y+80+'px');
+        svg.setAttribute('width',svgsize.width-svgsize.x+80+'px');
+        svg.setAttribute('height',svgsize.height-svgsize.y+80+'px');
     }
     else{
-        bg.setAttribute('width',svgsize.width+10+'px');
-        bg.setAttribute('height',svgsize.height+10+'px');
-        svg.setAttribute('width',svgsize.width+10+'px');
-        svg.setAttribute('height',svgsize.height+10+'px');
+        bg.setAttribute('width',svgsize.width+40+'px');
+        bg.setAttribute('height',svgsize.height+40+'px');
+        svg.setAttribute('width',svgsize.width+40+'px');
+        svg.setAttribute('height',svgsize.height+40+'px');
     }
     doc.appendChild(svg);   
     this.remove(floating);	

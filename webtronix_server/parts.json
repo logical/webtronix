@@ -13,7 +13,9 @@
 	  "lm324":["lm324.mod"],
 	  "lm358":["lm358.mod"],
 	  "741":["ua741.mod","lm741.mod"],
-	  "tl084":["tl084.mod"]
+	  "tl08x":["tl08x.mod"],
+	  "tl07x":["tl07x.mod"],
+	  "tl06x":["tl06x.mod"]
 	}
       },
       "inst-amp":{
@@ -216,9 +218,15 @@
 	    "dc 12v":[""]
 	  }
 	},
-	"ground":{},
-	"namewire":{}
-    },
+	"ground":{
+		"help":"Every circuit needs a ground for simulation to work.",
+		"values":{}
+		},
+		"namewire":{
+			"help":"Wires with the same name behave as if they where connected.",
+			"values":{}
+		}
+	},
     
     
     "test":{
