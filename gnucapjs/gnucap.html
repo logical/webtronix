@@ -36,8 +36,7 @@
 
     var graph={
 	 //drawing context 
-		  width:640,
-		  height:480,
+		  scopewidth:2000,
 		  grid:60,
 		  colors:["red","blue","green","gold","hotpink","orange"],
 		  infotext:"",
@@ -104,8 +103,8 @@
   gnucap2canvas:function(points,canvas){
     var font=20;
     ctx=canvas.getContext("2d");
-		if(points.length>canvas.width)canvas.width=points.length;
-    ctx.setTransform(1,0,0,(window.innerHeight-20)/graph.height,0,0);
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 	
     var min=points[0][1];
     var max=points[0][1];
@@ -118,14 +117,17 @@
     }
     if(isNaN(min)||isNaN(max))return;
     var hsize=1;//((graph.width-4)/points.length);
-    var vsize=((graph.height-4)/(max-min));
+    var vsize=((canvas.height-4)/(max-min));
+    //limit the scope memory
+		var start=points.length>graph.scopewidth?points.length-graph.scopewidth:0;
+		console.log (start);
     for(var sample=1;sample<points[0].length;sample++){
       ctx.beginPath();
-      for(var time=0;time<points.length;time++){
-        var x=parseInt(hsize*time);
+      for(var time=start;time<points.length;time++){
+        var x=parseInt(hsize*(time-start));
         var y =parseInt(vsize * (max-points[time][sample]));
         if(isNaN(x)||isNaN(y)){
-
+					console.log("bad number");
         }
         if(time==0){
 	  ctx.moveTo(x,y);
@@ -161,7 +163,7 @@
       var displayElement = document.getElementById('gnucap_scope_display_div');
 
       displayElement.innerHTML="";
-      canvas.setAttribute("width",window.innerWidth);
+      canvas.setAttribute("width",graph.scopewidth);
       canvas.setAttribute("height",window.innerHeight-20);
       displayElement.appendChild(canvas);
       var outputtext = document.createElement("pre");
