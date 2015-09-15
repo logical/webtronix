@@ -21,15 +21,15 @@
 * END Notes
 *
 * Node assignments
-*                 non-inverting input
-*                 |  inverting input
-*                 |  |  positive supply
-*                 |  |  |  negative supply
-*                 |  |  |  |  output
-*                 |  |  |  |  |  ref
-*                 |  |  |  |  |  |  rg1
-*                 |  |  |  |  |  |  |  rg2
-*                 |  |  |  |  |  |  |  |
+*                  non-inverting input
+*                  |  inverting input
+*                  |  |  positive supply
+*                  |  |  |  negative supply
+*                  |  |  |  |  output
+*                  |  |  |  |  |  ref
+*                  |  |  |  |  |  |  rg1
+*                  |  |  |  |  |  |  |  rg2
+*                  |  |  |  |  |  |  |  |
 *.SUBCKT AD620A    1  2  99 50 46 20 7  8
 .SUBCKT AD620A    1  7  8  2  50 20 46  99
 *
@@ -73,10 +73,10 @@ Q4   15   16   17   QN2
 R13  19   16   10E3
 R14  16   20   10E3
 C1   12   15   6.667E-12
-EOOS 19   10   POLY(1) (38,98) 1.5E-3 223.872
+EOOS 19   10   POLY (38,98) 1.5E-3 223.872
 *EREF 98   0    POLY(2) (99,0) (50,0) 0 0.5 0.5
-EREF1 98   100 99 0 0.5
-EREF2 100   0 50 0 0.5
+EREF1 98  97 poly (99,0) 0 0.5 0.5
+EREF2 97  0  poly (50,0) 0 0.5 0.5
 D3 13 51 DX
 D4 16 52 DX
 V2 99 51 0.7
@@ -104,16 +104,16 @@ G2   98   40   (25,98) 1
 *
 * COMMON MODE STAGE WITH ZERO AT 708HZ
 *
-* E3   36   98   POLY(2) (1,98) (2,98) 0 0.5 0.5
-E31   36   37   1 98 0.5
-E32   37   98   2 98 0.5
+*E3   36   98   POLY(2) (1,98) (2,98) 0 0.5 0.5
+E4 36  96	poly (1,98)	0 0.5 0.5
+E5 96  98 poly (2,98) 0 0.5 0.5  
 R18  36   38   1E6
 R19  38   98   1
 C5   36   38   224.812E-12
 *
 * OUTPUT STAGE
 *
-GSY  99   50   POLY(1) (99,50) 1.1725E-3 3.125E-6
+GSY  99   50   POLY (99,50) 1.1725E-3 3.125E-6
 RO1  99   45   250
 RO2  45   50   250
 L1   45   46   1E-6

@@ -5,6 +5,17 @@
 * 3 OUTPUT
 * 4 POSITIVE POWER SUPPLY
 * 5 NEGATIVE POWER SUPPLY
+
+
+
+
+
+
+
+
+
+
+
 .SUBCKT TL08x 2 1 4 5 3
 **********************************************************
 .MODEL MDTH D IS=1E-8 KF=5.306587E-14 CJO=10F

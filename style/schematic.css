@@ -400,12 +400,12 @@ div#webtronics_context_menu .enabled:hover,div#webtronics_file_menu .enabled:hov
 div#webtronics_scope_display_div{
   overflow:hidden;
   width:480px;
-  height:360px;
+  height:380px;
 }
 #webtronics_scope_display_frame{
   overflow:hidden;
   width:480px;
-  height:360px;
+  height:380px;
   border-color:#000000;
   border-width: 2px;
 }
