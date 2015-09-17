@@ -36,7 +36,7 @@
 
     var graph={
 	 //drawing context 
-		  scopewidth:2000,
+		  scopewidth:10000,
 		  grid:60,
 		  colors:["red","blue","green","gold","hotpink","orange"],
 		  infotext:"",
@@ -116,15 +116,16 @@
       }
     }
     if(isNaN(min)||isNaN(max))return;
-    var hsize=1;//((graph.width-4)/points.length);
+    var hsize=points.length<window.innerWidth?window.innerWidth/points.length:1;
     var vsize=((canvas.height-4)/(max-min));
+ //   ctx.scale(hsize,1);
     //limit the scope memory
 		var start=points.length>graph.scopewidth?points.length-graph.scopewidth:0;
 		console.log (start);
     for(var sample=1;sample<points[0].length;sample++){
       ctx.beginPath();
       for(var time=start;time<points.length;time++){
-        var x=parseInt(hsize*(time-start));
+        var x=parseInt(hsize*time-start);
         var y =parseInt(vsize * (max-points[time][sample]));
         if(isNaN(x)||isNaN(y)){
 					console.log("bad number");
@@ -140,9 +141,10 @@
       ctx.linWidth=1;
       ctx.stroke();
     }  
-      
+    	
+
       graph.infotext += "<br><pre>VERTICAL   start = " + min.toExponential(3)+ " grid = "+((max-min)/6).toExponential(4)+"<br>";
-      graph.infotext +="HORIZONTAL start = " + points[0][0].toExponential(3)+ " grid = "+((points[1][0]-points[0][0])*graph.grid).toExponential(4)+"<pre>";
+      graph.infotext +="HORIZONTAL start = " + points[0][0].toExponential(3)+ " grid = "+((points[1][0]-points[0][0])*graph.grid/hsize).toExponential(4)+"<pre>";
       
   },  
  }
@@ -201,7 +203,7 @@
 			  var data=graph.parsegnucap(simdata)
 			  if(data!=undefined){
 					graph.gnucap2canvas(data,canvas);
-					displayElement.scrollLeft=canvas.width;
+					displayElement.scrollLeft=data.length-window.innerWidth;
 					webtronicsdata.innerHTML=graph.infotext;
 				}
 			  timer=undefined;
