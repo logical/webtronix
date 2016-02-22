@@ -124,7 +124,8 @@
 	  "1n4148":["models.lib"],
 	  "1n4007":["models.lib"],
 	  "1n34a":["models.lib"],
-	  "1n5711":["models.lib"]
+	  "1n5711":["models.lib"],
+	  "bat54":["bat54.mod"]
 	  
 	},
 	"help":"dx a k model<br>a=anode<br>k=kathode"         
@@ -210,7 +211,8 @@
 	  "SFFM( 0 1V 20K 5 1K)":[""],                    
 	  "AC 1 SIN":[".ac lin 20 100 200 "]
 	  
-	}                    },
+		}
+	},
 	"battery":{
 	  "values":{		
 	    "dc 5v":[""],

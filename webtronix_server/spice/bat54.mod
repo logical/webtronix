@@ -1,5 +1,4 @@
-*
-.SUBCKT BAT54 1 3 
+.SUBCKT bat54 1 3 
 * The Resistor R1 does not reflect 
 * a physical device.  Instead it
 * improves modeling in the reverse 
