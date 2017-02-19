@@ -1206,7 +1206,7 @@ Schematic.prototype.svgSize=function(){
 	svgsize.x=Math.round(svgsize.x/this.grid) * this.grid-this.grid;
 	svgsize.y=Math.round(svgsize.y/this.grid) * this.grid-this.grid;
 	svgsize.width=Math.round(svgsize.width/this.grid) * this.grid+this.grid;
-	svgsize.width=Math.round(svgsize.height/this.grid) * this.grid+this.grid;
+	svgsize.height=Math.round(svgsize.height/this.grid) * this.grid+this.grid;
 	
 
   //this.drawing.setAttribute('transform','matrix('+matrix.a+','+matrix.b+','+matrix.c+','+matrix.d+','+matrix.e+','+matrix.f+')');
