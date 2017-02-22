@@ -40,18 +40,30 @@
 		  grid:60,
 		  colors:["red","blue","green","gold","hotpink","orange"],
 		  infotext:"",
+		type:"",
 
+	clear:function(canvas){
+	    var ctx=canvas.getContext("2d");
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+	},
   parsegnucap:function(t){
-	//this part separates the intro from the 
+	//this part separates the intro from the data 
 		var points = [];
-    try{      
-			var text = t.split(/(#Time|#Freq).*\n/);
+
+    try{
+//get simulation type
+			var text =t.match(/(#Time|#freq)/ig);
+			graph.type=text[text.length-1];
+			//console.log(graph.type);
+			text = t.split(/(#Time|#Freq).*\n/ig);
 			text=text[text.length-1];
-			var plots= t.match(/(#Time|#Freq).*\n/);
+			//console.log(text);
+			var plots= t.match(/(#Time|#Freq).*\n/i);
 			plots=plots[0].split(/\s+/);
-		  var samples=text.split('\n');
+		  	var samples=text.split('\n');
     }
     catch(e){
+		console.log ("parse error");
 	    return;
     }
     var k=0;
@@ -68,6 +80,17 @@
       if(s!=null){
         points[k]=[];
         for(var j=0;j<s.length;j++){
+
+//convert micro
+          if(s[j][s[j].length-1]=='Meg'){
+            s[j].replace('u','');
+            s[j]=parseFloat(s[j])*1000000;
+          }
+//convert micro
+          if(s[j][s[j].length-1]=='K'){
+            s[j].replace('u','');
+            s[j]=parseFloat(s[j])*1000;
+          }
 //convert micro
           if(s[j][s[j].length-1]=='u'){
             s[j].replace('u','');
@@ -102,50 +125,69 @@
   },
   gnucap2canvas:function(points,canvas){
     var font=20;
-    ctx=canvas.getContext("2d");
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var ctx=canvas.getContext("2d");
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	
-    var min=points[0][1];
-    var max=points[0][1];
+    var minimum=points[0][1];
+    var maximum=points[0][1];
   //calculate max and min height
     for(var sample=1;sample<points[0].length;sample++){
       for(var time=0;time < points.length;time++){
-        min=Math.min(min,points[time][sample]);
-        max=Math.max(max,points[time][sample]);
+        minimum=Math.min(minimum,points[time][sample]);
+        maximum=Math.max(maximum,points[time][sample]);
       }
+		//only print the first column of results
+		if(graph.type.match(/#freq/i)!=null)break;
+
     }
-    if(isNaN(min)||isNaN(max))return;
+
+    if(isNaN(minimum)||isNaN(maximum)){
+		console.log("Bad size");
+		return;
+	}
     var hsize=points.length<window.innerWidth?window.innerWidth/points.length:1;
-    var vsize=((canvas.height-4)/(max-min));
+    var vsize=((canvas.height-4)/(maximum-minimum));
+	
  //   ctx.scale(hsize,1);
     //limit the scope memory
-		var start=points.length>graph.scopewidth?points.length-graph.scopewidth:0;
-		console.log (start);
+	var start=0;//points.length>scopewidth?points.length-scopewidth:0;
     for(var sample=1;sample<points[0].length;sample++){
       ctx.beginPath();
       for(var time=start;time<points.length;time++){
-        var x=parseInt(hsize*time-start);
-        var y =parseInt(vsize * (max-points[time][sample]));
+        var x = parseInt(hsize * time-start);
+        var y = parseInt(vsize * (maximum-points[time][sample]));
         if(isNaN(x)||isNaN(y)){
 					console.log("bad number");
         }
         if(time==0){
-	  ctx.moveTo(x,y);
+	  		ctx.moveTo(x,y);
         }
         else{
-	  ctx.lineTo(x,y);
-	}
+	  		ctx.lineTo(x,y);
+		}
       }
       ctx.strokeStyle=graph.colors[sample-1];
       ctx.linWidth=1;
       ctx.stroke();
-    }  
-    	
+		//only print the first column of results
+		if(graph.type.match(/#freq/i)!=null)break;
 
-      graph.infotext += "<br><pre>VERTICAL   start = " + min.toExponential(3)+ " grid = "+((max-min)/6).toExponential(4)+"<br>";
-      graph.infotext +="HORIZONTAL start = " + points[0][0].toExponential(3)+ " grid = "+((points[1][0]-points[0][0])*graph.grid/hsize).toExponential(4)+"<pre>";
-      
+    }  
+    console.log(points[1][0]-points[0][0]);	
+    canvas.addEventListener('mousemove', function(evt) {
+        var rect = canvas.getBoundingClientRect();
+          var mousex= evt.clientX - rect.left;
+          var mousey= evt.clientY - rect.top;
+
+	      parent.webtronics.scopestatus.innerHTML= "<br><pre>Y " + ((canvas.height-mousey)*((maximum-minimum)/(canvas.height-4))).toExponential(3) + "<br>";
+	      parent.webtronics.scopestatus.innerHTML+="X " + (mousex*hsize*(points[1][0]-points[0][0])).toExponential(3) + "<pre>";
+
+    }, false);
+
+
+
+	      
   },  
  }
 
@@ -190,25 +232,25 @@
       
       
   gnucapWorker.onmessage = function (oEvent) {
-		if(oEvent.data=="SIMULATION COMPLETED"){
-			webtronicsstatus.innerHTML="   SIMULATION COMPLETED";
-		}
-		else{
-			newtext+=oEvent.data
-			if(timer==undefined)timer=setTimeout(function(){
-			  if(simdata.length)webtronicsstatus.innerHTML="   SIMULATION IN PROGRESS  ";
-			  simdata+=newtext;
-			  outputtext.innerHTML+=newtext;
-			  //console.log(newtext);
-			  var data=graph.parsegnucap(simdata)
-			  if(data!=undefined){
-					graph.gnucap2canvas(data,canvas);
-					displayElement.scrollLeft=data.length-window.innerWidth;
-					webtronicsdata.innerHTML=graph.infotext;
-				}
-			  timer=undefined;
-			  newtext=""},500);
-		}
+		newtext+=oEvent.data
+		if(timer==undefined)timer=setTimeout(function(){
+			if(newtext.match(/SIMULATION COMPLETED/)!=null){
+				webtronicsstatus.innerHTML="   SIMULATION COMPLETED";
+				console.log( "simulation completed");
+			}	
+		  	else{
+				webtronicsstatus.innerHTML="   SIMULATION IN PROGRESS  ";
+			}
+		  	simdata+=newtext;
+		  	outputtext.innerHTML+=newtext;
+		  	var data=graph.parsegnucap(simdata);
+		  	if(data!=undefined){
+				graph.gnucap2canvas(data,canvas);
+				displayElement.scrollLeft=data.length-window.innerWidth;
+				webtronicsdata.innerHTML=graph.infotext;
+			}
+		  	timer=undefined;
+		  	newtext=""},500);
 	}
       
       function stopsimulation(){

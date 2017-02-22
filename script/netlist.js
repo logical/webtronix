@@ -385,25 +385,27 @@ getnodes:function(parts){
     // check what type of simulation to use
     if(parts[i].type=='gnd' || parts[i].type=='wire')continue;
     if(parts[i].type=="plot"){
-	if(sections.simulation.length==0){
-	  sections.simulation.push(".op");
-	  sections.simulation.push(".print tran");
-	}
-	if(sections.simulation[1] !=undefined && sections.simulation[1].match(/\.print\sac/g)==null){
-	  sections.simulation[1]+=" v("+parts[i].analogpins[0]["node"]+")";
-	  sections.simulation[1]+=" "+parts[i].measure;
-	  if(parts[i].model)sections.simulation.push(parts[i].model);
-	}
+		if(sections.simulation.length==0){
+		  sections.simulation.push(".op");
+			if(parts[i].value!=""){
+			  sections.simulation.push(parts[i].value);
+			}
+		}
+		if(sections.simulation[1] !=undefined && sections.simulation[1].match(/\.print\sac/g)==null){
+		  sections.simulation[1]+=" v("+parts[i].analogpins[0]["node"]+")";
+		  sections.simulation[1]+=" "+parts[i].measure;
+		  if(parts[i].model)sections.simulation.push(parts[i].model);
+		}
 	
       
     }
     else{
       if(parts[i].type=="v"){
-	if(sections.simulation.length==0 && parts[i].model.length){
-	  sections.simulation.push(".op");
-	  sections.simulation.push(".print ac "+parts[i].measure);
-	  sections.simulation.push(parts[i].model);
-	}
+		if(sections.simulation.length==0 && parts[i].model.length){
+		  sections.simulation.push(".op");
+		  sections.simulation.push(".print ac "+parts[i].measure);
+		  sections.simulation.push(parts[i].model);
+		}
       }
       else if(parts[i].type=="l"){
 	if(parts[i].model.length){

@@ -234,8 +234,9 @@
     "test":{
       "scope":{
 	"help":".TRAN step total <br>step = step size<br>total = total length of time",
-	"values":{		
-	  "tran":[".TRAN 1NS 100NS",
+	"values":{
+      ".probe fourier":[".fourier 0 1meg 1k"],		
+	  ".print tran":[".TRAN 1NS 100NS",
 	  ".TRAN 1NS 1000NS 500NS",
 	  ".TRAN 10NS 1US UIC",
 	  ".TRAN 1ms 100ms"]
