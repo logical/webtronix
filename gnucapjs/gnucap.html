@@ -180,8 +180,8 @@
           var mousex= evt.clientX - rect.left;
           var mousey= evt.clientY - rect.top;
 
-	      parent.webtronics.scopestatus.innerHTML= "<br><pre>Y " + ((canvas.height-mousey)*((maximum-minimum)/(canvas.height-4))).toExponential(3) + "<br>";
-	      parent.webtronics.scopestatus.innerHTML+="X " + (mousex*hsize*(points[1][0]-points[0][0])).toExponential(3) + "<pre>";
+	      parent.webtronics.scopestatus.innerHTML= "<br><pre>Y " + ((canvas.height-mousey)*((maximum-minimum)/(canvas.height-4))+minimum).toExponential(3) + "<br>";
+	      parent.webtronics.scopestatus.innerHTML+="X " + (mousex*hsize*(points[1][0]-points[0][0])+points[0][0]).toExponential(3) + "<pre>";
 
     }, false);
 

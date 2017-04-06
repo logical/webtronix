@@ -29,7 +29,7 @@
 *                 |   |    |    |    |    |   output
 *                 |   |    |    |    |    |    |     positive supply
 *                 |   |    |    |    |    |    |     |
-.SUBCKT AD8221  IN-  RG-  RG+  IN+  -Vs   REF  VOUT  +Vs         
+.SUBCKT AD8221  IN+  RG+  RG-  IN-  -Vs   REF  VOUT  +Vs         
 ** INPUT STAGER1 sub_out sub_neg 10E3
 R1 sub_out sub_neg 10E3
 R2 sub_neg Inverting_Out 10E3

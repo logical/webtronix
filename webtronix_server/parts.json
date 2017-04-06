@@ -21,6 +21,7 @@
       "inst-amp":{
 	"values":{
 	  "ina128":["ina128.mod"],
+	  "ina333":["ina333.mod"],
 	  "ad620a":["ad620a.mod"],
 	  "ad8221":["ad8221.mod"]
 	}
@@ -203,13 +204,14 @@
       "ac":{
 	"help":"Choose an ac source value for 'value or model'<br><br>To do AC sweep <br><br>1. choose 'AC 1 sin'  <br><br>2. Fill the spice directive with sweep parameters<br><br>3. Fill the measurements feild with the value to be measured, such as 'i(r1)' to measure the current through r1.",
 	"values":{		
-	  "SIN(0 5 1KHZ)":[""],
-	  "SIN(0 12 60HZ)":[""],
-	  "SIN(0 120 60HZ)":[""],
+	  "SIN(0 5v 1KHZ)":[""],
+	  "SIN(0 12v 60HZ)":[""],
+	  "SIN(0 120v 60HZ)":[""],
 	  "PWL(0 0 10ns 0 10ns 5 20ns 5)R=0":[""],
-	  "PULSE(0 1 0 0 0 2n 4n)":[""],
+	  "PULSE(0v 1v 0s 0s 0s 2ns 4ns)":[""],
+	  "PULSE(0v 3.3v 0s 0s 0s 8.3ms 16.6ms)":[""],	
 	  "SFFM( 0 1V 20K 5 1K)":[""],                    
-	  "AC 1 SIN":[".ac lin 20 100 200 "]
+	  "AC 1 SIN":[".ac lin 1000 1hz 100hz "]
 	  
 		}
 	},
