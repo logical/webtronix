@@ -24,12 +24,12 @@ function openfile(Name,response){
 
 		//http://stackoverflow.com/questions/3076414/ways-to-circumvent-the-same-origin-policy
 
-function request(url, file, response){
+function request(address, file, response){
 
 	var server=document.createElement("iframe");
 	server.style.display="none";
 	server.id=file;
-	server.src=url+"/webtronix_server.html";
+	server.src=address+"/webtronix_server.html";
 	
 	$("webtronics_main_window").appendChild(server);
 
