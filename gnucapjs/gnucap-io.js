@@ -3,15 +3,19 @@
 //       var statusElement = document.getElementById('gnucap_scope_display_div');
 //       var progressElement = document.getElementById('progress');
 //       var spinnerElement = document.getElementById('spinner');
-      var spicenetlist="";
+      var spice={};
  
       Module = {
+
 				preRun: [function(){
-					FS.writeFile("/temp",spicenetlist);
+					FS.writeFile("/spice.cir",spice.netlist);
+					for(file in spice.includes){
+						FS.writeFile(file,spice.includes[file]);
+					}
 					 }],
 							postRun:[function(){
 					 }],
-				arguments:["-b","/temp"],
+				arguments:["-b","/spice.cir"],
 							print:function(text) {
 						text = Array.prototype.slice.call(arguments).join(' ');
 						postMessage(text+'\n');
@@ -42,9 +46,10 @@
         },
       };
       self.addEventListener("message", function(e) {
-	spicenetlist=e.data
-      // the passed-in data is available via e.data
-	importScripts("gnucap-ugly.js");
+		spice=e.data;
+	
+      // the passed-in data is available via e.data.netlist
+		importScripts("gnucap-ugly.js");
       }, false);
       Module.TOTAL_MEMORY=67108864;
       Module.setStatus('Downloading...');

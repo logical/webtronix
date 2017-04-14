@@ -1,4 +1,8 @@
 var webtronics={
+  spice:{
+		netlist:"",
+		includes:[]//array of included files
+  },	
   circuit:null,
   copy:null,
   rightclickmenu:null,
@@ -305,9 +309,9 @@ var webtronics={
     html.value=spice1;
     return html;            
   },
-  spicenetlist:"",
+
   gnucapjs:function(netlist){
-    webtronics.spicenetlist=netlist;
+    webtronics.spice.netlist=netlist;
     /*add a new frame */
     $('webtronics_scope_display_div').innerHTML='';
     $("webtronics_scope_output_graph").checked=true;
@@ -448,15 +452,15 @@ console.log(exception);
 					if(url=="webtronix_server"){
 						openfile(url+"/parts.json",function(text){
 							webtronics.partslists.push(text.evalJSON(true));
-							webtronics.partslists[webtronics.partslists.length-1].url=url;
+							webtronics.partslists[webtronics.partslists.length-1].address=url;
 							webtronics.makemenu(url,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
 						});
 					
 						}
 				else{
-						new request(url,"parts.json",function(text){
+							new request(url,"parts.json",function(text){
 							webtronics.partslists.push(text.evalJSON(true));
-							webtronics.partslists[webtronics.partslists.length-1].url=url;
+							webtronics.partslists[webtronics.partslists.length-1].address=url;
 							webtronics.makemenu(url,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
 						});
 		

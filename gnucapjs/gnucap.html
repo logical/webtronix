@@ -174,7 +174,7 @@
 		if(graph.type.match(/#freq/i)!=null)break;
 
     }  
-    console.log(points[1][0]-points[0][0]);	
+    //console.log(points[1][0]-points[0][0]);	
     canvas.addEventListener('mousemove', function(evt) {
         var rect = canvas.getBoundingClientRect();
           var mousex= evt.clientX - rect.left;
@@ -260,7 +260,7 @@
 		  
 		  //limit update rate
 	
-      var spicenetlist= parent.webtronics.spicenetlist;
+      var spicenetlist= parent.webtronics.spice;
       gnucapWorker.postMessage(spicenetlist); // start the worker.
 
       </script>

@@ -486,13 +486,14 @@ createnetlist:function(responsefunc){
 				if(JSON.stringify(webtronics.partslists[i]).indexOf(name)!=-1){
 					found=true;
 
-					if(webtronics.partslists[i].url.indexOf("http://")==-1){//see if path is local
+					if(webtronics.partslists[i].address.indexOf("http://")==-1){//see if path is local
 
-		  	  	openfile( webtronics.partslists[i].url+"/spice/"+ name,modelloader.responder.bind(this));
-		  	  }
-		  	  else{
-		  	  	server.requestfile(list.url,modelloader.responder.bind(this));
-		  	  }
+			  	  		openfile( webtronics.partslists[i].address+"/spice/"+ name,modelloader.responder.bind(this,name));
+			  	  	}
+			  	  	else{
+						console.log("open remote url "+webtronics.partslists[i].address+"/spice/"+ name);	
+			  	  		new request(webtronics.partslists[i].address,"spice/"+ name,modelloader.responder.bind(this,name));
+			  	  	}
 
 				}
 				
@@ -503,7 +504,7 @@ createnetlist:function(responsefunc){
     },
     finish:function(){
     	console.log("done");
-      spice+=modelloader.modeltext; 
+		spice+=modelloader.modeltext; 
       if(sections.simulation.length){
 				for(var i=0;i<sections.simulation.length;i++){
 					if(sections.simulation[i]!="")spice+=sections.simulation[i]+"\n";
@@ -519,9 +520,12 @@ createnetlist:function(responsefunc){
       responsefunc(spice.toLowerCase());
     },
     
-    responder:function(text){
-    		console.log("reponded "+ modelloader.modelcount);
-	      modelloader.modeltext+=text;
+    responder:function(name ,text){
+			
+    	console.log("reponded "+ name);
+		webtronics.spice.includes[name]=text;
+
+	      modelloader.modeltext+=".include "+name+"\n";
 	      modelloader.modelcount--;
 	      if(!modelloader.modelcount){
 				modelloader.finish();
@@ -531,7 +535,7 @@ createnetlist:function(responsefunc){
     }
   }
   
-  
+
   if(sections.firstdir.length){
     sections.firstdir=sections.firstdir.uniq();
     
@@ -542,7 +546,7 @@ createnetlist:function(responsefunc){
 
 
 
-			modelloader.download(sections.firstdir[i],sections,webtronics.partslists);
+			modelloader.download(sections.firstdir[i]);
       }
     }
   }

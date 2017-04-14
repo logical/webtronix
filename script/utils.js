@@ -25,23 +25,29 @@ function openfile(Name,response){
 		//http://stackoverflow.com/questions/3076414/ways-to-circumvent-the-same-origin-policy
 
 function request(url, file, response){
+
 	var server=document.createElement("iframe");
 	server.style.display="none";
 	server.id=file;
+	server.src=url+"/webtronix_server.html";
 	
 	$("webtronics_main_window").appendChild(server);
 
 	function receiveMessage(event){
 		if(event.data.filename==file){
 			response(event.data.text);
+			//console.log(server.parentNode);
 			server.parentNode.removeChild(server);
 		
 		}
 
 	};
-	window.addEventListener("message", receiveMessage, false);
-	server.src=url+"/webtronix_server.html?file="+file;
-	console.log(server.src);
+		
+	window.addEventListener("message", receiveMessage.bind(this), false);
+	var iframe=document.getElementById(file);	
+	//console.log(iframe.contentWindow.location.hostname);
+ 	iframe.contentWindow.postMessage(file, "*" );
+	//	server.src=url+"/webtronix_server.html?file="+file;
 }
 
 // This code was written by Tyler Akins and has been placed in the
