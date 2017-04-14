@@ -44,6 +44,7 @@ function getParameterByName(name) {
 
 function servefile(event){
 	var request = event.data;
+	console.log(request);
 	if(request!="")openfile(request,sendfile);
 }
 
