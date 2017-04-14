@@ -484,7 +484,7 @@ createnetlist:function(responsefunc){
 				if(JSON.stringify(webtronics.partslists[i]).indexOf(name)!=-1){
 					found=true;
 
-					if(webtronics.partslists[i].address.indexOf("http://")==-1){//see if path is local
+					if(webtronics.partslists[i].address=="webtronix_server"){//see if path is local
 			  	  		openfile( webtronics.partslists[i].address+"/spice/"+ name,modelloader.responder.bind(this,name));
 			  	  	}
 			  	  	else{

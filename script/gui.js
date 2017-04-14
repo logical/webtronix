@@ -448,20 +448,20 @@ console.log(exception);
 		  populatemenu:function(){
 		  /*asynchronous part loading */
 		  	$("webtronics_parts_list").innerHTML="";
-				webtronics.serverurls.each(function(url){
-					if(url=="webtronix_server"){
-						openfile(url+"/parts.json",function(text){
+				webtronics.serverurls.each(function(address){
+					if(address=="webtronix_server"){
+						openfile(address+"/parts.json",function(text){
 							webtronics.partslists.push(text.evalJSON(true));
-							webtronics.partslists[webtronics.partslists.length-1].address=url;
-							webtronics.makemenu(url,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
+							webtronics.partslists[webtronics.partslists.length-1].address=address;
+							webtronics.makemenu(address,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
 						});
 					
 						}
-				else if(url.length>0){
-							new request(url,"parts.json",function(text){
+				else if(address.length>0){
+							new request(address,"parts.json",function(text){
 							webtronics.partslists.push(text.evalJSON(true));
-							webtronics.partslists[webtronics.partslists.length-1].address=url;
-							webtronics.makemenu(url,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
+							webtronics.partslists[webtronics.partslists.length-1].address=address;
+							webtronics.makemenu(address,webtronics.partslists[webtronics.partslists.length-1] , $("webtronics_parts_list"));
 						});
 		
 					}
