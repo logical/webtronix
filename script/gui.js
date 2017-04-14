@@ -146,8 +146,8 @@ var webtronics={
     var id=netlistcreator.readwtx(this.circuit.selected[0],"id");
     var value=netlistcreator.readwtx(this.circuit.selected[0],"value");
     
-    if(id!=""){$('webtronics_part_id').value=id;}
-    if(value!=""){$('webtronics_part_value').value=value;}
+    if(id.length){$('webtronics_part_id').value=id;}
+    if(value.length){$('webtronics_part_value').value=value;}
     $("webtronics_part_dir_value").value=netlistcreator.readwtx(this.circuit.selected[0],'model');
     
     if(!netlistcreator.readwtx(webtronics.circuit.selected[0],"value")){
@@ -457,7 +457,7 @@ console.log(exception);
 						});
 					
 						}
-				else{
+				else if(url.length>0){
 							new request(url,"parts.json",function(text){
 							webtronics.partslists.push(text.evalJSON(true));
 							webtronics.partslists[webtronics.partslists.length-1].address=url;
@@ -902,6 +902,7 @@ console.log(exception);
 		  });
 		  //sources events
 		  Event.observe($('webtronics_add source_ok'), 'click', function() {
+				webtronics.partslists=[];
 				var sources=$$(".webtronics_add_source_input");
 				var addresses=[]
 				for( var i=0;i<sources.length;i++){

@@ -36,16 +36,8 @@ I was hoping for a few volunteers and more community involvement. If you would l
 
 LATEST
 ------
-I have recently converted kicad libraries but I will have to decide how to organize part and add simulation.
-
-
-I have been adding capabilities to Webtronix.I can now access components, models , or whole circuits across domains. I picture a whole ecosystem of people making stuff from components to complete tools and merging them using a system of cross domain engineering tools like webtronix.
-The main obstacle to this will be standards. I cannot create standards such as file formats. :(
-
-BUG warning:
-I have been doing a lot of rearranging so the code may be buggy.
-I you have drawn circuits and your simulation no longer works try deleting and re-adding components. 
- 
- 
-Improved image output 
+Mostly I am using webtronix myself because I only run linux and there are not a lot of choicese for simulating circuits. 
+Fixing all the features I tried to add. I tried to do too much at once. The code is getting bigger but is still maintainable when I am familiar with it.
+I would like to be able to create subcircuits from the editor and be able to use them as equivalents when actual models are not available. 
+This may create dependancy problems where part A includes part B and I haven't figured out how to deal with those yet.
 

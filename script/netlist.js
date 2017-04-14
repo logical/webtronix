@@ -387,7 +387,7 @@ getnodes:function(parts){
     if(parts[i].type=="plot"){
 		if(sections.simulation.length==0){
 		  sections.simulation.push(".op");
-			if(parts[i].value!=""){
+			if(parts[i].value.length){
 			  sections.simulation.push(parts[i].value);
 			}
 		}
@@ -450,7 +450,7 @@ createnetlist:function(responsefunc){
   if(sections.netlist.length){
     var command="";
     for(var i=0;i<sections.netlist.length;i++){
-      if(sections.netlist[i].error!=""){
+      if(sections.netlist[i].error.length){
 	spice+=sections.netlist[i].error+'\n';
 	continue;
       }
@@ -463,7 +463,7 @@ createnetlist:function(responsefunc){
       for(var j=0;j<pins.length;j++)command += " "+pins[j].node;
 
       command+=" "+sections.netlist[i].model;
-      if(command!="")spice+=command+'\n';
+      if(command.length)spice+=command+'\n';
     }
   }
   
@@ -478,16 +478,13 @@ createnetlist:function(responsefunc){
     modelcount:0,
     download:function(name){
 			var found=false;
-			for( var i=0;i<webtronics.partslists.length;i++){
-				modelloader.modelcount++;
-			}
+			modelloader.modelcount++;
 			for( var i=0;i<webtronics.partslists.length;i++){
 			
 				if(JSON.stringify(webtronics.partslists[i]).indexOf(name)!=-1){
 					found=true;
 
 					if(webtronics.partslists[i].address.indexOf("http://")==-1){//see if path is local
-
 			  	  		openfile( webtronics.partslists[i].address+"/spice/"+ name,modelloader.responder.bind(this,name));
 			  	  	}
 			  	  	else{
@@ -507,14 +504,14 @@ createnetlist:function(responsefunc){
 		spice+=modelloader.modeltext; 
       if(sections.simulation.length){
 				for(var i=0;i<sections.simulation.length;i++){
-					if(sections.simulation[i]!="")spice+=sections.simulation[i]+"\n";
+					if(sections.simulation[i].length)spice+=sections.simulation[i]+"\n";
 				}
       }
       else console.log("No simulation in the model");
       if(sections.lastdir.length){
 				sections.lastdir=sections.lastdir.uniq();
 					for(var i=0;i<sections.lastdir.length;i++){
-						if(sections.lastdir[i]!="")spice+=sections.lastdir[i]+"\n";
+						if(sections.lastdir[i].length)spice+=sections.lastdir[i]+"\n";
 					}
       }
       responsefunc(spice.toLowerCase());

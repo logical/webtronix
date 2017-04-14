@@ -35,18 +35,17 @@ function request(url, file, response){
 
 	function receiveMessage(event){
 		if(event.data.filename==file){
-			response(event.data.text);
-			//console.log(server.parentNode);
+			console.log("received file");
 			server.parentNode.removeChild(server);
-		
+			response(event.data.text);
 		}
 
 	};
-		
-	window.addEventListener("message", receiveMessage.bind(this), false);
-	var iframe=document.getElementById(file);	
+	window.addEventListener("message", receiveMessage, false);
 	//console.log(iframe.contentWindow.location.hostname);
- 	iframe.contentWindow.postMessage(file, "*" );
+	server.addEventListener("load",function(){		
+	 	server.contentWindow.postMessage(file, "*" );
+	});
 	//	server.src=url+"/webtronix_server.html?file="+file;
 }
 
