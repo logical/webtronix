@@ -1,0 +1,20 @@
+.model  1n4007  D(IS=3.872n RS=1.66E-02 N=1.776 XTI=3.0 EG=1.110 
++               CJO=1.519E-11 M=0.3554 VJ=0.5928 FC=0.5 ISR=1.356E-09
++               NR=2.152 BV=1000.0 IBV=1.0E-03 Tt=4u)
+
+.model 1n4148   D(Is=5.84n N=1.94 Rs=.7017 Ikf=44.17m Xti=3 Eg=1.11 Cjo=.95p
++               M=.55 Vj=.75 Fc=.5 Isr=11.07n Nr=2.088 Bv=100 Ibv=100u Tt=11.07n)
+
+.MODEL 1N34A D(bv=75 cjo=0.5e-12 eg=0.67 ibv=18e-3
++                is=2e-7 rs=7 n=1.3 vj=0.1 m=0.27 )
+
+
+.MODEL 1N5711 D IS=5.5987E-9 N=1.0023 RS=30.053 IKF=19.036 CJO=1.7605E-12
++               M=.20029 VJ=.3905 ISR=24.229E-9 NR=4.1695 FC=0.5 TT=0 XTI=2
+*               $
+
+.MODEL mmsd301t1 d
++IS=7.59492e-08 RS=4.93246 N=1.53455 EG=0.608881
++XTI=4 BV=30 IBV=1e-05 CJO=2.26925e-12
++VJ=0.4 M=0.260918 FC=0.5 TT=2.98638e-09
++KF=0 AF=1
