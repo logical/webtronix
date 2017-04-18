@@ -83,8 +83,10 @@
     "transistors":{
       "njfet":{
 	"values":{
-	  "mpf102":["jfet.ib"],
-	  "2n3819":["jfet.lib"]
+	  "mpf102":["jfet.lib"],
+	  "2n3819":["jfet.lib"],
+	  "2n5457":["jfet.lib"],
+	  "2n5458":["jfet.lib"]
 	  
 	}
       },
