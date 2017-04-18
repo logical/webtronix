@@ -83,24 +83,24 @@
     "transistors":{
       "njfet":{
 	"values":{
-	  "mpf102":["models.lib"],
-	  "2n3819":["models.lib"]
+	  "mpf102":["jfet.ib"],
+	  "2n3819":["jfet.lib"]
 	  
 	}
       },
       "npn":{
 	"values":{
 	  
-	  "2n3904":["models.lib"],
-	  "2n2222":["models.lib"],                    
-	  "2n3055":["models.lib"]                    
+	  "2n3904":["bjt.lib"],
+	  "2n2222":["bjt.lib"],                    
+	  "2n3055":["bjt.lib"]                    
 	}
       },
       "pjfet":{},
       "pnp":{
 	"values":{
-	  "2n3906":["models.lib"],
-	  "2n2907":["models.lib"]
+	  "2n3906":["bjt.lib"],
+	  "2n2907":["bjt.lib"]
 	}
       },
       "nmosfet":{
@@ -122,10 +122,10 @@
       "diode":{
 	"values":{
 	  
-	  "1n4148":["models.lib"],
-	  "1n4007":["models.lib"],
-	  "1n34a":["models.lib"],
-	  "1n5711":["models.lib"],
+	  "1n4148":["diode.lib"],
+	  "1n4007":["diode.lib"],
+	  "1n34a":["diode.lib"],
+	  "1n5711":["diode.lib"],
 	  "bat54":["bat54.mod"]
 	  
 	},
