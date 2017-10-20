@@ -128,12 +128,20 @@
 	  "1n4007":["diode.lib"],
 	  "1n34a":["diode.lib"],
 	  "1n5711":["diode.lib"],
+	  "hsms286":["diode.lib"],
+	  "hsms282":["diode.lib"],
+	  "bat42":["diode.lib"],
 	  "bat54":["bat54.mod"]
 	  
 	},
 	"help":"dx a k model<br>a=anode<br>k=kathode"         
 	
       },
+	"varicap":{
+		"values":{
+		"bb112":["varicap.lib"]
+		}
+	},
       "led":{},
       "photodiode":{},
       "scr":{},
@@ -167,7 +175,7 @@
 	}
       },
       "polar-cap":{},
-      "varicap":{}
+      "variablecap":{}
     },
     "frequency":{
       "crystal":{}
