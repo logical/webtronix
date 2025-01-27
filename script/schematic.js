@@ -324,7 +324,8 @@ Schematic.prototype.parseMatrix=function(group){
     }
     catch(e){
 	try{
-		var transform=group.setAttribute("transform","matrix(1,0,0,1,0,0)" );
+		var transform=group.createSVGMatrix();
+		group.setAttribute("transform", `matrix(${matrix.a}, ${matrix.b}, ${matrix.c}, ${matrix.d}, ${matrix.e}, ${matrix.f})`); 
 	}
 	catch(e){
  	       console.log("matrix parse error");
