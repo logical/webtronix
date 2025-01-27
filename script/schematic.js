@@ -311,6 +311,7 @@ Schematic.prototype.parseMatrix=function(group){
   var matrix={a:1,b:0,c:0,d:1,e:0,f:0};
   
   try{
+	  //support is broken
     matrix=group.getTransformToElement(group.parentNode);
   }
   catch(e){
@@ -322,8 +323,13 @@ Schematic.prototype.parseMatrix=function(group){
         matrix={a:result[1],b:result[2],c:result[3],d:result[4],e:result[5],f:result[6]};   
     }
     catch(e){
-        console.log("matrix parse error");
-        console.log(e.message);
+	try{
+		var transform=group.setAttribute("transform","matrix(1,0,0,1,0,0" );
+	}
+	catch(e){
+ 	       console.log("matrix parse error");
+        	console.log(e.message);
+	}
     }
   }
   return matrix;
