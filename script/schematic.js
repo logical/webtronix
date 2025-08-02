@@ -307,16 +307,17 @@ Schematic.prototype.showbackground=function(){
     }
   }
 }
-Schematic.prototype.parseMatrix=function(group){
-  var matrix={a:1,b:0,c:0,d:1,e:0,f:0};
-  if( ! group.getTransformToElement)
+
+if( ! SVGElement.prototype.getTransformToElement)
 {
-	group.getTransformToElement = function( _element )
+	SVGElement.prototype.getTransformToElement = function( _element )
     {
         return _element.getScreenCTM().inverse().multiply(  this.getScreenCTM()  );
     };
 }
-	
+
+Schematic.prototype.parseMatrix=function(group){
+  var matrix={a:1,b:0,c:0,d:1,e:0,f:0};	
   try{
 	  //support is broken
     matrix=group.getTransformToElement(group.parentNode);
@@ -1468,6 +1469,7 @@ function rectInside(r1 ,r2){
   
   
 }
+
 
 
 
