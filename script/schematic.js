@@ -83,7 +83,7 @@ function Schematic(elem) {
   this.onWheelListener = this.onWheel.bindAsEventListener(this);	
 
 //touch screen
-/*
+
   this.onTouchStartListener = this.onTouchStart.bindAsEventListener(this);
   this.onTouchEndListener = this.onTouchEnd.bindAsEventListener(this);
   this.onTouchMoveListener = this.onTouchMove.bindAsEventListener(this);	
@@ -91,7 +91,7 @@ function Schematic(elem) {
   Event.observe(this.svgRoot, "touchmove", this.onTouchMoveListener); 
   Event.observe(this.svgRoot, "touchstart", this.onTouchStartListener);
   Event.observe(this.svgRoot, "touchend", this.onTouchEndListener);
-*/
+
 
   Event.observe(this.svgRoot, "mousewheel",this.onWheelListener);
   Event.observe(this.svgRoot, "DOMMouseScroll",this.onWheelListener);
@@ -867,7 +867,7 @@ Schematic.prototype.onTouchStart = function(event){
 	event.preventDefault();
 
 	const touch = event.changedTouches[0];
-	var real=this.realPosition(touch.clientX,touch.clientY));
+	var real=this.realPosition(touch.clientX,touch.clientY);
 	this.TouchStart(real);
 
 }
@@ -875,7 +875,7 @@ Schematic.prototype.onTouchMove = function(event){
 	event.preventDefault();
 
 	const touch = event.changedTouches[0];
-	var real=this.realPosition(touch.clientX,touch.clientY));
+	var real=this.realPosition(touch.clientX,touch.clientY);
 	this.TouchMove(real);
 }
 Schematic.prototype.onTouchEnd = function(event){
@@ -1495,6 +1495,7 @@ function rectInside(r1 ,r2){
   
   
 }
+
 
 
 
