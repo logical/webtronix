@@ -384,20 +384,20 @@ console.log(exception);
 			  Event.observe(part,'mousedown',function(e){
 						var group=$$( "#"+ part.id+" g" )[0];
 						webtronics.circuit.getgroup(group);
-					webtronics.setMode('select','Selection');
+						webtronics.setMode('select','Selection');
 			  });
 			  Event.observe(part,'touchstart',function(e){
-				  		e.preventDefault(); 
 						var group=$$( "#"+ part.id+" g" )[0];
 						webtronics.circuit.getgroup(group);
-					webtronics.setMode('select','Selection');
+						webtronics.setMode('select','Selection');
+				  		e.preventDefault(); 
 			  });
 			  Event.observe(part,'mouseup',function(e){
-					webtronics.circuit.deleteSelection();				
+						webtronics.circuit.deleteSelection();				
 			  });
 			  Event.observe(part,'touchend',function(e){
+						webtronics.circuit.deleteSelection();				
 				  		e.preventDefault(); 
-					webtronics.circuit.deleteSelection();				
 			  });
 
 
@@ -938,5 +938,6 @@ console.log(exception);
   }
 }
 webtronics.init();
+
 
 
