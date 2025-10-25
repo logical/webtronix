@@ -387,6 +387,7 @@ console.log(exception);
 					webtronics.setMode('select','Selection');
 			  });
 			  Event.observe(part,'touchstart',function(e){
+				  		e.preventDefault(); 
 						var group=$$( "#"+ part.id+" g" )[0];
 						webtronics.circuit.getgroup(group);
 					webtronics.setMode('select','Selection');
@@ -395,6 +396,7 @@ console.log(exception);
 					webtronics.circuit.deleteSelection();				
 			  });
 			  Event.observe(part,'touchend',function(e){
+				  		e.preventDefault(); 
 					webtronics.circuit.deleteSelection();				
 			  });
 
@@ -936,4 +938,5 @@ console.log(exception);
   }
 }
 webtronics.init();
+
 
