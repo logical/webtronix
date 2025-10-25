@@ -81,13 +81,26 @@ function Schematic(elem) {
   this.onMouseUpListener = this.onMouseUp.bindAsEventListener(this);
   this.onMouseMove = this.onMouseMove.bindAsEventListener(this);	
   this.onWheelListener = this.onWheel.bindAsEventListener(this);	
-  
+
+//touch screen
+/*
+  this.onTouchStartListener = this.onTouchStart.bindAsEventListener(this);
+  this.onTouchEndListener = this.onTouchEnd.bindAsEventListener(this);
+  this.onTouchMoveListener = this.onTouchMove.bindAsEventListener(this);	
+
+  Event.observe(this.svgRoot, "touchmove", this.onTouchMoveListener); 
+  Event.observe(this.svgRoot, "touchstart", this.onTouchStartListener);
+  Event.observe(this.svgRoot, "touchend", this.onTouchEndListener);
+*/
+
   Event.observe(this.svgRoot, "mousewheel",this.onWheelListener);
   Event.observe(this.svgRoot, "DOMMouseScroll",this.onWheelListener);
   Event.observe(this.svgRoot, "dragover", this.onMouseMove);
   Event.observe(this.svgRoot, "mousemove", this.onMouseMove); 
   Event.observe(this.svgRoot, "mousedown", this.onMouseDownListener);
   Event.observe(this.svgRoot, "mouseup", this.onMouseUpListener);
+
+
   /*this might get the ipad working*/
   Event.observe(this.svgRoot, "onclick", void(0));
 
@@ -307,19 +320,10 @@ Schematic.prototype.showbackground=function(){
     }
   }
 }
-
-if( ! SVGElement.prototype.getTransformToElement)
-{
-	SVGElement.prototype.getTransformToElement = function( _element )
-    {
-        return _element.getScreenCTM().inverse().multiply(  this.getScreenCTM()  );
-    };
-}
-
 Schematic.prototype.parseMatrix=function(group){
-  var matrix={a:1,b:0,c:0,d:1,e:0,f:0};	
+  var matrix={a:1,b:0,c:0,d:1,e:0,f:0};
+  
   try{
-	  //support is broken
     matrix=group.getTransformToElement(group.parentNode);
   }
   catch(e){
@@ -331,14 +335,8 @@ Schematic.prototype.parseMatrix=function(group){
         matrix={a:result[1],b:result[2],c:result[3],d:result[4],e:result[5],f:result[6]};   
     }
     catch(e){
-	try{
-		var transform=group.createSVGMatrix();
-		group.setAttribute("transform", `matrix(${matrix.a}, ${matrix.b}, ${matrix.c}, ${matrix.d}, ${matrix.e}, ${matrix.f})`); 
-	}
-	catch(e){
- 	       console.log("matrix parse error");
-        	console.log(e.message);
-	}
+        console.log("matrix parse error");
+        console.log(e.message);
     }
   }
   return matrix;
@@ -864,13 +862,37 @@ Schematic.prototype.realPosition=function(x,y){
 }
 
 
+/*touch start event handler*/
+Schematic.prototype.onTouchStart = function(event){
+	event.preventDefault();
+
+	const touch = event.changedTouches[0];
+	var real=this.realPosition(touch.clientX,touch.clientY));
+	this.TouchStart(real);
+
+}
+Schematic.prototype.onTouchMove = function(event){
+	event.preventDefault();
+
+	const touch = event.changedTouches[0];
+	var real=this.realPosition(touch.clientX,touch.clientY));
+	this.TouchMove(real);
+}
+Schematic.prototype.onTouchEnd = function(event){
+	event.preventDefault();
+	this.onMouseUp(event);
+}
 
 
 /*mousedown event handler*/
 Schematic.prototype.onMouseDown = function(event){
+    var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
+	this.TouchStart(real);
+}
+
+Schematic.prototype.TouchStart = function(real){
   if(!this.drag){
 
-    var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
     this.mouseDown.x = real.x;//Math.round(real.x/this.grid) * this.grid;
     this.mouseDown.y = real.y;//Math.round(real.y/this.grid) * this.grid;
     if (this.mode == 'line') {
@@ -1091,8 +1113,12 @@ Schematic.prototype.onMouseUp = function(event) {
   
 }
 
-
 Schematic.prototype.onMouseMove = function(event) {
+    var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
+	this.TouchMove(real);
+}
+
+Schematic.prototype.TouchMove = function(real) {
   
   
   
@@ -1100,7 +1126,7 @@ Schematic.prototype.onMouseMove = function(event) {
     /*clicked inside bounds*/
     
     if(this.drag){
-      var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
+  //    var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
       mouseAt={x:0,y:0};
       mouseAt.x = Math.round(real.x);//Math.round(real.x / this.grid) * this.grid;
       mouseAt.y =Math.round(real.y);//Math.round(real.y / this.grid) * this.grid;
@@ -1111,7 +1137,7 @@ Schematic.prototype.onMouseMove = function(event) {
     else{
       if (this.selection) {
 	
-	var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
+	//var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
 	//mouseAt={x:0,y:0};
 	//mouseAt.x = Math.round(real.x / this.grid) * this.grid;
 	//mouseAt.y =Math.round(real.y / this.grid) * this.grid;
@@ -1131,7 +1157,7 @@ Schematic.prototype.onMouseMove = function(event) {
 		if(!this.onconnector){
     if ($('templine1')){
     	
-      var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
+      //var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
       mouseAt={x:0,y:0};
       mouseAt.x = Math.round(real.x);//Math.round(real.x / this.grid) * this.grid;
       mouseAt.y =Math.round(real.y);//Math.round(real.y / this.grid) * this.grid;
@@ -1469,8 +1495,6 @@ function rectInside(r1 ,r2){
   
   
 }
-
-
 
 
 
