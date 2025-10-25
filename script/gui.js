@@ -381,12 +381,20 @@ console.log(exception);
 				    var part=new Element("div",{"id":"webtronics_"+partname,"class":"webtronics_menu_part",'style':"display:none",'title':partname})
 				    .update(partsvg);
 				    $("webtronics_"+cat).insert(part);
-				  				  Event.observe(part,'mousedown',function(e){
+			  Event.observe(part,'mousedown',function(e){
+						var group=$$( "#"+ part.id+" g" )[0];
+						webtronics.circuit.getgroup(group);
+					webtronics.setMode('select','Selection');
+			  });
+			  Event.observe(part,'touchstart',function(e){
 						var group=$$( "#"+ part.id+" g" )[0];
 						webtronics.circuit.getgroup(group);
 					webtronics.setMode('select','Selection');
 			  });
 			  Event.observe(part,'mouseup',function(e){
+					webtronics.circuit.deleteSelection();				
+			  });
+			  Event.observe(part,'touchend',function(e){
 					webtronics.circuit.deleteSelection();				
 			  });
 
@@ -928,3 +936,4 @@ console.log(exception);
   }
 }
 webtronics.init();
+
