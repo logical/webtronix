@@ -376,55 +376,25 @@ console.log(exception);
 		this.download("webtronix.png",url);
 		canvas.parentNode.removeChild(canvas);		
   },
+  
   addpart:function(url,cat,partname) {
 				var listfile=function(partsvg){
 				    var part=new Element("div",{"id":"webtronics_"+partname,"class":"webtronics_menu_part",'style':"display:none",'title':partname})
 				    .update(partsvg);
 				    $("webtronics_"+cat).insert(part);
-				  				  Event.observe(part,'mousedown',function(e){
+					var newpart=$("webtronics_"+partname);
+				  	Event.observe(newpart,'mousedown',function(e){
 						var group=$$( "#"+ part.id+" g" )[0];
 						webtronics.circuit.getgroup(group);
 					webtronics.setMode('select','Selection');
 			  });
-			  Event.observe(part,'mouseup',function(e){
-					webtronics.circuit.deleteSelection();				
-			  });
-
-
-			  }
-				
-				if(url.indexOf("http://")==-1){
-		    	openfile(url+'/'+cat+'/'+partname+'.svg',listfile);
-			
-		    }
-		    else{
-		    	new request(url,cat+"/"+partname+'.svg',listfile);
-
-		    }
-		    
- 		  },
-/*
-
-  addpart:function(url,cat,partname) {
-				var listfile=function(partsvg){
-				    var part=new Element("div",{"id":"webtronics_"+partname,"class":"webtronics_menu_part",'style':"display:none",'title':partname})
-				    .update(partsvg);
-				    $("webtronics_"+cat).insert(part);
-					//var newpart=$("webtronics_"+partname);
-				  	Event.observe(part,'mousedown',function(e){
-						var group=$$( "#"+ part.id+" g" )[0];
-						webtronics.circuit.getgroup(group);
-					webtronics.setMode('select','Selection');
-			  });
-			  
 				  	Event.observe(npart,'touchstart',function(e){
 						var group=$$( "#"+ part.id+" g" )[0];
 						webtronics.circuit.getgroup(group);
 					webtronics.setMode('select','Selection');
 					e.preventDefault
 			  });
-			  
-			  Event.observe(part,'mouseup',function(e){
+			  Event.observe(newpart,'mouseup',function(e){
 					webtronics.circuit.deleteSelection();				
 			  });
 
@@ -441,7 +411,7 @@ console.log(exception);
 		    }
 		    
  		  },
-*/
+
   
 //this takes an objectand returns a menu element
 		  makemenu:function(url, partlist,menu){
