@@ -382,7 +382,7 @@ console.log(exception);
 				    var part=new Element("div",{"id":"webtronics_"+partname,"class":"webtronics_menu_part",'style':"display:none",'title':partname})
 				    .update(partsvg);
 				    $("webtronics_"+cat).insert(part);
-					var newpart=$("#webtronics_"+partname);
+					var newpart=$("webtronics_"+partname);
 				  	Event.observe(newpart,'mousedown',function(e){
 						var group=$$( "#"+ part.id+" g" )[0];
 						webtronics.circuit.getgroup(group);
