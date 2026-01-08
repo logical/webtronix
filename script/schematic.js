@@ -81,8 +81,7 @@ function Schematic(elem) {
   this.onMouseUpListener = this.onMouseUp.bindAsEventListener(this);
   this.onMouseMove = this.onMouseMove.bindAsEventListener(this);	
   this.onWheelListener = this.onWheel.bindAsEventListener(this);	
-
-//touch screen
+ //touch screen
 
   this.onTouchStartListener = this.onTouchStart.bindAsEventListener(this);
   this.onTouchEndListener = this.onTouchEnd.bindAsEventListener(this);
@@ -91,16 +90,13 @@ function Schematic(elem) {
   Event.observe(this.svgRoot, "touchmove", this.onTouchMoveListener); 
   Event.observe(this.svgRoot, "touchstart", this.onTouchStartListener);
   Event.observe(this.svgRoot, "touchend", this.onTouchEndListener);
-
-
+ 
   Event.observe(this.svgRoot, "mousewheel",this.onWheelListener);
   Event.observe(this.svgRoot, "DOMMouseScroll",this.onWheelListener);
   Event.observe(this.svgRoot, "dragover", this.onMouseMove);
   Event.observe(this.svgRoot, "mousemove", this.onMouseMove); 
   Event.observe(this.svgRoot, "mousedown", this.onMouseDownListener);
   Event.observe(this.svgRoot, "mouseup", this.onMouseUpListener);
-
-
   /*this might get the ipad working*/
   Event.observe(this.svgRoot, "onclick", void(0));
 
@@ -283,11 +279,11 @@ Schematic.prototype.addtools=function(){
   Event.observe(grow,"mousedown", function(e){e.stopPropagation();}.bind(this));
   Event.observe(grow,"mouseup", function(e){e.stopPropagation();}.bind(this));
   Event.observe(grow,"click", function(e){
-    if(this.svgRoot.getAttribute('width')<this.maxwidth&this.svgRoot.getAttribute('height')<this.maxheight){
-      //this.drawing.setAttribute('width',this.svgRoot.getAttribute('width')*2);
-      //this.drawing.setAttribute('height',this.svgRoot.getAttribute('height')*2);			
-      this.svgRoot.setAttribute('width',this.svgRoot.getAttribute('width')*2);
-      this.svgRoot.setAttribute('height',this.svgRoot.getAttribute('height')*2);			
+    var currentWidth = Number(this.svgRoot.getAttribute('width')) || 0;
+    var currentHeight = Number(this.svgRoot.getAttribute('height')) || 0;
+    if(currentWidth < this.maxwidth && currentHeight < this.maxheight){
+      this.svgRoot.setAttribute('width', currentWidth * 2);
+      this.svgRoot.setAttribute('height', currentHeight * 2);
     }
     this.showbackground();
     this.addtools();
@@ -320,15 +316,6 @@ Schematic.prototype.showbackground=function(){
     }
   }
 }
-
-if( ! SVGElement.prototype.getTransformToElement)
-{
-	SVGElement.prototype.getTransformToElement = function( _element )
-    {
-        return _element.getScreenCTM().inverse().multiply(  this.getScreenCTM()  );
-    };
-}
-
 Schematic.prototype.parseMatrix=function(group){
   var matrix={a:1,b:0,c:0,d:1,e:0,f:0};
   
@@ -338,14 +325,17 @@ Schematic.prototype.parseMatrix=function(group){
   catch(e){
     //parse the matrix manualy
     try{
-        var tranform=group.getAttributeNS(null,"transform");
-        console.log(transform);
-        var result=transform.match(/matrix\((\d+)\,(\d+)\,(\d+)\,(\d+)\,(\d+)\,(\d+)\)/);
-        matrix={a:result[1],b:result[2],c:result[3],d:result[4],e:result[5],f:result[6]};   
+        var transform = group.getAttributeNS(null,"transform");
+        if(transform){
+            var result = transform.match(/matrix\(\s*([\-\d.+eE]+)[ ,]+([\-\d.+eE]+)[ ,]+([\-\d.+eE]+)[ ,]+([\-\d.+eE]+)[ ,]+([\-\d.+eE]+)[ ,]+([\-\d.+eE]+)\s*\)/);
+            if(result){
+                matrix = {a: Number(result[1]), b: Number(result[2]), c: Number(result[3]), d: Number(result[4]), e: Number(result[5]), f: Number(result[6])};
+            }
+        }
     }
     catch(e){
         console.log("matrix parse error");
-        console.log(e.message);
+        console.log(e && e.message);
     }
   }
   return matrix;
@@ -643,8 +633,8 @@ Schematic.prototype.rotate=function(elem){
   
   
   this.removeTracker();
-  for(i=0;i<this.selected.length;i++){
-    this.showTracker(this.selected[i]);		
+  for(var i=0;i<this.selected.length;i++){
+    this.showTracker(this.selected[i]);
   }
 };
 
@@ -659,8 +649,8 @@ Schematic.prototype.flip=function(elem){
   
   elem.setAttributeNS(null,'transform','matrix('+matrix.a+','+matrix.b+','+matrix.c+','+matrix.d+','+matrix.e+','+matrix.f+')');
   this.removeTracker();
-  for(i=0;i<this.selected.length;i++){
-    this.showTracker(this.selected[i]);		
+  for(var i=0;i<this.selected.length;i++){
+    this.showTracker(this.selected[i]);        
   }
   
 }
@@ -871,37 +861,13 @@ Schematic.prototype.realPosition=function(x,y){
 }
 
 
-/*touch start event handler*/
-Schematic.prototype.onTouchStart = function(event){
-	event.preventDefault();
-
-	const touch = event.changedTouches[0];
-	var real=this.realPosition(touch.clientX,touch.clientY);
-	this.TouchStart(real);
-
-}
-Schematic.prototype.onTouchMove = function(event){
-	event.preventDefault();
-
-	const touch = event.changedTouches[0];
-	var real=this.realPosition(touch.clientX,touch.clientY);
-	this.TouchMove(real);
-}
-Schematic.prototype.onTouchEnd = function(event){
-	event.preventDefault();
-	this.onMouseUp(event);
-}
 
 
 /*mousedown event handler*/
 Schematic.prototype.onMouseDown = function(event){
-    var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
-	this.TouchStart(real);
-}
-
-Schematic.prototype.TouchStart = function(real){
   if(!this.drag){
 
+    var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
     this.mouseDown.x = real.x;//Math.round(real.x/this.grid) * this.grid;
     this.mouseDown.y = real.y;//Math.round(real.y/this.grid) * this.grid;
     if (this.mode == 'line') {
@@ -966,6 +932,60 @@ Schematic.prototype.TouchStart = function(real){
   
   return false;
   
+}
+
+
+// Touch event handlers: map touch events to mouse handlers
+Schematic.prototype.onTouchStart = function(touchEvent){
+  if(!touchEvent) return false;
+  if(touchEvent.touches && touchEvent.touches.length){
+    var t = touchEvent.touches[0];
+    var ev = {
+      clientX: t.clientX || t.pageX || 0,
+      clientY: t.clientY || t.pageY || 0,
+      button: 0,
+      which: 1,
+      originalEvent: touchEvent,
+      preventDefault: function(){ if(touchEvent.preventDefault) touchEvent.preventDefault(); },
+      stopPropagation: function(){ if(touchEvent.stopPropagation) touchEvent.stopPropagation(); }
+    };
+    return this.onMouseDown(ev);
+  }
+  return false;
+}
+
+Schematic.prototype.onTouchMove = function(touchEvent){
+  if(!touchEvent) return false;
+  var t = (touchEvent.touches && touchEvent.touches.length) ? touchEvent.touches[0] : (touchEvent.changedTouches && touchEvent.changedTouches[0]);
+  if(t){
+    var ev = {
+      clientX: t.clientX || t.pageX || 0,
+      clientY: t.clientY || t.pageY || 0,
+      originalEvent: touchEvent,
+      preventDefault: function(){ if(touchEvent.preventDefault) touchEvent.preventDefault(); },
+      stopPropagation: function(){ if(touchEvent.stopPropagation) touchEvent.stopPropagation(); }
+    };
+    return this.onMouseMove(ev);
+  }
+  return false;
+}
+
+Schematic.prototype.onTouchEnd = function(touchEvent){
+  if(!touchEvent) return false;
+  var t = (touchEvent.changedTouches && touchEvent.changedTouches.length) ? touchEvent.changedTouches[0] : (touchEvent.touches && touchEvent.touches[0]);
+  if(t){
+    var ev = {
+      clientX: t.clientX || t.pageX || 0,
+      clientY: t.clientY || t.pageY || 0,
+      button: 0,
+      which: 1,
+      originalEvent: touchEvent,
+      preventDefault: function(){ if(touchEvent.preventDefault) touchEvent.preventDefault(); },
+      stopPropagation: function(){ if(touchEvent.stopPropagation) touchEvent.stopPropagation(); }
+    };
+    return this.onMouseUp(ev);
+  }
+  return false;
 }
 
 
@@ -1122,12 +1142,8 @@ Schematic.prototype.onMouseUp = function(event) {
   
 }
 
-Schematic.prototype.onMouseMove = function(event) {
-    var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
-	this.TouchMove(real);
-}
 
-Schematic.prototype.TouchMove = function(real) {
+Schematic.prototype.onMouseMove = function(event) {
   
   
   
@@ -1135,8 +1151,8 @@ Schematic.prototype.TouchMove = function(real) {
     /*clicked inside bounds*/
     
     if(this.drag){
-  //    var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
-      mouseAt={x:0,y:0};
+      var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
+      var mouseAt={x:0,y:0};
       mouseAt.x = Math.round(real.x);//Math.round(real.x / this.grid) * this.grid;
       mouseAt.y =Math.round(real.y);//Math.round(real.y / this.grid) * this.grid;
       this.dragSelection(mouseAt.x-this.mouseDown.x,mouseAt.y-this.mouseDown.y);
@@ -1146,7 +1162,7 @@ Schematic.prototype.TouchMove = function(real) {
     else{
       if (this.selection) {
 	
-	//var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
+	var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
 	//mouseAt={x:0,y:0};
 	//mouseAt.x = Math.round(real.x / this.grid) * this.grid;
 	//mouseAt.y =Math.round(real.y / this.grid) * this.grid;
@@ -1166,8 +1182,8 @@ Schematic.prototype.TouchMove = function(real) {
 		if(!this.onconnector){
     if ($('templine1')){
     	
-      //var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
-      mouseAt={x:0,y:0};
+      var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
+      var mouseAt={x:0,y:0};
       mouseAt.x = Math.round(real.x);//Math.round(real.x / this.grid) * this.grid;
       mouseAt.y =Math.round(real.y);//Math.round(real.y / this.grid) * this.grid;
 
@@ -1217,9 +1233,9 @@ Schematic.prototype.onWheel=function(event){
     else wheel=event.detail;
     var matrix = this.parseMatrix(this.drawing);
     //var real=this.realPosition(Event.pointerX(event),Event.pointerY(event));
- 	  var window={x:event.clientX,y:event.clientY};
- 	  var offsetx=((this.container.offsetWidth/2)-window.x)/2;
-    var offsety=((this.container.offsetHeight/2)-window.y)/2;
+    var win = { x: event.clientX, y: event.clientY };
+    var offsetx = ((this.container.offsetWidth/2) - win.x) / 2;
+    var offsety = ((this.container.offsetHeight/2) - win.y) / 2;
 
     if(wheel>0&&matrix.a<2){
       scale=1.04;
@@ -1366,7 +1382,7 @@ Schematic.prototype.getgroup =function(elem){
 
 Schematic.prototype.getfile =function(elem){
   this.unselect();
-  ch=elem.childNodes;
+  var ch = elem.childNodes;
   for(var i= ch.length;i>0;i--){
     /*only open these nodes*/
     //add wire events
@@ -1504,9 +1520,6 @@ function rectInside(r1 ,r2){
   
   
 }
-
-
-
 
 
 

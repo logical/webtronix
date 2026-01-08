@@ -376,28 +376,26 @@ console.log(exception);
 		this.download("webtronix.png",url);
 		canvas.parentNode.removeChild(canvas);		
   },
+  
   addpart:function(url,cat,partname) {
 				var listfile=function(partsvg){
 				    var part=new Element("div",{"id":"webtronics_"+partname,"class":"webtronics_menu_part",'style':"display:none",'title':partname})
 				    .update(partsvg);
 				    $("webtronics_"+cat).insert(part);
-			  Event.observe(part,'mousedown',function(e){
+					var newpart=$("#webtronics_"+partname);
+				  	Event.observe(newpart,'mousedown',function(e){
 						var group=$$( "#"+ part.id+" g" )[0];
 						webtronics.circuit.getgroup(group);
-						webtronics.setMode('select','Selection');
+					webtronics.setMode('select','Selection');
 			  });
-			  Event.observe(part,'touchstart',function(e){
+				  	Event.observe(npart,'touchstart',function(e){
 						var group=$$( "#"+ part.id+" g" )[0];
 						webtronics.circuit.getgroup(group);
-						webtronics.setMode('select','Selection');
-				  		e.preventDefault(); 
+					webtronics.setMode('select','Selection');
+					e.preventDefault
 			  });
-			  Event.observe(part,'mouseup',function(e){
-						webtronics.circuit.deleteSelection();				
-			  });
-			  Event.observe(part,'touchend',function(e){
-						webtronics.circuit.deleteSelection();				
-				  		e.preventDefault(); 
+			  Event.observe(newpart,'mouseup',function(e){
+					webtronics.circuit.deleteSelection();				
 			  });
 
 
@@ -648,6 +646,24 @@ console.log(exception);
 		    webtronics.circuit.addhistory();
 		    webtronics.circuit.deleteSelection();
 		  });
+
+		  // Key binding: Delete key triggers the same action as the delete button
+		  Event.observe(document, 'keydown', function(e){
+		    var el = Event.element(e) || e.target || e.srcElement;
+		    if(el){
+		      var tag = (el.tagName || '').toUpperCase();
+		      if(tag === 'INPUT' || tag === 'TEXTAREA' || el.isContentEditable) return;
+		    }
+		    var key = e.keyCode || e.which;
+		    if(key === 46){ // Delete
+		      webtronics.circuit.clearinfo();
+		      webtronics.circuit.addhistory();
+		      webtronics.circuit.deleteSelection();
+		      Event.stop(e);
+		    }
+		  });
+
+		  
 /*
 		  if($('webtronics_save')){
 		    Event.observe($('webtronics_save'), 'click', function() {
@@ -938,6 +954,3 @@ console.log(exception);
   }
 }
 webtronics.init();
-
-
-
