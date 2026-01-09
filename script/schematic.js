@@ -100,21 +100,30 @@ function Schematic(elem) {
   /*this might get the ipad working*/
   Event.observe(this.svgRoot, "onclick", void(0));
 
- document.addEventListener("keydown", function(e){
-		    var el = Event.element(e) || e.target || e.srcElement;
-		    if(el){
-		      var tag = (el.tagName || '').toUpperCase();
-		      if(tag === 'INPUT' || tag === 'TEXTAREA' || el.isContentEditable) return;
-		    }
-		    var key = e.keyCode || e.which;
-		    if(key === 46){ // Delete
-		      this.clearinfo();
-		      this.addhistory();
-		      this.deleteSelection();
-		      Event.stop(e);
-		    }
-		  }.bind(this), true);
+  // Keydown handler (fix accidental double-dot typo and keep existing behavior)
+  document.addEventListener("keydown", function(e){
+    var el = Event.element(e) || e.target || e.srcElement;
+    if(el){
+      var tag = (el.tagName || '').toUpperCase();
+      if(tag === 'INPUT' || tag === 'TEXTAREA' || el.isContentEditable) return;
+    }
+    var key = e.keyCode || e.which;
+    if(key === 46){ // Delete
+      this.clearinfo();
+      this.addhistory();
+      this.deleteSelection();
+      Event.stop(e);
+    }
+  }.bind(this), true);
 
+  // Make the SVG root focusable and focus it when the mouse enters the SVG area.
+  // This allows keyboard shortcuts to act on the SVG when the user hovers it.
+  try{
+    this.svgRoot.setAttribute('tabindex','0');
+    Event.observe(this.svgRoot, 'mouseover', function(e){
+      try{ this.svgRoot.focus(); }catch(err){}
+    }.bind(this));
+  }catch(err){/* defensive: ignore if observe/setAttribute not available */}
 }
 
 //******************************************************

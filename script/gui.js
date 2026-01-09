@@ -647,23 +647,6 @@ console.log(exception);
 		    webtronics.circuit.deleteSelection();
 		  });
 
-		  // Key binding: Delete key triggers the same action as the delete button
-		  Event.observe(document, 'keydown', function(e){
-		    var el = Event.element(e) || e.target || e.srcElement;
-		    if(el){
-		      var tag = (el.tagName || '').toUpperCase();
-		      if(tag === 'INPUT' || tag === 'TEXTAREA' || el.isContentEditable) return;
-		    }
-		    var key = e.keyCode || e.which;
-		    if(key === 46){ // Delete
-		      webtronics.circuit.clearinfo();
-		      webtronics.circuit.addhistory();
-		      webtronics.circuit.deleteSelection();
-		      Event.stop(e);
-		    }
-		  });
-
-
 /*
 		  if($('webtronics_save')){
 		    Event.observe($('webtronics_save'), 'click', function() {
