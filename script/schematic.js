@@ -100,7 +100,20 @@ function Schematic(elem) {
   /*this might get the ipad working*/
   Event.observe(this.svgRoot, "onclick", void(0));
 
-
+ document.addEventListener("keydown", function(e){
+		    var el = Event.element(e) || e.target || e.srcElement;
+		    if(el){
+		      var tag = (el.tagName || '').toUpperCase();
+		      if(tag === 'INPUT' || tag === 'TEXTAREA' || el.isContentEditable) return;
+		    }
+		    var key = e.keyCode || e.which;
+		    if(key === 46){ // Delete
+		      this.clearinfo();
+		      this.addhistory();
+		      this.deleteSelection();
+		      Event.stop(e);
+		    }
+		  }.bind(this), true);
 
 }
 
@@ -290,7 +303,10 @@ Schematic.prototype.addtools=function(){
     e.stopPropagation();}.bind(this));
   this.zoomtools.appendChild(grow);
   this.svgRoot.appendChild(this.zoomtools);
+		  // Key binding: Delete key triggers the same action as the delete button
+
 }
+
 
 Schematic.prototype.showbackground=function(){
   if(this.background)this.remove(this.background);
@@ -902,7 +918,7 @@ Schematic.prototype.onMouseDown = function(event){
     this.mouseDown.x = real.x;//Math.round(real.x/this.grid) * this.grid;
     this.mouseDown.y = real.y;//Math.round(real.y/this.grid) * this.grid;
     if (this.mode == 'line') {
-      if (!Event.isLeftClick(event)){
+      if (!this.isLeftOrTouch(event)){
 		    this.remove($("templine1"));
 		    this.remove($("templine2"));
 				parent.webtronics.setMode('select','Selection');
@@ -912,7 +928,7 @@ Schematic.prototype.onMouseDown = function(event){
     }
     /*clicked on background  in select mode ,remove selection*/
     else if(this.mode=='select'){
-      if(Event.isLeftClick(event)){
+      if(this.isLeftOrTouch(event)){
 	this.selectionRect.x=real.x;
 	this.selectionRect.y=real.y;
 	this.selectionRect.width=0;
@@ -934,7 +950,7 @@ Schematic.prototype.onMouseDown = function(event){
       }
     }
     else if(this.mode=='text'){
-      if(Event.isLeftClick(event)){
+      if(this.isLeftOrTouch(event)){
 	var addtext=parent.document.getElementById('webtronics_add_text');
 	if(addtext.style.display == 'none'||addtext.style.display==""){
 	  addtext.style.display = "block";
@@ -983,6 +999,12 @@ Schematic.prototype.onTouchStart = function(touchEvent){
     return this.onMouseDown(ev);
   }
   return false;
+}
+
+Schematic.prototype.isLeftOrTouch = function(event){
+  var isLeft = (typeof Event !== 'undefined' && Event.isLeftClick && Event.isLeftClick(event));
+  var isTouchStart = event && event.originalEvent && event.originalEvent.type === 'touchstart';
+  return isLeft || isTouchStart;
 }
 
 Schematic.prototype.onTouchMove = function(touchEvent){
@@ -1128,7 +1150,7 @@ Schematic.prototype.dropSelection=function(){
 
 Schematic.prototype.onMouseUp = function(event) {
 //  if(this.mode=="line")return;
-  if(event.isLeftClick(event)){
+  if(this.isLeftOrTouch(event)){
     //        console.log('mouseup');
     /*hide the menu*/
 //     var menu=window.parent.document.getElementById('webtronics_context_menu');
